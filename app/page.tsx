@@ -1,113 +1,156 @@
+import CalendlyPop from "@/components/calendlyPop";
+import Contact from "@/components/contact";
+import Newsletter from "@/components/newsletter";
+import Slider from "@/components/slider";
+import { Button } from "@/components/ui/button";
+import { Services, Socials } from "@/constants";
+import { sanityFetch } from "@/sanity/lib/client";
+import { HOME_ARTICLES_QUERY, REVIEWS_QUERY } from "@/sanity/lib/queries";
+import { Articles, Reviews, Service, SocialNetwork } from "@/types";
+import { ArrowRight, HousePlus, MoveUpRight, ThumbsUp, User, Wallet } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
+import ArticlesComp from "@/components/articles";
 
-export default function Home() {
+export default async function Home() {
+  const praxe = new Date().getFullYear() - 1998;
+  const statistics = [
+    {
+      node: <Wallet strokeWidth={1.3} className="w-12 h-12" />,
+      heading: "800 mil. Kč",
+      text: "Zprostředkoval jsem investice firmám a obcím"
+    },
+    {
+      node: <User strokeWidth={1.3} className="w-12 h-12" />,
+      heading: "3000 klientům",
+      text: "jsem pomohl najít správnou cestu"
+    },
+    {
+      node: <HousePlus strokeWidth={1.3} className="w-12 h-12" />,
+      heading: "150 rodin",
+      text: "důvěřuje mým zkušenostem"
+    },
+    {
+      node: <ThumbsUp strokeWidth={1.3} className="w-12 h-12" />,
+      heading: `${String(praxe)} let`,
+      text: "praxí a zkušeností za mnou"
+    },
+  ];
+  const articlesPromise: Articles[] = await sanityFetch<Articles[]>({ query: HOME_ARTICLES_QUERY });
+  const reviewsPromise: Reviews[] = await sanityFetch<Reviews[]>({ query: REVIEWS_QUERY });
+  const [articles, reviews] = await Promise.all([
+    articlesPromise,
+    reviewsPromise
+  ]);
+  console.log(articles);
+  console
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="flex min-h-screen flex-col items-center justify-between ">
+      <header className="bg-secondary/85 flex flex-col w-full p-4 md:p-8 md:pt-12 text-primary max-h-screen space-y-4">
+        <div className=" w-full font-extrabold">
+          <p className="uppercase text-4xl sm:text-5xl md:text-7xl text-center text-primary">UKÁŽU VÁM CESTU K FINANČNÍ NEZÁVISLOSTI</p>
         </div>
-      </div>
+        <div className="md:relative md:top-[-40px] xl:top-[-50px] h-auto md:left-0 flex flex-row space-y-3 sm:space-y-0 space-x-4">
+          <div className="flex flex-col w-1/2 sm:w-1/3 space-y-3 md:space-y-10 md:pt-40">
+            <div className="p-3 rounded-xl bg-destructive  flex flex-col md:flex-row items-center space-x-2">
+              <span className="text-left text-5xl lg:text-8xl font-bold">DIP</span>
+              <span className="text-center md:text-right text-md lg:text-lg font-light">Zjistěte podrobně  o <Link href={"/dip"} className="underline underline-offset-2">dlouhodobém investičním produktu</Link></span>
+            </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+            <div className="p-3 rounded-xl bg-secondary text-2xl lg:text-5xl font-bold text-primary leading-0.5">
+              <span>Stáhněte si </span><br />
+              <Link href={"/e-book"} className="underline underline-offset-2">e-book</Link>
+            </div>
+          </div>
+          <div className="hidden sm:flex sm:w-1/3 justify-center">
+            <div className="relative w-full  lg:w-full xl:w-4/5 2xl:w-3/4 ">
+              <Image src={"/images/header-photo.png"} alt="Header photo" fill={true} className="object-fill bg-cover " />
+            </div>
+          </div>
+          <div className="flex flex-col w-1/2 sm:w-1/3 space-y-3 md:space-y-10  md:pt-40 ">
+            <p className="md:pl-6 text-right text-lg md:text-2xl font-light">
+              Pomocí předplatného získáte přístup k informacím z kapitálových trhů, měsíční reporty aj.
+            </p>
+            <div className="flex justify-center h-full items-center">
+              <Link href={"#contact"} className="text-lg md:text-3xl font-medium">· Kontaktujte mě ·</Link>
+            </div>
+          </div>
+        </div>
+      </header>
+      <section className="flex flex-col w-full p-8 space-y-8" id="sluzby">
+        <h2 className=" font-bold tracking-wide text-secondary text-5xl">Čemu se věnuji</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-3 gap-5">
+          {Services.map((s: Service, i: number) => (
+            <div key={i} className="bg-primary-foreground p-5 rounded-lg  flex w-full flex-col space-y-4 text-secondary shadow-lg">
+              <h3 className="text-2xl xl:text-3xl">{s.heading}</h3>
+              <p className="font-light text-lg xl:text-xl">{s.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="flex flex-col w-full p-8 space-y-8">
+        <h2 className="  font-bold tracking-wide text-secondary text-5xl">Články</h2>
+        <ArticlesComp articles={articles} page="clanky" />
+        <Link href={"/clanky"} className=" mx-auto"><Button size={"lg"} className="justify-between underline underline-offset-4 bg-secondary text-primary text-lg mx-auto">Starší články <MoveUpRight /></Button></Link>
+      </section>
+      <section className="flex flex-row w-full  space-x-8 bg-gradient-to-r from-secondary from-20% md:from-20% to-primary-foreground md:to-primary md:to-90%" id="omne">
+        <div className="text-primary w-full md:w-2/3 px-8 py-8 lg:py-20 xl:py-48 flex flex-col space-y-14 font-extralight">
+          <h2 className="text-5xl uppercase tracking-wide">Petr Krajcigr, EFA</h2>
+          <p className="text-lg">V oboru financí pracuji od roku 1998 tedy více jak {praxe} let. Specializuji se na investice a rizika v osobních financích. Mými klienty jsou převážně manažeři a majitelé firem. Nikdy však neodmítnu pomoc s důležitým finančním rozhodnutím každému, kdo se na mě s důvěrou obrátí.
+            Práce je mou vášní. Proto cílevědomě kombinuji praxi s teorií a mezinárodně uznávaný titul European Financial Advisor (EFA) vnímám jako potvrzení, že jsem na dobré cestě. Pravou motivací pro mě je, když mohu sledovat, jak výsledky mé práce přispívají k naplnění snů mých klientů.</p>
+          <div className="grid grid-cols-2 grid-rows-2 md:grid-cols-4 md:grid-rows-1 gap-3 w-full justify-between">
+            {statistics.map((s, id) => (
+              <div className="flex flex-col space-y-1 text-center items-center w-full" key={id}>
+                <span>{s.node}</span>
+                <span className="font-medium text-lg lg:text-xl ">{s.heading}</span>
+                <p>{s.text}</p>
+              </div>
+            ))}
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          </div>
+        </div>
+        <div className="relative hidden md:flex md:w-1/3">
+          <Image src={"/images/about-section.png"} alt={"/images/about-section.png"} fill={true} className="object-fill bg-cover" />
+        </div>
+      </section>
+      <section className="flex flex-col w-full p-4 sm:p-8 space-y-8" >
+        <h2 className="  font-bold tracking-wide text-secondary text-5xl">Reference</h2>
+        <p className="text-2xl font-light text-center md:text-left">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>
+        <div className="w-full mx-auto">
+          <Slider slides={reviews} />
+        </div>
+      </section>
+      <section className="flex flex-col w-full p-8 space-y-8" >
+        <h2 className="  font-bold tracking-wide text-secondary text-5xl">Sledujte mě</h2>
+        <div className="w-full grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-2 ">
+          {Socials.map((s: SocialNetwork, id) => (
+            <div key={id} className="bg-primary-foreground rounded-xl p-3 shadow-lg">
+              <h3 className="text-secondary text-3xl font-medium">{s.heading}</h3>
+              <hr className="border-1 border-secondary" />
+              <div className="flex flex-row space-x-1.5 my-2 items-center">
+                <div className="w-8 h-8 p-1 rounded-full bg-secondary">
+                  <ArrowRight className="text-primary " />
+                </div>
+                <Link href={s.href} className="text-md">{s.value}</Link>
+              </div>
+              <p className="text-md">{s.text}</p>
+            </div>
+          ))}
+        </div>
+        <div className="w-full md:w-4/5 flex flex-col lg:flex-row p-3 lg:space-x-2 bg-secondary/80 rounded-xl text-primary mx-auto">
+          <div className="w-full lg:w-1/2 flex flex-col space-y-4">
+            <h3 className="font-extrabold text-2xl">Přihlaste se k newsletteru</h3>
+            <p className="font light">Jednou týdně Vám zašleme souhrn aktuálních informací z kapitálových trhů. Vše komentujeme optikou dlouhodobých investorů.</p>
+          </div>
+          <Newsletter />
+        </div>
+      </section>
+      <section className="flex flex-col w-full p-8 space-y-8" id="contact">
+        <h2 className="  font-bold tracking-wide text-secondary text-5xl">Kontaktujte mě</h2>
+        <p className="text-2xl font-light text-center md:text-left">Zanechte mi na sebe kontakt a já se Vám obratem ozvu. Nebo si vyberte termín schůzky z <a href="#calendly" className="underline underline-offset-2">kalendáře</a>.</p>
+        <Contact />
+        <CalendlyPop />
+      </section>
+    </main >
   );
 }

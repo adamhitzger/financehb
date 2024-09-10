@@ -1,0 +1,47 @@
+"use client"
+
+import { Input } from "./ui/input";
+import { useTransition, useState } from "react";
+import { Button } from "./ui/button";
+import toast from "react-hot-toast"
+import { useRouter } from "next/navigation";
+import { logIn } from "@/actions/users";
+import { Loader2 } from "lucide-react";
+export default function LogInForm() {
+    const router = useRouter();
+    const [isPending, startTransition] = useTransition();
+    const [form, setForm] = useState({
+        email: "",
+        password: "",
+    });
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value })
+    };
+
+    const handleLogIn = (formData: FormData) => {
+        startTransition(async () => {
+            const { errorMessage } = await logIn(formData);
+
+            if (errorMessage) {
+                toast.error(errorMessage)
+            } else {
+                router.push('/paywall')
+                toast.success("Přihlášen")
+            }
+        })
+    }
+    return (
+        <form className="w-full lg:w-1/2 flex flex-col space-y-7 bg-secondary p-10 rounded-2xl" action={handleLogIn}>
+            <div> <h2 className="  font-bold tracking-wide  text-5xl text-primary my-5 text-underline">Přihlaste se</h2></div>
+            <div className="flex flex-col w-full space-y-4">
+                <Input name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required disabled={isPending} />
+                <Input name="password" type="password" placeholder="Zadejte heslo" value={form.password} onChange={handleChange} required disabled={isPending} />
+                <Button disabled={isPending} type="submit" size={'lg'} className='mx-auto bg-destructive text-xl text-primary font-light underline underline-offset-2 shadow-md  shadow-primary-foreground'>
+                    {isPending ? <Loader2 className={"animate-spin"} /> : "Přihlásit se"}
+                </Button>
+            </div>
+        </form>
+    )
+}
+

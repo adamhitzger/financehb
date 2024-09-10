@@ -1,0 +1,9 @@
+import { SchemaTypeDefinition,  } from 'sanity'
+import { ebookType } from './schemas/ebook'
+import { reviewType } from './schemas/review'
+import { subsType } from './schemas/subs'
+import { articleType } from './schemas/articles'
+
+export const schema: { types: SchemaTypeDefinition[] } = {
+  types: [ebookType, reviewType, subsType, articleType],
+}
