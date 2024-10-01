@@ -22,7 +22,7 @@ export async function POST(req: Request){
     const session = event.data.object as Stripe.Checkout.Session;
 
     switch(event.type){
-        case "customer.subscription.updated":
+        case "checkout.session.completed":
             const subscription = await stripe.subscriptions.retrieve(
                 session.subscription as string
             );
@@ -40,6 +40,7 @@ export async function POST(req: Request){
                 planId: subscription.items.data[0].plan.id,
                 interval: String(subscription.items.data[0].plan.interval),
             })
+
             break;
     }
 }
