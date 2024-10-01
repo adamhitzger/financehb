@@ -10,6 +10,7 @@ import Map, { Marker } from "react-map-gl"
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { sendEmail } from '@/actions/mail';
 import { Loader2 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export default function Contact() {
     const [isPending, startTransition] = useTransition();
@@ -35,6 +36,15 @@ export default function Contact() {
     const handleSendEmail = (formData: FormData) => {
         startTransition(async () => {
             await sendEmail(formData, "Kontakt");
+            toast.success("Email, byl odeslán, zkontrolujte spam");
+            setForm({
+                name: "",
+                email: "",
+                tel: "",
+                company: "",
+                msg: "",
+                rights: true,
+            })
         })
     }
     return (

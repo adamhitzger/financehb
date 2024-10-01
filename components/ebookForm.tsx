@@ -10,6 +10,7 @@ export default function EbookForm({ file }: { file: string }) {
     const [form, setForm] = useState({
         email: "",
         name: "",
+        surname: "",
         file: file,
     });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,14 +25,16 @@ export default function EbookForm({ file }: { file: string }) {
             setForm({
                 email: "",
                 name: "",
+                surname: "",
                 file: file,
             })
         })
     }
     console.log(form.file)
     return (
-        <form className="w-full flex flex-col md:flex-row space-y-2 md:space-x-2  text-black " action={handleSendEmail}>
-            <Input name="name" type="text" disabled={isPending} placeholder="Zadejte celé jméno" value={form.name} onChange={handleChange} required />
+        <form className="w-full grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 gap-4  text-black " action={handleSendEmail}>
+            <Input name="name" type="text" disabled={isPending} placeholder="Zadejte jméno" value={form.name} onChange={handleChange} required />
+            <Input type="text" name="surname" disabled={isPending} placeholder="Zadejte přijmení" value={form.surname} onChange={handleChange} required />
             <Input name="email" type="email" disabled={isPending} placeholder="Zadejte email" value={form.email} onChange={handleChange} required />
             <input type='text' name='msg' value={form.file} onChange={handleChange} className='hidden' />
             <Button type="submit" size={'lg'} className='mx-auto bg-secondary text-xl text-primary font-light underline underline-offset-2 shadow-md  shadow-primary-foreground'>

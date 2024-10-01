@@ -17,5 +17,10 @@ export const subsType = defineType({
             title: "Doba předplatného",
             type: "string",
         }),
+        defineField({
+            name: "stripePriceId",
+            title: "ID linku ze Stripu",
+            type: "string",
+        }),
     ]
 })

@@ -2,6 +2,17 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import qs from "query-string";
 import { UrlQueryParams } from "@/types";
+import Stripe from 'stripe';
+
+export const stripe = new Stripe(
+  process.env.STRIPE_SECRET_KEY! as string,
+  {
+    apiVersion: "2024-06-20",
+    typescript: true,
+  }
+);
+
+
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

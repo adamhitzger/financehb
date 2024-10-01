@@ -1,5 +1,6 @@
 import ArticlesComp from '@/components/articles';
 import PaginationComp from '@/components/pagination';
+import PaymentButton from '@/components/paymentButton';
 import { Button } from '@/components/ui/button';
 import { sanityFetch } from '@/sanity/lib/client';
 import { ALL_ARTICLES_QUERY, COUNT_ALL_ARTICLES, SUBSCRIPTIONS_QUERY } from '@/sanity/lib/queries';
@@ -40,9 +41,7 @@ export default async function ArticlesPage({ searchParams }: { searchParams: { [
                             </div>
 
                             <div className='w-fit'>
-                                <Link href={"/"}>
-                                    <Button className=' underline underline-offset-4 bg-secondary text-primary '>Začít odebírat <MoveUpRight /></Button>
-                                </Link>
+                                <PaymentButton stripeId={s.stripePriceId} />
                             </div>
                         </div>
                     ))}

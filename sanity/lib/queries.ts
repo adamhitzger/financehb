@@ -3,6 +3,42 @@ import { groq } from "next-sanity";
 export const COUNT_ARTICLES = groq`count(*[_type == 'article' && isFullyPaid == false])`;
 export const COUNT_ALL_ARTICLES = groq`count(*[_type == 'article'])`;
 
+export const REALITIES_QUERY = groq`*[_type == 'reality' && status == 'Na prodej'][0...5] | order(_createdAt desc) {
+    name,
+    'slug': slug.current,
+    overview,
+    price,
+    "imageUrl": image.asset->url
+  }`;
+
+  export const REALITY_QUERY = groq`*[_type == 'reality' && slug.current == $slug][0]{
+    name,   
+   "slug": slug.current,
+   street,
+   street_number,
+   city,
+   postcode,
+   details,
+   "imageUrl": image.asset->url,
+   "galleryUrls": gallery[].asset->url,
+   "planUrl": floor_plan.asset->url,
+   "houseUrl": house_plan.asset->url,
+   price,
+   area,
+   geopoint,
+   status,
+   realtor,
+   material,
+   type,
+   equipment,
+   garage,
+   parking,
+   owner,
+   condition,
+   water,
+   heating
+   }`;
+
 export const ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false] | order(priority desc, _createdAt desc)[$start..$end]{
     name,
     "slug": slug.current,
@@ -52,5 +88,6 @@ export const EBOOK_QUERY = groq`*[_type == 'ebook'][0]{
 
 export const SUBSCRIPTIONS_QUERY = groq`*[_type == 'subscriptions'] | order(price asc){
     price,
-    season
+    season,
+    stripePriceId
 }`;

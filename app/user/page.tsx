@@ -7,12 +7,35 @@ import { MoveUpRight } from 'lucide-react';
 import { ChangeDetails } from '@/components/modals/changeDetails';
 import { Delete, SignOut } from '@/components/userbuttons';
 import { ChangePass } from '@/components/modals/changePass';
-
+import { stripe } from '@/lib/utils';
+import { redirect } from 'next/navigation';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { createSupabaseClient } from '@/auth/server';
 export default async function UserPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+    const client = createSupabaseClient();
     const user = await getUser();
     const changeDetails = searchParams?.details;
     const changePass = searchParams?.pass
+    const { data, error } = await client.from("subscriptions").select("status").eq("userId", user?.id).single();
+    async function createCustomerPortal() {
+        "use server";
 
+        const session = await stripe.billingPortal.sessions.create({
+            customer: user?.stripeId as string,
+            return_url:
+                process.env.NODE_ENV === "production"
+                    ? "https://financehb.vercel.app/user"
+                    : "http://localhost:3000/user",
+        });
+
+        return redirect(session.url);
+    }
     return (
         <main className="flex min-h-screen flex-col items-center py-8 justify-between space-y-4">
             <section className="flex flex-col w-full p-8 space-y-8">
@@ -43,20 +66,29 @@ export default async function UserPage({ searchParams }: { searchParams: { [key:
                     <div className='bg-primary-foreground rounded-xl w-full flex flex-col  p-5 shadow-xl space-y-4'>
                         <h3 className='text-4xl font-bold'>Aktivní předplatné</h3>
                         <h4 className='text-2xl font-medium'>K obnově dojde: </h4>
-                        <div className='bg-primary rounded-xl w-fit flex flex-col items-center justify-between p-14 shadow-xl space-y-8'>
-                            <div className='flex flex-col text-center w-fit text-secondary'>
-                                <span className='text-5xl font-medium'>50 Kč</span>
-                                <span className='text-xl '>měsíčně</span>
-                            </div>
 
-                            <div className='w-fit'>
-                                <Link href={"/"}>
-                                    <Button variant={"destructive"} size={"lg"}>Přestat odebírat <MoveUpRight /></Button>
-                                </Link>
-                            </div>
-                        </div>
                     </div>
                 </div>
+                {data?.status === true
+                    &&
+                    <Card className="w-full ">
+                        <CardHeader>
+                            <CardTitle>Aktivní předplatné</CardTitle>
+                            <h4 className='text-2xl font-medium'>K obnově dojde: </h4>
+                            <CardDescription>
+                                Click on the button below, this will give you the opportunity to
+                                change your payment details and view your statement at the same
+                                time.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <form action={createCustomerPortal}>
+                                <Button variant={"destructive"} size={"lg"}>Přestat odebírat <MoveUpRight /></Button>
+                            </form>
+                        </CardContent>
+                    </Card>
+
+                }
             </section>
         </main>
     )

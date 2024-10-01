@@ -34,9 +34,12 @@ export default function Footer() {
                 <div className='grid grid-cols-2 grid-rows-2 md:grid-cols-4 md:grid-rows-1 w-full justify-items-center font-light'>
                     <div className='flex flex-col space-y-1'>
                         <span className='text-xl underline underline-offset-2 font-medium'>Adresa</span>
-                        <span>Dolní 132,</span>
+                        <span>Financehb.cz s.r.o, Dolní 132,</span>
                         <span>580 02, Havlíčkův Brod</span>
                         <Link href={"#contact"} className='hover:underline hover:underline-offset-2 hover:text-destructive flex flex-row '>Ukázat na mapě <ArrowRight className='ml-5' /></Link>
+                        <span>Brno: Vinařská 460/3, Brno</span>
+                        <span>Praha: Nová Waltrovka - METALICA, Radlická 365/154, Praha 5</span>
+                        <span>Efekta-IZ, s.r.o., člen skupiny DRFG a.s. </span>
                     </div>
 
                     <div className='flex flex-col space-y-1'>
@@ -88,7 +91,8 @@ export default function Footer() {
             </footer>
             <div className='p-8 bg-secondary font-medium text-primary text-lg text-center w-full'>
                 <span>&copy; {year} Developed by <Link href="https://www.linkedin.com/in/adam-hitzger-aa518622b/?originalSubdomain=cz" className="underline underline-offset-2">Adam Hitzger</Link></span>
-            </div></>
+            </div>
+        </>
     )
 }
 

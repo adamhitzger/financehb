@@ -44,6 +44,7 @@ export async function getUser() {
       email: authUser?.email,
       name: dbUser.data?.first_name,
       surname: dbUser.data?.last_name,
+      stripeId: dbUser.data?.stripeId,
     }
 
     return user
