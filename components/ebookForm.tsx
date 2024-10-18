@@ -37,8 +37,8 @@ export default function EbookForm({ file }: { file: string }) {
             <Input type="text" name="surname" disabled={isPending} placeholder="Zadejte přijmení" value={form.surname} onChange={handleChange} required />
             <Input name="email" type="email" disabled={isPending} placeholder="Zadejte email" value={form.email} onChange={handleChange} required />
             <input type='text' name='msg' value={form.file} onChange={handleChange} className='hidden' />
-            <Button type="submit" size={'lg'} className='mx-auto bg-secondary text-xl text-primary font-light underline underline-offset-2 shadow-md  shadow-primary-foreground'>
-                {isPending ? <Loader2 className='animate-spin' /> : "Odeslat"}
+            <Button type="submit" size={'lg'} variant={"default"} className='mx-auto font-light  shadow-lg  shadow-primary-foreground'>
+                {isPending ? <Loader2 className='animate-spin' /> : <>Odeslat < MoveUpRight /></>}
             </Button>
         </form>
     )

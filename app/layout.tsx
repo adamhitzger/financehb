@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, } from "next/font/google";
 import "./globals.css";
 import { VisualEditing } from "next-sanity";
 import { draftMode } from "next/headers";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
+import { ibarra } from "./font";
 
 const inter = Inter({ subsets: ["latin"] });
+
 
 export const metadata: Metadata = {
   title: "Petr Krajcigr, Finance HB",
@@ -21,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="cs">
-      <body className={inter.className}>
+      <body className={`${inter.className} ${ibarra.variable} `}>
         {draftMode().isEnabled && (
           <a
             className="fixed right-0 bottom-0 bg-blue-500 text-white p-4 m-4"

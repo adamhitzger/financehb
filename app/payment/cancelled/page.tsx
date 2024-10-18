@@ -13,13 +13,13 @@ export default function CancelledRoute() {
                     </div>
 
                     <div className="mt-3 text-center sm:mt-5 w-full">
-                        <h2 className="text-xl font-semibold">Payment Cancelled</h2>
+                        <h2 className="text-xl font-semibold">Platba nebyla dokončena.</h2>
                         <p className="text-sm mt-2 text-muted-foreground tracking-tight">
-                            No worries, you wont be chaged. Please try again.
+                            Nemějte obavy, zkuste příště.
                         </p>
 
                         <Button asChild className="w-full mt-5">
-                            <Link href="/dashboard">Go back to Dashboard</Link>
+                            <Link href="/">Zpět na hlavní stránku</Link>
                         </Button>
                     </div>
                 </div>

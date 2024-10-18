@@ -13,7 +13,7 @@ export default function Navbar() {
     return (
         <nav className='w-full p-7 flex text-primary items-center justify-between flex-row bg-secondary '>
             <Link href={"/"}>
-                <div className='w-fit p-3  bg-destructive font-extrabold text-2xl tracking-wider'>
+                <div className='w-fit p-3  bg-secondary-foreground font-extrabold text-2xl tracking-wider'>
                     FINANCE<span className='text-secondary'>HB</span>.cz
                 </div>
             </Link>
@@ -27,7 +27,7 @@ export default function Navbar() {
             {user && user.name && user.surname ? (
                 <Link href={"/user"} className='underline underline-offset-2 text-2xl hidden lg:flex'>{`${user.name ?? ""} ${user.surname ?? ""}`}</Link>
             ) : (
-                <Link href={"/log-in"}><Button variant={"destructive"} className='p-5 font-semibold text-lg hidden lg:inline-flex'>Přihlásit se</Button></Link>
+                <Link href={"/log-in"}><Button variant={"default"} className='p-5 font-semibold text-lg hidden lg:inline-flex'>Přihlásit se</Button></Link>
             )}
             <div className='flex lg:hidden'>
                 <Sheet >
@@ -44,7 +44,7 @@ export default function Navbar() {
                             {user && user.name && user.surname ? (
                                 <Link href={"/user"} className='underline underline-offset-2 text-2xl'>{`${user.name ?? ""} ${user.surname ?? ""}`}</Link>
                             ) : (
-                                <Link href={"/log-in"}><Button variant={"destructive"} className='p-5 font-semibold text-lg'>Přihlásit se</Button></Link>
+                                <Link href={"/log-in"}><Button variant={"default"} className='p-5 font-semibold text-lg'>Přihlásit se</Button></Link>
                             )}
                         </div>
                     </SheetContent>

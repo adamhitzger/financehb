@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import React, { useState, useTransition } from 'react'
 import { sendNewsletter } from '@/actions/mail';
+import { Loader2, MoveUpRight } from 'lucide-react';
 
 export default function Newsletter() {
     const [isPending, startTransition] = useTransition();
@@ -30,10 +31,10 @@ export default function Newsletter() {
 
     };
     return (
-        <form className="w-full lg:w-1/2 flex flex-col space-y-3 " action={handleSendMail}>
-            <Input name="name" type="text" placeholder="Zadejte celé jméno" value={form.name} onChange={handleChange} required />
-            <Input name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required />
-            <Button type="submit" size={'lg'} className='mx-auto bg-secondary text-lg text-primary font-light underline underline-offset-2 shadow-md w-full shadow-primary-foreground'>Odeslat</Button>
+        <form className="w-full  flex lg:flex-row flex-col space-x-3 items-center" action={handleSendMail}>
+            <Input className='w-2/5' name="name" type="text" placeholder="Zadejte celé jméno" value={form.name} onChange={handleChange} required />
+            <Input className='w-2/5' name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required />
+            <Button type="submit" size={'lg'} className='mx-auto bg-secondary-foreground text-lg text-primary font-light underline underline-offset-2 w-1/5 '>{isPending ? <Loader2 className='animate-spin' /> : <>Odeslat <MoveUpRight /></>}</Button>
         </form>
     )
 }

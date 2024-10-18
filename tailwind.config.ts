@@ -19,6 +19,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        ibarra: ['var(--font-ibarra-real-nova)'],
+      },
       boxShadow: {
         'lg': '4px 4px 4px rgba(0, 0, 0, 0.3)',
         'xl': '6px 6px 4px rgba(0, 0, 0, 0.3)',
@@ -30,6 +33,7 @@ const config = {
         },
         secondary: {
           DEFAULT: "#0A1a49",
+          foreground: "#C2B067"
         },
         destructive: {
           DEFAULT: "#db1548",

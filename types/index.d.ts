@@ -22,13 +22,13 @@ export type DBUser = {
 
 export type DBSubscriptions = {
     id: string;
-    userid: string;
-    stripeSubsId: string;
+    user_id: string;
+    stripe_subscriptions_id: string;
     periodStart: number;
     periodEnd: number;
     status: DBStatus;
     interval: string;
-    planId: string;
+    plan_id: string;
 }
 
 export type User = SupabaseUser & DBUser;

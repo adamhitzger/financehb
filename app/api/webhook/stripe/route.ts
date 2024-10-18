@@ -5,8 +5,8 @@ import { headers } from "next/headers";
 
 export async function POST(req: Request){
     const client = createSupabaseClient();
-    const body = await req.text();
     const signature = headers().get("Stripe-Signature") as string;
+    const body = await req.text();
     let event: Stripe.Event;
 
     try {
@@ -24,6 +24,7 @@ export async function POST(req: Request){
 
     switch(event.type){
         case "checkout.session.completed":
+            try{
             const subscription = await stripe.subscriptions.retrieve(
                 session.subscription as string
             );
@@ -32,16 +33,24 @@ export async function POST(req: Request){
             if(user.error) console.log(user.error);
             if(user.data) console.log(user.data);
             
-            await client.from("subscriptions").insert({
-                userid: user.data.id,
-                stripeSubsId: subscription.id,
+            const {data, error} = await client.from("subscriptions").insert({
+                user_id: user.data.id as string,
+                stripe_subscriptions_id: subscription.id as string,
                 periodStart: subscription.current_period_start,
                 periodEnd: subscription.current_period_end,
                 status: "Aktivní",
-                planId: subscription.items.data[0].plan.id,
+                plan_id: subscription.items.data[0].plan.id as string,
                 interval: String(subscription.items.data[0].plan.interval),
             })
-
+            if(error) console.log(error.message);
+            if(data) console.log(data);
+        } catch (err) {
+            console.error('Unexpected error:', err);
+            return new Response('Unexpected error', { status: 500 });
+        }
+            break;
+            default:
+            console.warn(`Unhandled event type: ${event.type}`);
             break;
     }
     return new Response(null, { status: 200 });

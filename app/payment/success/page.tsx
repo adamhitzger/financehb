@@ -13,13 +13,13 @@ export default function PaymentSucess() {
                     </div>
 
                     <div className="mt-3 text-center sm:mt-5 w-full">
-                        <h2 className="text-xl font-semibold">Payment Successfull</h2>
+                        <h2 className="text-xl font-semibold">Platba ukončena</h2>
                         <p className="text-sm mt-2 text-muted-foreground tracking-tight">
-                            Congrasts to your subscription. You can now create unlimted sites.
+                            Děkujeme že jste se stal odběratelem.
                         </p>
 
                         <Button asChild className="w-full mt-5">
-                            <Link href="/dashboard">Go back to Dashboard</Link>
+                            <Link href="/paywall">Členská sekce</Link>
                         </Button>
                     </div>
                 </div>

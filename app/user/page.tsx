@@ -1,4 +1,4 @@
-import React, { useTransition } from 'react'
+import React from 'react'
 import { getUser } from '@/auth/server';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -36,10 +36,11 @@ export default async function UserPage({ searchParams }: { searchParams: { [key:
 
         return redirect(session.url);
     }
+
     return (
         <main className="flex min-h-screen flex-col items-center py-8 justify-between space-y-4">
             <section className="flex flex-col w-full p-8 space-y-8">
-                <h2 className="  font-bold  text-secondary text-5xl">{`Profil: ${user?.name} ${user?.surname}`}</h2>
+                <h2 className="font-ibarra  font-bold  text-secondary-foreground text-5xl">{`Profil: ${user?.name} ${user?.surname}`}</h2>
                 <hr className="w-full border-secondary border-2" />
                 <div className='w-full flex flex-col md:flex-row gap-4'>
                     <div className='bg-primary-foreground rounded-xl w-full flex flex-col p-5 shadow-xl space-y-4'>
@@ -63,15 +64,10 @@ export default async function UserPage({ searchParams }: { searchParams: { [key:
                             {changePass && <ChangePass />}
                         </div>
                     </div>
-                    <div className='bg-primary-foreground rounded-xl w-full flex flex-col  p-5 shadow-xl space-y-4'>
-                        <h3 className='text-4xl font-bold'>Aktivní předplatné</h3>
-                        <h4 className='text-2xl font-medium'>K obnově dojde: </h4>
-
-                    </div>
                 </div>
                 {data?.status === true
                     &&
-                    <Card className="w-full ">
+                    <Card className="w-full shadow-lg shadow-secondary-foreground">
                         <CardHeader>
                             <CardTitle>Aktivní předplatné</CardTitle>
                             <h4 className='text-2xl font-medium'>K obnově dojde: </h4>
@@ -85,6 +81,7 @@ export default async function UserPage({ searchParams }: { searchParams: { [key:
                             <form action={createCustomerPortal}>
                                 <Button variant={"destructive"} size={"lg"}>Přestat odebírat <MoveUpRight /></Button>
                             </form>
+
                         </CardContent>
                     </Card>
 

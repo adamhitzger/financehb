@@ -9,7 +9,7 @@ import { Checkbox } from './ui/checkbox';
 import Map, { Marker } from "react-map-gl"
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { sendEmail } from '@/actions/mail';
-import { Loader2 } from 'lucide-react';
+import { Loader2, MoveUpRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function Contact() {
@@ -80,7 +80,7 @@ export default function Contact() {
                             Souhlasím s Podmínkami a Zásadami ochrany osobních údajů
                         </label>
                     </div>
-                    <Button type="submit" size={'lg'} className='mx-auto bg-secondary text-lg text-primary font-light underline underline-offset-2'>{isPending ? <Loader2 className='animate-spin' /> : "odeslat"}</Button>
+                    <Button type="submit" variant={"default"} size={'lg'} className='mx-auto font-light '>{isPending ? <Loader2 className='animate-spin' /> : <>Odeslat < MoveUpRight /></>}</Button>
                 </div>
             </form>
             <div className='lg:w-1/2 w-full rounded-lg shadow-lg h-96 lg:h-auto'>

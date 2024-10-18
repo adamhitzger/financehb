@@ -41,8 +41,8 @@ export default function Slider({ slides }: Slides) {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute top-1/2 -translate-y-1/2 left-4 z-10 text-white bg-secondary" />
-            <CarouselNext className="absolute top-1/2 -translate-y-1/2 right-4 z-10 text-white hover:text-primary bg-secondary" />
+            <CarouselPrevious className="absolute top-1/2 -translate-y-1/2 left-4 z-10 text-white bg-secondary-foreground" />
+            <CarouselNext className="absolute top-1/2 -translate-y-1/2 right-4 z-10 text-white hover:text-primary bg-secondary-foreground " />
         </Carousel>
     )
 }
