@@ -4,7 +4,7 @@ import { stripe } from "@/lib/utils";
 import { headers } from "next/headers";
 
 export async function POST(req: Request){
-    const client = createSupabaseClient();
+    const client = createSupabaseClient("deleteAccount");
     const signature = headers().get("Stripe-Signature") as string;
     const body = await req.text();
     let event: Stripe.Event;
