@@ -1,4 +1,4 @@
-import ArticlesComp from '@/components/articles';
+import {ArticlesComp} from '@/components/articles';
 import PaginationComp from '@/components/pagination';
 import PaymentButton from '@/components/paymentButton';
 import { Button } from '@/components/ui/button';
@@ -48,7 +48,7 @@ export default async function ArticlesPage({ searchParams }: { searchParams: { [
                 </div>
             </section>
             <section className='w-full flex flex-col p-8 space-y-8'>
-                <ArticlesComp articles={articles} page='paywall' />
+                <ArticlesComp articles={articles}  />
                 <PaginationComp currentPage={currentPage} totalPages={totalPages} />
             </section>
 
