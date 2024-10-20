@@ -22,12 +22,14 @@ export default async function UserPage({ searchParams }: { searchParams: { [key:
     const user = await getUser();
     const changeDetails = searchParams?.details;
     const changePass = searchParams?.pass
-    const { data, error } = await client.from("subscriptions").select("status").eq("userId", user?.id).single();
-    async function createCustomerPortal() {
+    const { data, error } = await client.from("subscriptions").select("status").eq("user_id", user?.id).single();
+    console.log(data)
+    if(error) console.log(error.message)
+    async function createCustomerPortal(stripeId: FormData) {
         "use server";
-
+        
         const session = await stripe.billingPortal.sessions.create({
-            customer: user?.stripeId as string,
+            customer: String(stripeId.get("stripeId")) ,
             return_url:
                 process.env.NODE_ENV === "production"
                     ? "https://financehb.vercel.app/user"
@@ -65,20 +67,16 @@ export default async function UserPage({ searchParams }: { searchParams: { [key:
                         </div>
                     </div>
                 </div>
-                {data?.status === true
-                    &&
-                    <Card className="w-full shadow-lg shadow-secondary-foreground">
+                {data?.status === "Aktivní"
+                    && user?.stripeId &&
+                    <Card className="w-full bg-primary-foreground shadow-lg shadow-secondary-foreground">
                         <CardHeader>
                             <CardTitle>Aktivní předplatné</CardTitle>
-                            <h4 className='text-2xl font-medium'>K obnově dojde: </h4>
-                            <CardDescription>
-                                Click on the button below, this will give you the opportunity to
-                                change your payment details and view your statement at the same
-                                time.
-                            </CardDescription>
+                            
                         </CardHeader>
                         <CardContent>
                             <form action={createCustomerPortal}>
+                                <input type="hidden" name="stripeId" value={user.stripeId}/>
                                 <Button variant={"destructive"} size={"lg"}>Přestat odebírat <MoveUpRight /></Button>
                             </form>
 

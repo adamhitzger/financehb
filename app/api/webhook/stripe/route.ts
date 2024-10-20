@@ -49,6 +49,49 @@ export async function POST(req: Request){
             return new Response('Unexpected error', { status: 500 });
         }
             break;
+        case "customer.subscription.updated":
+            try{
+                const subscription = await stripe.subscriptions.retrieve(
+                    session.subscription as string
+                );
+                const stripeId = session.customer as string
+                const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
+                if(user.error) console.log(user.error);
+                if(user.data) console.log(user.data);
+                
+                const {data, error} = await client.from("subscriptions").update({
+                    stripe_subscriptions_id: subscription.id as string,
+                    periodStart: subscription.current_period_start,
+                    periodEnd: subscription.current_period_end,
+                    status: "Aktivní",
+                    plan_id: subscription.items.data[0].plan.id as string,
+                    interval: String(subscription.items.data[0].plan.interval),
+                }).eq("user_id", user.data.id)
+                if(error) console.log(error.message);
+                if(data) console.log(data);
+            } catch (err) {
+                console.error('Unexpected error:', err);
+                return new Response('Unexpected error', { status: 500 });
+            }
+                break;
+            case "customer.subscription.deleted":
+            try{
+                const subscription = await stripe.subscriptions.retrieve(
+                    session.subscription as string
+                );
+                const stripeId = session.customer as string
+                const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
+                if(user.error) console.log(user.error);
+                if(user.data) console.log(user.data);
+                
+                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", subscription.id)
+                if(error) console.log(error.message);
+                if(data) console.log(data);
+            } catch (err) {
+                console.error('Unexpected error:', err);
+                return new Response('Unexpected error', { status: 500 });
+            }
+                break;
             default:
             console.warn(`Unhandled event type: ${event.type}`);
             break;
