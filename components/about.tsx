@@ -45,7 +45,7 @@ export default function About() {
                     </div>
                     <div className="w-full grid grid-cols-2 justify-items-center lg:grid-cols-4 gap-4">
                         {statistics.map((s, idx) => (
-                            <div className="space-y-2 w-full">
+                            <div key={idx} className="space-y-2 w-full">
                                 {s.node}
                                 <hr className="w-full text-secondary-foreground"/>
                                 <span className="text-lg font-medium ">{s.heading}</span>

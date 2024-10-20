@@ -42,7 +42,7 @@ export function HomeArticles({ articles }: { articles: Sanity[]}) {
         <div className="grid md:grid-cols-3 w-full gap-4">
             {articles &&
                 articles.map((a: Sanity, idx: number) => (
-                    <article className="w-full space-y-3 flex flex-col">
+                    <article key={idx} className="w-full space-y-3 flex flex-col">
                         <Image src={a.picture} alt={a.overview} width={600} height={200}/>
                         <hr className="border border-secondary-foreground bg-secondary-foreground"/>
                         <span className="text-left text-2xl">
