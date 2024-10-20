@@ -31,7 +31,7 @@ export default function Newsletter() {
 
     };
     return (
-        <form className="w-full  flex lg:flex-row flex-col space-x-3 items-center" action={handleSendMail}>
+        <form className="w-full  flex flex-row s space-x-3 items-center" action={handleSendMail} id='newsletter'>
             <Input className='w-2/5' name="name" type="text" placeholder="Zadejte celé jméno" value={form.name} onChange={handleChange} required />
             <Input className='w-2/5' name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required />
             <Button type="submit" size={'lg'} className='mx-auto bg-secondary-foreground text-lg text-primary font-light underline underline-offset-2 w-1/5 '>{isPending ? <Loader2 className='animate-spin' /> : <>Odeslat <MoveUpRight /></>}</Button>

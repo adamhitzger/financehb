@@ -11,7 +11,7 @@ import { useGetUser } from '@/auth/client'
 export default function Navbar() {
     const user = useGetUser();
     return (
-        <nav className='w-full p-7 flex text-primary items-center justify-between flex-row bg-secondary '>
+        <nav className='w-full p-7 flex text-primary items-center justify-between flex-row bg-secondary border-b-secondary-foreground border-b'>
             <Link href={"/"}>
                 <div className='w-fit p-3  bg-secondary-foreground font-extrabold text-2xl tracking-wider'>
                     FINANCE<span className='text-secondary'>HB</span>.cz

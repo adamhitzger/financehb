@@ -25,18 +25,6 @@ export const REALITIES_QUERY = groq`*[_type == 'reality' && status == 'Na prodej
    "houseUrl": house_plan.asset->url,
    price,
    area,
-   geopoint,
-   status,
-   realtor,
-   material,
-   type,
-   equipment,
-   garage,
-   parking,
-   owner,
-   condition,
-   water,
-   heating
    }`;
 
 export const ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false] | order(priority desc, _createdAt desc)[$start..$end]{
@@ -47,7 +35,7 @@ export const ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false]
     overview,
 }`;
 
-export const HOME_ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false] | order(priority desc,_createdAt desc)[0..3] {
+export const HOME_ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false] | order(priority desc,_createdAt desc)[0..2] {
     name,
     "slug": slug.current,
     "picture": foto.asset->url,

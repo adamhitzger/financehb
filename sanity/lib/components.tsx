@@ -16,7 +16,6 @@ export const components: Partial<PortableTextComponents> = {
         h4: ({ children }) => <h4 className="text-lg font-bold">{children}</h4>,
         h5: ({ children }) => <h5 className="font-bold">{children}</h5>,
         h6: ({ children }) => <h6 className="font-bold">{children}</h6>,
-
         blockquote: ({ children }) => <blockquote className="border-l-purple-500">{children}</blockquote>,
     },
     marks: {
@@ -27,7 +26,7 @@ export const components: Partial<PortableTextComponents> = {
         link: ({ children, value }) => {
             const ytb: boolean = value.href.startsWith("https://www.youtube.com/embed/");
             if (ytb) return <iframe width="600" height="300" src={value?.href} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-            else return <Link href={value?.href} className="underline text-destructive">{children}</Link>
+            else return <Link href={value?.href} className="underline text-secondary-foreground">{children}</Link>
         }
     }
 }

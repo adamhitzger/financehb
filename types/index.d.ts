@@ -1,16 +1,5 @@
 import { User as SupabaseUser } from "@supabase/supabase-js";
 
-type Heating = "Ústřední topení" | "Tuhá paliva" | "Vlastní";
-type Water = "Dálkový odvod" | "Studna" | "Vlastní";
-type Condition = "Velmi pěkný" | "Pěkný" | "Špatný" | "Velmi špatný";
-type Material = "Cihlová" | "Dřevostavba";
-type Owner = "Vlastní" | "Družstvo";
-type Gargae = "Ano" | "Ne";
-type Parking = "Venkovní" | "Vnitřní" | "Žádné";
-type Equipment = "Kompletní" | "Částečné" | "Žádné";
-type Type = "Byt" |"Rodinný dům";
-type Realtor = "Lukáš Hrdina" | "Michal Pros" | "Petra Prosová";
-type Status =  "Na prodej" | "K pronájmu" | "Prodáno" | "Storno";
 type DBStatus = "Aktivní" | "Zrušené" |"Neaktivní";
 export type DBUser = {
   id: string;
@@ -106,25 +95,6 @@ export interface UrlQueryParams {
     details: any;
     imageUrl: string;
     galleryUrls: string[];
-    planUrl: string; 
-    houseUrl: string
     price: string;
     area: number;
-    geopoint: {
-        _type: string;
-        lng: number;
-        lat: number;
-        alt: number;
-    };
-    status: Status;
-    realtor: Realtor;
-    type: Type;
-    material: Material;
-    equipment: Equipment;
-    garage: Gargae;
-    parking: Parking;
-    owner: Owner;
-    condition: Condition;
-    water: Water;
-    heating: Heating;
 };

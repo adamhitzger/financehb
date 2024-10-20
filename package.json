@@ -19,11 +19,13 @@
     "@stripe/stripe-js": "^4.5.0",
     "@supabase/ssr": "^0.5.0",
     "@supabase/supabase-js": "^2.45.1",
+    "@tabler/icons-react": "^3.19.0",
     "@types/nodemailer": "^6.4.15",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.1.8",
     "embla-carousel-react": "^8.1.8",
+    "framer-motion": "^11.11.9",
     "lucide-react": "^0.424.0",
     "mapbox-gl": "^3.6.0",
     "next": "14.2.5",
@@ -38,7 +40,7 @@
     "react-social-icons": "^6.18.0",
     "sanity": "^3.52.4",
     "stripe": "^16.12.0",
-    "tailwind-merge": "^2.4.0",
+    "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

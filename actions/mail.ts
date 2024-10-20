@@ -29,20 +29,19 @@ export async function sendNewsletter(formData: FormData){
 }
 } 
 export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
-    let jmeno: string = "";
-    let prijmeni: string = "";
+      let jmeno: string = "";
+      let prijmeni: string = "";
       let phone: string = "";
       let email: string = "";
       let ltd: string = "";
       let msg: string = "";
-  
-      
-          jmeno = formData.get("name") as string;
-          prijmeni = formData.get("surname") as string;
-          phone = formData.get("tel") as string;
-          email = formData.get("email") as string;
-          ltd = formData.get("company") as string;
-          msg = formData.get("msg") as string;
+ 
+      jmeno = formData.get("name") as string;
+      prijmeni = formData.get("surname") as string;
+      phone = formData.get("tel") as string;
+      email = formData.get("email") as string;
+      ltd = formData.get("company") as string;
+      msg = formData.get("msg") as string;
   
       const transporter = createTransport({
        service: "gmail",

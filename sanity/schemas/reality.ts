@@ -70,17 +70,6 @@ export const realityType = defineType({
                 }
             ]
         }),
-        
-        defineField({
-            name: "floor_plan",
-            title: "Územní plán",
-            type: "image",
-        }),
-        defineField({
-            name: "house_plan",
-            title: "Plán domu",
-            type: "image",
-        }),
         defineField({
             name: "price",
             title: "Cena",
@@ -90,101 +79,6 @@ export const realityType = defineType({
             name: "area",
             title: "Rozloha",
             type: "number"
-        }),
-        defineField({
-            name: "geopoint",
-            title: "Lokace",
-            type: "geopoint",
-        }),
-        defineField({
-            name: "status",
-            title: "Status nemovitosti",
-            type: "string",
-            options: {
-                list: ["Na prodej", "K pronájmu", "Prodáno", "Storno"],
-                layout: "dropdown",
-            }
-        }),
-        defineField({
-            name: "type",
-            title: "Typ nemovitosti",
-            type: "string",
-            options: {
-                list: ["Byt", "Rodinný dům"],
-                layout: "dropdown",
-            }
-        }),
-        defineField({
-            name: "equipment",
-            title: "Vybavení nemovitosti",
-            type: "string",
-            options: {
-                list: ["Kompletní", "Částečné", "Žádné"],
-                layout: "dropdown",
-            }
-        }),
-        defineField({
-            name: "garage",
-            title: "Garáž",
-            type: "string",
-            options: {
-                list: ["Ano", "Ne"],
-                layout: "dropdown",
-            }
-        }),
-        defineField({
-            name: "parking",
-            title: "Parkování",
-            type: "string",
-            options: {
-                list: ["Venkovní", "Vnitřní", "Žádné"],
-                layout: "dropdown",
-            }
-        }),
-        defineField({
-            name: "owner",
-            title: "Vlastnictví",
-            type: "string",
-            options: {
-                list: ["Vlastní", "Družstvo"],
-                layout: "dropdown",
-            }
-        }),
-        defineField({
-            name: "material",
-            title: "Materiál stavby",
-            type: "string",
-            options: {
-                list: ["Cihlová", "Dřevostavba"],
-                layout: "dropdown",
-            }
-        }),
-        defineField({
-            name: "condition",
-            title: "Stav nemovitosti",
-            type: "string",
-            options: {
-                list: ["Velmi pěkný", "Pěkný", "Špatný", "Velmi špatný"],
-                layout: "dropdown",
-            }
-        }),
-        defineField({
-            name: "water",
-            title: "Voda",
-            type: "string",
-            options: {
-                list: ["Dálkový odvod", "Studna", "Vlastní"],
-                layout: "dropdown",
-            }
-        }),
-        defineField({
-            name: "heating",
-            title: "Topení",
-            type: "string",
-            options: {
-                list: ["Ústřední topení", "Tuhá paliva", "Vlastní"],
-                layout: "dropdown",
-            }
         }),
     ]
 })
