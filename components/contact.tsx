@@ -48,8 +48,8 @@ export default function Contact() {
         })
     }
     return (
-        <div className="flex flex-col lg:flex-row gap-4 h-fit">
-            <form className="bg-primary p-4 lg:w-1/2 rounded-lg shadow-lg px-5 w-full h-fit grid grid-rows-6 grid-cols-1 lg:grid-cols-2 lg:grid-rows-4 gap-x-5 " action={handleSendEmail}>
+        <div className="flex flex-col lg:flex-row h-fit">
+            <form className="bg-primary p-4 lg:w-1/2 rounded-lg shadow-lg px-5 w-full grid grid-rows-6 grid-cols-1 lg:grid-cols-2 lg:grid-rows-4 gap-x-3 " action={handleSendEmail}>
                 <div className='flex flex-col w-full space-y-2'>
                     <Label>Celé jméno</Label>
                     <Input name="name" type="text" placeholder="Zadejte celé jméno" value={form.name} onChange={handleChange} required disabled={isPending} />

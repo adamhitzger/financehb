@@ -2,7 +2,12 @@ import { groq } from "next-sanity";
 
 export const COUNT_ARTICLES = groq`count(*[_type == 'article' && isFullyPaid == false])`;
 export const COUNT_ALL_ARTICLES = groq`count(*[_type == 'article'])`;
-
+export const SOCIAL_FEED = groq`*[_type == 'socialFeed']{
+    name,
+    href,
+    "img": image.asset->url,
+    overview
+}`;
 export const REALITIES_QUERY = groq`*[_type == 'reality' && status == 'Na prodej'][0...5] | order(_createdAt desc) {
     name,
     'slug': slug.current,
@@ -10,6 +15,8 @@ export const REALITIES_QUERY = groq`*[_type == 'reality' && status == 'Na prodej
     price,
     "imageUrl": image.asset->url
   }`;
+
+  
 
   export const REALITY_QUERY = groq`*[_type == 'reality' && slug.current == $slug][0]{
     name,   

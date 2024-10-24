@@ -23,6 +23,7 @@ const config = {
         ibarra: ['var(--font-ibarra-real-nova)'],
       },
       boxShadow: {
+        'md': '3px 3px 3px rgba(0, 0, 0, 0.3)',
         'lg': '4px 4px 4px rgba(0, 0, 0, 0.3)',
         'xl': '6px 6px 4px rgba(0, 0, 0, 0.3)',
       },

@@ -98,3 +98,10 @@ export interface UrlQueryParams {
     price: string;
     area: number;
 };
+
+export interface Socialfeed {
+    name: string;
+    href: string;
+    img: string;
+    overview: string
+};

@@ -42,7 +42,7 @@ export default async function UserPage({ searchParams }: { searchParams: { [key:
     return (
         <main className="flex min-h-screen flex-col items-center py-8 justify-between space-y-4">
             <section className="flex flex-col w-full p-8 space-y-8">
-                <h2 className="font-ibarra  font-bold  text-secondary-foreground text-5xl">{`Profil: ${user?.name} ${user?.surname}`}</h2>
+                <h2 className="font-ibarra  font-bold  text-secondary-foreground text-3xl lg:text-5xl">{`Profil: ${user?.name} ${user?.surname}`}</h2>
                 <hr className="w-full border-secondary border-2" />
                 <div className='w-full flex flex-col md:flex-row gap-4'>
                     <div className='bg-primary-foreground rounded-xl w-full flex flex-col p-5 shadow-xl space-y-4'>

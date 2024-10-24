@@ -19,8 +19,8 @@ export default function Realities({ realities }: { realities: Reality[] }) {
                             />
                         </div>
                         <div className="p-3 space-y-2">
-                            <Link href={`/nemovitosti/${r.slug}`}><span className="text-2xl underline underline-offset-2">{r.name}</span></Link>
-                            <p className="font-light text-lg">{r.overview}</p>
+                            <Link href={`/nemovitosti/${r.slug}`}><span className="text-lg underline underline-offset-2">{r.name}</span></Link>
+                            <p className="font-light text-base">{r.overview}</p>
                         </div>
                     </div>
 

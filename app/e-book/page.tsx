@@ -11,10 +11,10 @@ export default async function EbookPage() {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between space-y-4">
             <section className="flex flex-col w-full p-8 space-y-20">
-                <h2 className="font-ibarra  font-bold tracking-wide text-secondary-foreground text-5xl md:text-6xl">Stáhněte si e-book</h2>
+                <h2 className="font-ibarra  font-bold tracking-wide text-secondary-foreground text-3xl lg:text-5xl">Stáhněte si e-book</h2>
                 <div className=" w-full flex flex-col-reverse  md:flex-row items-center justify-between">
-                    <div className="w-full md:w-1/2 rounded-xl my-10 md:my-0 flex flex-col justify-between shadow-xl bg-primary-foreground p-8 space-y-12 text-xl font-light">
-                        {ebook.heading ? <span className="text-2xl font-medium">{ebook.heading}</span> : null}
+                    <div className="w-full text-base md:w-1/2 rounded-xl my-10 md:my-0 flex flex-col justify-between shadow-xl bg-primary-foreground p-8 space-y-12  font-light">
+                        {ebook.heading ? <span className="text-xl font-medium">{ebook.heading}</span> : null}
                         {ebook.text ? <PortableText value={ebook.text} components={components} /> : null}
                     </div>
                     <div className="w-full md:w-1/2 flex justify-center space-x-0.5">
@@ -25,8 +25,8 @@ export default async function EbookPage() {
                 </div>
 
                 <div className="w-full md:w-4/5 flex flex-col space-y-2 p-5 bg-secondary rounded-xl text-primary mx-auto">
-                    <div className="w-full flex flex-col space-y-2 text-center">
-                        <p className="font-light text-2xl">Rádi byste se dozvěděli, jak si nejlépe zajistit svojí budoucnost? Vyplňte formulář a stáhněte si E-BOOK ZDARMA!</p>
+                    <div className="w-full flex flex-col space-y-2 text-left lg:text-center">
+                        <p className="font-light text-lg">Rádi byste se dozvěděli, jak si nejlépe zajistit svojí budoucnost? Vyplňte formulář a stáhněte si E-BOOK ZDARMA!</p>
                     </div>
                     <EbookForm file={ebook.file} />
                 </div>

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function PaymentSucess() {
     return (
-        <div className="w-full flex flex-1 justify-center items-center">
+        <div className="w-full flex flex-1 justify-center items-center p-8">
             <Card className="w-[350px]">
                 <div className="p-6">
                     <div className="w-full flex justify-center">

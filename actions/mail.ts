@@ -20,7 +20,7 @@ export async function sendNewsletter(formData: FormData){
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
-        tags: ["Zkouska"],
+        tags: ["Měsíční report zdarma 1m"],
     }),
   
 });
@@ -87,7 +87,7 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
-        tags: ["Zkouska"],
+        tags: ["Stažený eBook"],
         primaryAddress: {
         contactInfo: {
           email: email,

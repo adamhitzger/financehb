@@ -32,7 +32,7 @@ export default function Slider({ slides }: Slides) {
             plugins={[plugin.current]}
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
-            className="w-full rounded-xl "
+            className="w-full rounded-xl text-base"
         >
             <CarouselContent>
                 {slides.map((slide, key) => (

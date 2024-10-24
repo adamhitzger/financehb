@@ -31,48 +31,47 @@ export default function Footer() {
     return (
         <>
             <footer className='flex flex-col bg-secondary text-primary p-8 text-lg space-y-5'>
-                <div className='grid sm:grid-cols-2 sm:grid-rows-2 gap-4 md:grid-cols-4 md:grid-rows-1  w-full justify-items-center font-light'>
-                    <div className='flex flex-col space-y-1'>
-                        <span className='text-xl underline underline-offset-2 font-medium'>Adresa:</span>
+                <div className='grid grid-cols-2 gap-4 md:grid-cols-5 md:grid-rows-1  w-full justify-items-center font-light'>
+                    <div className='text-base flex flex-col space-y-1'>
+                        <span className='text-lg border-b-2 border-b-secondary-foreground font-medium'>Adresa:</span>
                         <span>Financehb.cz s.r.o, Dolní 132,</span>
                         <span>580 02, Havlíčkův Brod</span>
-                        <Link href={"/#map"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground flex flex-row '>Ukázat na mapě <ArrowRight className='ml-5' /></Link>
-                        <span className='underline'>Brno:</span> Vinařská 460/3, Brno
-                        <span className='underline'>Praha:</span> Nová Waltrovka<br/> METALICA, Radlická 365/154, Praha 5
-                        <span>Efekta-IZ, s.r.o., člen skupiny DRFG a.s. </span>
+                        <Link target={"_blank"} href={"/#map"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground flex flex-row '>Ukázat na mapě <ArrowRight className='ml-5' /></Link>
+                    </div>
+                    <div className='text-base flex flex-col space-y-1'>
+                        <span className='text-lg border-b-2 border-b-secondary-foreground font-medium'>Brno:</span> Vinařská 460/3, Brno
+                        <span className='text-lg border-b-2 border-b-secondary-foreground font-medium'>Praha:</span> Nová Waltrovka METALICA, <br/>Radlická 365/154, Praha 5
+                        <span>Efekta-IZ, s.r.o., <br/>člen skupiny DRFG a.s. </span>
                     </div>
 
-                    <div className='flex flex-col space-y-1'>
-                        <span className='text-xl underline underline-offset-2 font-medium'>Pracovní hodiny</span>
+                    <div className='text-base flex flex-col space-y-1'>
+                        <span className='text-lg border-b-2 border-b-secondary-foreground font-medium'>Pracovní hodiny</span>
                         <span>Asistentka v kanceláři:</span>
                         <div className='flex flex-row space-x-3'>
                             <div className='flex flex-col w-fit'>
-                                <span>PO - ST: </span>
-                                <span>CT:     </span>
-                                <span>PÁ:    </span>
-                            </div>
-                            <div className='flex flex-col w-fit'>
-                                <span>8:00 - 16:00</span>
-                                <span>8:00 - 17:00 </span>
-                                <span>8:00 - 15:00 </span>
+                                <span>PO - ST: 8:00 - 16:00</span>
+                                <span>ČT: 8:00 - 17:00    </span>
+                                <span>PÁ: 8:00 - 15:00   </span>
                             </div>
                         </div>
 
                     </div>
-                    <div className='flex flex-col space-y-1'>
-                        <span className='text-xl underline underline-offset-2 font-medium'>Kontakt</span>
-                        <Link href={""} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 777 820 080</Link>
-                        <span className='underline hover:underline-offset-2 font-medium'>Investiční služby:</span>
-                        <Link href={""} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 222 161 188</Link>
-                        <Link href={"mailto:petr@efekta-iz.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>petr@efekta-iz.cz</Link>
-                        <Link href={"mailto:info@financehb.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>info@financehb.cz</Link>
+                    <div className='text-base flex flex-col space-y-1'>
+                        <span className='text-lg border-b-2 border-b-secondary-foreground font-medium'>Kontakt</span>
+                        <Link target={"_blank"} href={""} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 777 820 080</Link>
+                        <span className='border-b-2 border-b-secondary-foreground font-medium'>Investiční služby:</span>
+                        <Link target={"_blank"} href={""} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 222 161 188</Link>
+                        <Link target={"_blank"} href={"mailto:petr@efekta-iz.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>petr@efekta-iz.cz</Link>
+                        <Link target={"_blank"} href={"mailto:info@financehb.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>info@financehb.cz</Link>
                     </div>
-                    <div className='flex flex-col  space-y-1'>
-                        <span className='text-xl underline underline-offset-2 font-medium'>Odkazy</span>
-                        <Link href={"https://dobryporadce.cz/poradci/petr-krajcigr-efa"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>Dobrý poradce</Link>
-                        <Link href={"https://www.drfg.cz/"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>www.drfg.cz</Link>
-                        <Link href={"https://pkfinance.cz/"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>www.pkfinance.cz/</Link>
-                        <Link href={"https://financehb.cz/nemovitosti"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>Nemovitosti</Link>
+                    
+                    <div className='text-base flex flex-col  space-y-1'>
+                        <span className='text-lg border-b-2 border-b-secondary-foreground font-medium'>Odkazy</span>
+                        <Link target={"_blank"} href={"https://dobryporadce.cz/poradci/petr-krajcigr-efa"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>Dobrý poradce</Link>
+                        <Link target={"_blank"} href={"https://www.drfg.cz/"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>www.drfg.cz</Link>
+                        <Link target={"_blank"} href={"https://pkfinance.cz/"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>www.pkfinance.cz/</Link>
+                        <Link target={"_blank"} href={"https://financehb.vercel.app/nemovitosti"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>Nemovitosti</Link>
+                        
                     </div>
                 </div>
                 <div className='w-full flex flex-col md:flex-row justify-center gap-4'>
@@ -88,7 +87,7 @@ export default function Footer() {
                         <SocialIcon url={i.link} key={id} network={i.icon} fgColor="#0A1a49" bgColor='#ffffff'/>
                     ))}
                 </div>
-                <p className='text-center'>Finanční služby propagované a nabízené na tomto webu poskytuje společnost Financehb.cz s.r.o a zde uvedení poradci jako fyzické osoby: Petr Krajcigr, kteří jsou v oblasti… <Link href={"/podminky"} className='underline'> číst více</Link></p>
+                <p className='text-center'>Finanční služby propagované a nabízené na tomto webu poskytuje společnost Financehb.cz s.r.o a zde uvedení poradci jako fyzické osoby: Petr Krajcigr, kteří jsou v oblasti… <Link target={"_blank"} href={"/podminky"} className='underline'> číst více</Link></p>
             </footer>
             <div className='p-8 bg-secondary font-medium text-primary text-lg text-center w-full'>
                 <span>&copy; {year} Developed by <Link href="https://www.linkedin.com/in/adam-hitzger-aa518622b/?originalSubdomain=cz" className="underline underline-offset-2">Adam Hitzger</Link></span>

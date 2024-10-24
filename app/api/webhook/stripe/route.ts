@@ -4,6 +4,7 @@ import { stripe } from "@/lib/utils";
 import { headers } from "next/headers";
 
 export async function POST(req: Request){
+    const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
     const client = createSupabaseClient("deleteAccount");
     const signature = headers().get("Stripe-Signature") as string;
     const body = await req.text();
@@ -44,6 +45,23 @@ export async function POST(req: Request){
             })
             if(error) console.log(error.message);
             if(data) console.log(data);
+            await fetch(raynetAPIUrl, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
+                    "X-Instance-Name": "financehb",
+                },
+                body: JSON.stringify({
+                    name: user.data.first_name + " " + user.data.last_name,
+                    rating: "A",
+                    state: "A_POTENTIAL",
+                    role: "A_SUBSCRIBER",
+                    tags: ["Měsíční report"],
+                }),
+              
+            });
+            
         } catch (err) {
             console.error('Unexpected error:', err);
             return new Response('Unexpected error', { status: 500 });

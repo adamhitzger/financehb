@@ -3,43 +3,23 @@ import Image from "next/image";
 import { BentoGrid, BentoGridItem  } from "./ui/bento-grid";
 
 export default function Gallery(){
-    function Skeleton({children}: {children: React.ReactNode}){
-        return <div className="relative flex flex-1 w-full h-full min-h-[32rem] md:min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100">{children}</div>
-    }
     const items = [
         {
-            header: <Skeleton><Image src={"/images/header-photo.png"} fill={true} className="obejct-fill bg-cover" alt={"Fotogalerie"}/></Skeleton>
+            src: "/images/gallery.jpg"
         },
         {
-            header: <Skeleton><Image src={"/images/header-photo.png"} fill={true} className="obejct-fill bg-cover" alt={"Fotogalerie"}/></Skeleton>
+            src: "/images/galler2.jpg"
         },
         {
-            header: <Skeleton><Image src={"/images/header-photo.png"} fill={true} className="obejct-fill bg-cover" alt={"Fotogalerie"}/></Skeleton>
+            src: "/images/gallery3.jpg"
         },
-        {
-            header: <Skeleton><Image src={"/images/header-photo.png"} fill={true} className="obejct-fill bg-cover" alt={"Fotogalerie"}/></Skeleton>
-        },
-        {
-            header: <Skeleton><Image src={"/images/header-photo.png"} fill={true} className="obejct-fill bg-cover" alt={"Fotogalerie"}/></Skeleton>
-        },
-        {
-            header: <Skeleton><Image src={"/images/header-photo.png"} fill={true} className="obejct-fill bg-cover" alt={"Fotogalerie"}/></Skeleton>
-        },
-        {
-            header: <Skeleton><Image src={"/images/header-photo.png"} fill={true} className="obejct-fill bg-cover" alt={"Fotogalerie"}/></Skeleton>
-        },
+        
     ]
     return(
-        <section className="w-full bg-secondary p-16">
-            <BentoGrid>
+        <section className="w-full bg-secondary grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5 lg:p-16">
       {items.map((item, i:number) => (
-        <BentoGridItem
-          key={i}
-          header={item.header}
-          className={i === 3 || i === 6 ? "md:col-span-2" : ""}
-        />
+        <Image key={i} src={item.src} width={1024} height={200} className="object-fill bg-cover rounded-xl hover:shadow-lg hover:shadow-primary-foreground border-2 border-secondary-foreground" alt={"Fotogalerie - Petr Krajcigr, EFA, finanční a servisní poradenství"}/>
       ))}
-    </BentoGrid>
         </section>
     )
 };

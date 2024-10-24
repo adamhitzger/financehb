@@ -4,7 +4,7 @@ import { createSupabaseClient, getUser, protectedRoute } from "../auth/server";
 import { getErrorMessage, stripe } from "../lib/utils";
 import { redirect } from "next/navigation";
 export async function signUp(formData: FormData){
-  const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
+  
     try {
         const name = formData.get("name") as string;
         const surname = formData.get("surname") as string;
@@ -24,22 +24,7 @@ export async function signUp(formData: FormData){
           }
         });
         if (error) throw error;
-        await fetch(raynetAPIUrl, {
-          method: "PUT",
-          headers: {
-              "Content-Type": "application/json",
-              Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
-              "X-Instance-Name": "financehb",
-          },
-          body: JSON.stringify({
-              name: name + " " + surname,
-              rating: "A",
-              state: "A_POTENTIAL",
-              role: "A_SUBSCRIBER",
-              tags: ["Zkouska"],
-          }),
         
-      });
         return { errorMessage: null };
       } catch (error) {
         return { errorMessage: getErrorMessage(error) };

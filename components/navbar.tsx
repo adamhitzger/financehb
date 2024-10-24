@@ -27,24 +27,24 @@ export default function Navbar() {
             {user && user.name && user.surname ? (
                 <Link href={"/user"} className='underline underline-offset-2 text-2xl hidden lg:flex'>{`${user.name ?? ""} ${user.surname ?? ""}`}</Link>
             ) : (
-                <Link href={"/log-in"}><Button variant={"default"} className='p-5 font-semibold text-lg hidden lg:inline-flex'>Přihlásit se</Button></Link>
+                <Link href={"/log-in"}><Button variant={"default"} className='font-medium text-lg hidden lg:inline-flex'>Přihlásit se</Button></Link>
             )}
             <div className='flex lg:hidden'>
                 <Sheet >
                     <SheetTrigger><Menu width={36} height={36} /></SheetTrigger>
                     <SheetContent side={"right"}>
-                        <div className='gap-5 w-full text-3xl underline underline-offset-4 font-light text-primary flex flex-col justify-center h-full '>
+                        <div className='gap-5 w-full text-2xl  font-light text-black flex flex-col justify-center h-full '>
                             {navLinks.map((l: Links, i: number) => (
                                 <div key={i}>
-                                    <a href={l.route}>
-                                        {l.name}
-                                    </a>
+                                    <li >
+                                        <a href={l.route}>{l.name}</a>
+                                    </li>
                                 </div>
                             ))}
                             {user && user.name && user.surname ? (
-                                <Link href={"/user"} className='underline underline-offset-2 text-2xl'>{`${user.name ?? ""} ${user.surname ?? ""}`}</Link>
+                                <Link href={"/user"} className='underline underline-offset-2 text-xl'>{`${user.name ?? ""} ${user.surname ?? ""}`}</Link>
                             ) : (
-                                <Link href={"/log-in"}><Button variant={"default"} className='p-5 font-semibold text-lg'>Přihlásit se</Button></Link>
+                                <Link href={"/log-in"}><Button variant={"default"} size={"lg"} className='font-medium text-lg'>Přihlásit se</Button></Link>
                             )}
                         </div>
                     </SheetContent>

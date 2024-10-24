@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { MoveUpRight } from "lucide-react";
-export default function PojisteniPage(){
+export default function PoradenstviPage(){
     const sections = [
         {
         header: "POJIŠTĚTE SE PROTI ZKÁZÁM",
@@ -32,11 +32,11 @@ export default function PojisteniPage(){
             <div className="w-full lg:w-1/2 flex flex-col min-h-screen px-5  font-light">
                 <div className="flex flex-col w-full space-y-8 m-auto lg:px-10">
                     
-                        <h2 className={`text-3xl lg:text-7xl  text-left font-ibarra`}>
+                        <h2 className={`text-3xl lg:text-5xl  text-left font-ibarra`}>
                             {s.header}
                         </h2>
                     
-                    <div className={` text-justify lg:text-left text-2xl`}>
+                    <div className={` text-justify lg:text-left text-xl`}>
                         <p>{s.text}</p>
                     </div>
                     
