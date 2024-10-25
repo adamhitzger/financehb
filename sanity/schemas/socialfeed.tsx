@@ -2,7 +2,7 @@ import { BlockContentIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 export const soiclaFeedType = defineType({
-    name: "soiclaFeed",
+    name: "socialFeed",
     title: "Social feed",
     type: "document",
     icon: BlockContentIcon,
@@ -15,7 +15,7 @@ export const soiclaFeedType = defineType({
         defineField({
             name: "href",
             title: "Odkaz",
-            type: "link",
+            type: "url",
         }),
         defineField({
             name: "image",
