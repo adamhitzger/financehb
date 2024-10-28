@@ -3,7 +3,8 @@ import { ForgotPass } from '@/components/modals/forgotPass';
 import Link from 'next/link'
 import React from 'react'
 
-export default function LogInPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function LogInPage(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
+    const searchParams = await props.searchParams
     const forgotPass = searchParams?.forgot;
     return (
         <main className='w-full min-h-screen flex flex-col justify-center items-center'>

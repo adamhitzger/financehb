@@ -8,7 +8,6 @@ import {apiVersion, dataset, projectId} from './sanity/env'
 import {schema} from './sanity/schema'
 import { presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
-import {resolve} from "@/sanity/presentation/resolve"
 export default defineConfig({
   basePath: '/studio',
   projectId,
@@ -17,13 +16,5 @@ export default defineConfig({
   plugins: [
     structureTool(),
     visionTool({defaultApiVersion: apiVersion}),
-    presentationTool({
-      resolve,
-      previewUrl: {
-        draftMode: {
-          enable: '/api/draft-mode/enable',
-        },
-      },
-    }),
   ],
 })

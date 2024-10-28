@@ -4,8 +4,9 @@ import { sanityFetch } from '@/sanity/lib/client';
 import { ARTICLES_QUERY, COUNT_ARTICLES } from '@/sanity/lib/queries';
 import { Articles } from '@/types';
 
-export default async function ArticlesPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function ArticlesPage(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
     const PAGE_SIZE = 3;
+    const searchParams = await props.searchParams
     const currentPage = parseInt(searchParams.page || '1');
     const size = currentPage > 1 ? PAGE_SIZE + 1 : PAGE_SIZE;
     const start = (currentPage - 1) * size;

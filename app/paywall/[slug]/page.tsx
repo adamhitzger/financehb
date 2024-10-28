@@ -7,7 +7,7 @@ import { PortableText } from 'next-sanity';
 import React from 'react'
 import Link from 'next/link';
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }>}) {
     const article = await sanityFetch<Article>({ query: ARTICLE_QUERY, params: params });
     console.log(article)
     return (

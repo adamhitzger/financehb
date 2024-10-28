@@ -16,7 +16,7 @@ export const client = createClient({
 export async function sanityFetch<QueryResponse>({
   query,
   params = {},
-  perspective = draftMode().isEnabled ? "previewDrafts" : "published",
+  perspective = "published",
   stega = perspective === "previewDrafts" ||
     process.env.VERCEL_ENV === "preview",
 }: {

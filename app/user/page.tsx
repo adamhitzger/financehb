@@ -18,11 +18,12 @@ import {
 } from "@/components/ui/card";
 import { createSupabaseClient } from '@/auth/server';
 import SubInfoForm from '@/components/subInfoForm';
-export default async function UserPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function UserPage(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
     const client = await createSupabaseClient();
     const user = await getUser();
-    const changeDetails = await searchParams?.details;
-    const changePass = await searchParams?.pass
+    const searchParams = await props.searchParams
+    const changeDetails =  searchParams?.details;
+    const changePass =  searchParams?.pass
     const { data, error } = await client.from("subscriptions").select("status").eq("user_id", user?.id).single();
     console.log(data)
     if(error) console.log(error.message)

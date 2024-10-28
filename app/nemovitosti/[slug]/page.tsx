@@ -4,7 +4,7 @@ import { REALITY_QUERY } from "@/sanity/lib/queries"
 import { Reality } from "@/types"
 import { notFound } from "next/navigation";
 
-export default async function Nevomitosti({ params }: { params: { slug: string } }){
+export default async function Nevomitosti({ params }: { params: Promise<{ slug: string }> }){
     const reality = await sanityFetch<Reality>({query: REALITY_QUERY, params: params});
     console.log(reality);
     if (!reality) {

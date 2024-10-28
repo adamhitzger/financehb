@@ -8,14 +8,15 @@ import { Articles, Subscriptions } from '@/types';
 import { MoveUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { createSupabaseClient, getUser } from '@/auth/server';
-export default async function ArticlesPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function ArticlesPage(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
     const client = await createSupabaseClient();
     const userPromise = await getUser();
     const { data, error } = await client.from("subscriptions").select("status").eq("user_id", userPromise?.id).single();
     console.log(data)
     if(error) console.log(error.message)
     const PAGE_SIZE = 3;
-    const currentPage = parseInt((await searchParams).page || '1');
+const searchParams = await props.searchParams
+    const currentPage = parseInt(searchParams.page || '1');
     const size = currentPage > 1 ? PAGE_SIZE + 1 : PAGE_SIZE;
     const start = (currentPage - 1) * size;
     const end = start + PAGE_SIZE
