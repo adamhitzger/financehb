@@ -13,24 +13,20 @@ export function getAuth() {
   return auth;
 }
 
-export function useGetUser() {
+export  function useGetUser() {
   const [user, setUser] = useState<User | null>(null);
-
-  const auth = getAuth();
-
+  const auth = getAuth()
+  
   auth.onAuthStateChange(async (event, session) => {
-    const sessionUser = session?.user;
-    const shouldUpdate = sessionUser?.updated_at !== user?.updated_at;
-    if (shouldUpdate) {
-      if (sessionUser) {
-        const user = await fetch("/api/get-user").then((res) =>
-          res.json()
-        );
-        setUser(user);
-      } else {
+    if(event === "SIGNED_IN" || event === "USER_UPDATED"){
+      const user = await fetch("/api/get-user").then((res) =>
+        res.json()
+      );
+      setUser(user);
+    }else if (event === "SIGNED_OUT"){
         setUser(null);
       }
-    }
   });
+
   return user;
 }

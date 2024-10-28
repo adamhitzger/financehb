@@ -7,6 +7,7 @@ export type DBUser = {
   name: string;
   surname: string;
   stripeId: string;
+  raynet_id: number;
 };
 
 export type DBSubscriptions = {
@@ -87,7 +88,7 @@ export interface UrlQueryParams {
     slug: {
         current: string;
     };
-    overview: string;
+    overview: any;
     street: string;
     street_number: string;
     city: string;
@@ -103,5 +104,5 @@ export interface Socialfeed {
     name: string;
     href: string;
     img: string;
-    overview: string
+    overview: any
 };

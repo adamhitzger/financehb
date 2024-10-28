@@ -23,7 +23,7 @@ export default function Contact() {
         tel: "",
         company: "",
         msg: "",
-        rights: true,
+        rights: true ,
     });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -32,11 +32,12 @@ export default function Contact() {
 
     const handleChangeCheckbox = () => {
         setForm({ ...form, rights: !form.rights });
+        console.log(form.rights)
     }
     const handleSendEmail = (formData: FormData) => {
         startTransition(async () => {
             await sendEmail(formData, "Kontakt");
-            toast.success("Email, byl odeslán, zkontrolujte spam");
+            toast.success("Vaše zpráva byla odeslána, co nejdříve se Vám ozvu:");
             setForm({
                 name: "",
                 email: "",
@@ -48,8 +49,8 @@ export default function Contact() {
         })
     }
     return (
-        <div className="flex flex-col lg:flex-row h-fit">
-            <form className="bg-primary p-4 lg:w-1/2 rounded-lg shadow-lg px-5 w-full grid grid-rows-6 grid-cols-1 lg:grid-cols-2 lg:grid-rows-4 gap-x-3 " action={handleSendEmail}>
+        <div className="flex flex-col gap-4 lg:flex-row">
+            <form className="bg-primary p-4 lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 rounded-lg shadow-lg px-5 w-full gap-3 " action={handleSendEmail}>
                 <div className='flex flex-col w-full space-y-2'>
                     <Label>Celé jméno</Label>
                     <Input name="name" type="text" placeholder="Zadejte celé jméno" value={form.name} onChange={handleChange} required disabled={isPending} />
@@ -66,22 +67,25 @@ export default function Contact() {
                     <Label>Firma</Label>
                     <Input name="company" type="text" placeholder="Zadejte Vaši firmu" value={form.company} onChange={handleChange} disabled={isPending} />
                 </div>
-                <div className='flex flex-col space-y-2 col-span-1 lg:col-span-2 w-full'>
-                    <Label>Celé jméno</Label>
+                <div className='flex flex-col space-y-2 lg:col-span-2 w-full'>
+                    <Label>Zpráva</Label>
                     <Textarea name='msg' placeholder="Zadejte Vaši zprávu" value={form.msg} onChange={handleChange} required disabled={isPending} />
                 </div>
-                <div className='flex flex-col col-span-1 lg:col-span-2 h-fit w-full space-y-6 py-5'>
-                    <div className='flex flex-row space-x-3'>
-                        <Checkbox id="terms" name='rights' checked={form.rights} onChange={handleChangeCheckbox} disabled={isPending} />
+                <div className='flex flex-col justify-center lg:col-span-2 w-full space-y-6 py-5'>
+                    <div className='flex flex-row  space-x-3'>
+                        <Checkbox id="rights" name='rights' checked={form.rights} onChange={handleChangeCheckbox} disabled={isPending} />
                         <label
-                            htmlFor="terms"
-                            className="text-lg font-light leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            htmlFor="rights"
+                            className="text-lg font-light leading-none"
                         >
                             Souhlasím s Podmínkami a Zásadami ochrany osobních údajů
                         </label>
                     </div>
-                    <Button type="submit" variant={"default"} size={'lg'} className='mx-auto font-light '>{isPending ? <Loader2 className='animate-spin' /> : <>Odeslat < MoveUpRight /></>}</Button>
+                    
                 </div>
+                <div className='sm:place-self-center sm:col-span-2'>
+                    <Button type="submit" variant={"default"} size={'lg'} className='mx-auto font-light '>{isPending ? <Loader2 className='animate-spin' /> : <>Odeslat < MoveUpRight /></>}</Button>
+                    </div>
             </form>
             <div className='lg:w-1/2 w-full rounded-lg shadow-lg h-96 lg:h-auto' id='map'>
                 <Map

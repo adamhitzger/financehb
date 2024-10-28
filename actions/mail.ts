@@ -2,8 +2,7 @@
 import {createTransport } from "nodemailer"
 export async function sendNewsletter(formData: FormData){
   let jmeno: string = "";
-  
-      let email: string = "";
+  let email: string = "";
       jmeno = formData.get("name") as string;
           email = formData.get("email") as string;
   const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
@@ -21,6 +20,11 @@ export async function sendNewsletter(formData: FormData){
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
         tags: ["Měsíční report zdarma 1m"],
+        primaryAddress: {
+        contactInfo: {
+          email: email,
+        }
+      },
     }),
   
 });
@@ -72,7 +76,7 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
       try{
         await  transporter.sendMail(mailOptions);  
         const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
-
+if(type === "Ebook"){
     await fetch(raynetAPIUrl, {
       method: "PUT",
       headers: {
@@ -81,7 +85,7 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
         "X-Instance-Name": "financehb",
       },
       body: JSON.stringify({
-        name: type === "Ebook" ? jmeno + " " + prijmeni : jmeno,
+        name: jmeno + " " + prijmeni,
         lastName: prijmeni,
         firstName: jmeno,
         rating: "A",
@@ -93,8 +97,9 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
           email: email,
         }
       }
-      }),
+      })
     });
+  }
       }catch(error){
         console.log(error);
       }

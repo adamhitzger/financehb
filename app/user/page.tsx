@@ -17,27 +17,16 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { createSupabaseClient } from '@/auth/server';
+import SubInfoForm from '@/components/subInfoForm';
 export default async function UserPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
-    const client = createSupabaseClient();
+    const client = await createSupabaseClient();
     const user = await getUser();
-    const changeDetails = searchParams?.details;
-    const changePass = searchParams?.pass
+    const changeDetails = await searchParams?.details;
+    const changePass = await searchParams?.pass
     const { data, error } = await client.from("subscriptions").select("status").eq("user_id", user?.id).single();
     console.log(data)
     if(error) console.log(error.message)
-    async function createCustomerPortal(stripeId: FormData) {
-        "use server";
-        
-        const session = await stripe.billingPortal.sessions.create({
-            customer: String(stripeId.get("stripeId")) ,
-            return_url:
-                process.env.NODE_ENV === "production"
-                    ? "https://financehb.vercel.app/user"
-                    : "http://localhost:3000/user",
-        });
-
-        return redirect(session.url);
-    }
+    
 
     return (
         <main className="flex min-h-screen flex-col items-center py-8 justify-between space-y-4">
@@ -75,10 +64,7 @@ export default async function UserPage({ searchParams }: { searchParams: { [key:
                             
                         </CardHeader>
                         <CardContent>
-                            <form action={createCustomerPortal}>
-                                <input type="hidden" name="stripeId" value={user.stripeId}/>
-                                <Button variant={"destructive"} size={"lg"}>Přestat odebírat <MoveUpRight /></Button>
-                            </form>
+                           <SubInfoForm stripeId={user.stripeId}/>
 
                         </CardContent>
                     </Card>

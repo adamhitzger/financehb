@@ -32,9 +32,9 @@ export function UpdatePass() {
 
     return (
 
-        <div className="p-8 border w-96 shadow-lg rounded-md bg-white">
+        <div className="p-4 border w-96 shadow-lg rounded-md bg-white">
             <div className="text-center space-y-2">
-                <h3 className="text-3xl font-bold text-gray-900 ">Uložit nové heslo</h3>
+                <h3 className="text-2xl font-bold text-gray-900 ">Uložit nové heslo</h3>
                 <form className="space-y-4" action={handleUpdate}>
                     <Input name="email" placeholder="Zadejte email" type="text" required disabled={isPending} onChange={handleChange} defaultValue={form.email} />
                     <Input name="password" type="password" placeholder="Zadejte heslo" required disabled={isPending} onChange={handleChange} defaultValue={form.password} />

@@ -3,6 +3,20 @@
 import { createSupabaseClient, getUser, protectedRoute } from "../auth/server";
 import { getErrorMessage, stripe } from "../lib/utils";
 import { redirect } from "next/navigation";
+
+export async function createCustomerPortal(stripeId: FormData) {
+
+  
+  const session = await stripe.billingPortal.sessions.create({
+      customer: String(stripeId.get("stripeId")) ,
+      return_url:
+          process.env.NODE_ENV === "production"
+              ? "https://financehb.vercel.app/user"
+              : "http://localhost:3000/user",
+  });
+
+  return redirect(session.url);
+}
 export async function signUp(formData: FormData){
   
     try {
@@ -11,7 +25,7 @@ export async function signUp(formData: FormData){
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
     
-        const { auth } = createSupabaseClient();
+        const { auth } = await createSupabaseClient();
     
         const { error } = await auth.signUp({
           email,
@@ -36,7 +50,7 @@ export async function logIn(formData: FormData) {
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
     
-        const { auth } = createSupabaseClient();
+        const { auth } = await createSupabaseClient();
     
         const { error } = await auth.signInWithPassword({
           email,
@@ -56,7 +70,7 @@ export async function updateUser(formData: FormData) {
       const name = formData.get("name") as string;
       const surname = formData.get("surname") as string;
       const email = formData.get("email") as string;
-      const {auth} = createSupabaseClient();
+      const {auth} = await createSupabaseClient();
   
       const { data,error } = await auth.updateUser({
         email: email,
@@ -79,7 +93,7 @@ export async function updatePassword(formData: FormData) {
       await protectedRoute();
     
       const password = formData.get("password") as string;
-      const {auth} = createSupabaseClient();
+      const {auth} = await createSupabaseClient();
       
       
   
@@ -101,7 +115,7 @@ export const signOutAction = async () => {
     try {
       await protectedRoute();
   
-      const { auth } = createSupabaseClient();
+      const { auth } = await createSupabaseClient();
   
       const { error } = await auth.signOut();
   
@@ -121,7 +135,7 @@ export async function forgotPassword(formData: FormData) {
   try {
     
       const email = formData.get("email") as string;
-      const {auth} = createSupabaseClient();
+      const {auth} = await createSupabaseClient();
       
       
   
@@ -142,7 +156,7 @@ export async function updateForgotUser(formData: FormData) {
     await protectedRoute();
       const email = formData.get("email") as string;
       const password = formData.get("password") as string;
-      const {auth} = createSupabaseClient();
+      const {auth} = await createSupabaseClient();
   
       const { data,error } = await auth.updateUser({
         email,
@@ -159,7 +173,7 @@ export async function updateForgotUser(formData: FormData) {
 export async function deleteAction(userId: string) {
   try{
     await protectedRoute();
-    const { auth } = createSupabaseClient("deleteAccount");
+    const { auth } = await createSupabaseClient("deleteAccount");
     const signOut = await auth.signOut();
     if(signOut.error) throw signOut.error;
 
@@ -177,7 +191,7 @@ export async function createPayment(formData: FormData){
   if (!stripeId) {
     throw new Error("Stripe ID is missing.");
   }
-  const client = createSupabaseClient();
+  const client = await createSupabaseClient();
   let customerStripeId;
   if(user?.id){
     const {data, error} = await client.from("profiles").select("stripeId").eq("id", user.id).single();

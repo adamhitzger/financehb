@@ -4,8 +4,8 @@ import { reviewType } from './schemas/review'
 import { subsType } from './schemas/subs'
 import { articleType } from './schemas/articles'
 import { realityType } from './schemas/reality'
-import { soiclaFeedType } from './schemas/socialfeed'
+import { socialFeedType } from './schemas/socialfeed'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [ebookType, reviewType, subsType, articleType, realityType, soiclaFeedType],
+  types: [ebookType, reviewType, subsType, articleType, realityType, socialFeedType],
 }

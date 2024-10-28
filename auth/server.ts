@@ -2,8 +2,8 @@ import { DBUser } from '@/types'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-export function createSupabaseClient(deleteAccount: "" | "deleteAccount" = "") {
-  const cookieStore = cookies()
+export async function createSupabaseClient(deleteAccount: "" | "deleteAccount" = "") {
+  const cookieStore = await cookies()
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -20,21 +20,23 @@ export function createSupabaseClient(deleteAccount: "" | "deleteAccount" = "") {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
             )
-          } catch (error) {}
+          } catch {
+          
+          }
         },
       },
     }
   )
 }
 
-export function getAuth() {
-  const { auth } = createSupabaseClient();
+export async function getAuth() {
+  const { auth } = await createSupabaseClient();
   return auth;
 }
 
 export async function getUser() {
-    const {auth} = createSupabaseClient();
-    const supabase = createSupabaseClient();
+    const {auth} = await createSupabaseClient();
+    const supabase = await createSupabaseClient();
     const authUser = (await auth.getUser()).data.user;
     const dbUser = await supabase.from("profiles").select().eq("id", authUser?.id).single();
     if (!dbUser) return null; 
@@ -45,6 +47,7 @@ export async function getUser() {
       name: dbUser.data?.first_name,
       surname: dbUser.data?.last_name,
       stripeId: dbUser.data?.stripeId,
+      raynet_id: dbUser.data?.raynet_id
     }
 
     return user

@@ -5,8 +5,9 @@ import { headers } from "next/headers";
 
 export async function POST(req: Request){
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
-    const client = createSupabaseClient("deleteAccount");
-    const signature = headers().get("Stripe-Signature") as string;
+    const client = await createSupabaseClient("deleteAccount");
+    const headersList = await headers()
+    const signature = headersList.get("Stripe-Signature") as string;
     const body = await req.text();
     let event: Stripe.Event;
 
@@ -30,12 +31,10 @@ export async function POST(req: Request){
                 session.subscription as string
             );
             const stripeId = session.customer as string
-            const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
-            if(user.error) console.log(user.error);
-            if(user.data) console.log(user.data);
-            
+            const auth = await getUser()
+            if(auth?.id && auth?.email && auth?.name && auth?.surname && auth?.stripeId && auth?.stripeId === stripeId ){
             const {data, error} = await client.from("subscriptions").insert({
-                user_id: user.data.id as string,
+                user_id: auth.id as string,
                 stripe_subscriptions_id: subscription.id as string,
                 periodStart: subscription.current_period_start,
                 periodEnd: subscription.current_period_end,
@@ -45,7 +44,7 @@ export async function POST(req: Request){
             })
             if(error) console.log(error.message);
             if(data) console.log(data);
-            await fetch(raynetAPIUrl, {
+            const raynetId = await fetch(raynetAPIUrl, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,15 +52,31 @@ export async function POST(req: Request){
                     "X-Instance-Name": "financehb",
                 },
                 body: JSON.stringify({
-                    name: user.data.first_name + " " + user.data.last_name,
+                    name: auth.name + " " + auth.surname,
                     rating: "A",
                     state: "A_POTENTIAL",
                     role: "A_SUBSCRIBER",
                     tags: ["Měsíční report"],
+                    primaryAddress: {
+                        contactInfo: {
+                          email: auth.email,
+                        }
+                    }
                 }),
               
             });
-            
+            if(raynetId.ok){
+                const r_id = await raynetId.json();
+            if (r_id.success) {
+                const raynet = await client.from("profiles").insert({raynet_id: r_id.data.id}).eq("id", auth.id);
+                if(raynet.error) console.log(raynet.error);
+            } else {
+                throw new Error("Creation was not successful");
+            }
+        } else {
+            throw new Error(`Request failed with status: ${raynetId.status}`);
+        }
+        }
         } catch (err) {
             console.error('Unexpected error:', err);
             return new Response('Unexpected error', { status: 500 });

@@ -10,6 +10,7 @@ import { useGetUser } from '@/auth/client'
 
 export default function Navbar() {
     const user = useGetUser();
+    console.log(user)
     return (
         <nav className='w-full p-7 flex text-primary items-center justify-between flex-row bg-secondary border-b-secondary-foreground border-b'>
             <Link href={"/"}>

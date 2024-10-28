@@ -36,7 +36,7 @@ export default function Footer() {
                         <span className='text-lg border-b-2 border-b-secondary-foreground font-medium'>Adresa:</span>
                         <span>Financehb.cz s.r.o, Dolní 132,</span>
                         <span>580 02, Havlíčkův Brod</span>
-                        <Link target={"_blank"} href={"/#map"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground flex flex-row '>Ukázat na mapě <ArrowRight className='ml-5' /></Link>
+                        <Link href={"/#map"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground flex flex-row '>Ukázat na mapě <ArrowRight className='ml-5' /></Link>
                     </div>
                     <div className='text-base flex flex-col space-y-1'>
                         <span className='text-lg border-b-2 border-b-secondary-foreground font-medium'>Brno:</span> Vinařská 460/3, Brno
@@ -58,11 +58,11 @@ export default function Footer() {
                     </div>
                     <div className='text-base flex flex-col space-y-1'>
                         <span className='text-lg border-b-2 border-b-secondary-foreground font-medium'>Kontakt</span>
-                        <Link target={"_blank"} href={""} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 777 820 080</Link>
+                        <Link href={"tel:+420777820080"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 777 820 080</Link>
                         <span className='border-b-2 border-b-secondary-foreground font-medium'>Investiční služby:</span>
-                        <Link target={"_blank"} href={""} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 222 161 188</Link>
-                        <Link target={"_blank"} href={"mailto:petr@efekta-iz.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>petr@efekta-iz.cz</Link>
-                        <Link target={"_blank"} href={"mailto:info@financehb.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>info@financehb.cz</Link>
+                        <Link href={"tel:+420222161188"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 222 161 188</Link>
+                        <Link href={"mailto:petr@efekta-iz.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>petr@efekta-iz.cz</Link>
+                        <Link href={"mailto:info@financehb.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>info@financehb.cz</Link>
                     </div>
                     
                     <div className='text-base flex flex-col  space-y-1'>
@@ -74,13 +74,14 @@ export default function Footer() {
                         
                     </div>
                 </div>
-                <div className='w-full flex flex-col md:flex-row justify-center gap-4'>
-                    <div className='w-full md:w-1/4 relative h-28'>
-                        <Image src={"/images/efekta.jpg"} alt='efekta' fill={true} className='object-fill bg-cover ' />
-                    </div>
-                    <div className='w-full md:w-1/4 relative h-28'>
-                        <Image src={"/images/fund.jpg"} alt='czech-fund' fill={true} className='object-fill bg-cover ' />
-                    </div>
+                <div className='w-full flex flex-col items-center md:flex-row justify-center gap-4'>
+                    
+                        <Image src={"/images/efekta.jpg"} alt='efekta' 
+                        width={300} height={300} className='object-fill bg-cover ' />
+                   
+                        <Image src={"/images/fund.jpg"} alt='czech-fund' 
+                        width={300} height={300} className='object-fill bg-cover ' />
+                    
                 </div>
                 <div className='w-fit flex space-x-4 mx-auto'>
                     {icons.map((i, id) => (
@@ -89,8 +90,8 @@ export default function Footer() {
                 </div>
                 <p className='text-center'>Finanční služby propagované a nabízené na tomto webu poskytuje společnost Financehb.cz s.r.o a zde uvedení poradci jako fyzické osoby: Petr Krajcigr, kteří jsou v oblasti… <Link target={"_blank"} href={"/podminky"} className='underline'> číst více</Link></p>
             </footer>
-            <div className='p-8 bg-secondary font-medium text-primary text-lg text-center w-full'>
-                <span>&copy; {year} Developed by <Link href="https://www.linkedin.com/in/adam-hitzger-aa518622b/?originalSubdomain=cz" className="underline underline-offset-2">Adam Hitzger</Link></span>
+            <div className='p-4 bg-secondary font-light text-primary text-base text-center w-full'>
+                <span>&copy; {year} Developed by <Link target={'_blank'} href="https://www.linkedin.com/in/adam-hitzger-aa518622b/?originalSubdomain=cz" className="underline underline-offset-2">Adam Hitzger</Link></span>
             </div>
         </>
     )

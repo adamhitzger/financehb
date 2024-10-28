@@ -3,6 +3,7 @@ import { getUser } from "@/auth/server";
 export async function GET(req: Request){
     try {
         const user = await getUser();
+        console.log(user)
         if (!user) {
             return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
         }

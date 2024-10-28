@@ -28,9 +28,9 @@ export default function PoradenstviPage(){
         <section
         key={i}
             className={`bg-${s.bg} p-8 lg:p-16  text-${s.color}`}>
-            <div className={`flex flex-wrap lg:flex-nowrap lg:${s.flex} w-full border-secondary-foreground border p-3`}>
-            <div className="w-full lg:w-1/2 flex flex-col min-h-screen px-5  font-light">
-                <div className="flex flex-col w-full space-y-8 m-auto lg:px-10">
+            <div className={`flex flex-wrap sm:flex-nowrap sm:${s.flex} w-full border-secondary-foreground border p-3`}>
+            <div className="w-full sm:w-1/2 flex flex-col  px-5 justify-center font-light">
+                <div className="border flex flex-col w-full space-y-8 ">
                     
                         <h2 className={`text-3xl lg:text-5xl  text-left font-ibarra`}>
                             {s.header}
@@ -42,7 +42,7 @@ export default function PoradenstviPage(){
                     
                 </div>
             </div>
-            <div className={`w-full py-10 lg:py-0 lg:w-1/2 flex justify-center items-center`}>
+            <div className={`w-full sm:w-1/2 flex md:justify-center border items-center`}>
                 <Image src={s.image} alt="Sjednejte si pojištění" width={1024} height={1024} className="object-fill bg-cover " />
             </div>
             </div>

@@ -32,8 +32,8 @@ export default function LogInForm() {
         })
     }
     return (
-        <form className="w-full lg:w-1/2 flex flex-col space-y-7 bg-secondary p-10 rounded-2xl" action={handleLogIn}>
-            <div> <h2 className="  font-bold tracking-wide  text-5xl text-primary my-5 text-underline">Přihlaste se</h2></div>
+        <form className="w-full lg:w-1/2 flex flex-col p-3 space-y-7 bg-secondary rounded-2xl" action={handleLogIn}>
+            <div> <h2 className="  font-bold tracking-wide text-3xl font-ibarra lg:text-5xl text-primary my-2 text-underline">Přihlaste se</h2></div>
             <div className="flex flex-col w-full space-y-4">
                 <Input name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required disabled={isPending} />
                 <Input name="password" type="password" placeholder="Zadejte heslo" value={form.password} onChange={handleChange} required disabled={isPending} />

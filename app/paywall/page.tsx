@@ -9,13 +9,13 @@ import { MoveUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { createSupabaseClient, getUser } from '@/auth/server';
 export default async function ArticlesPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
-    const client = createSupabaseClient();
+    const client = await createSupabaseClient();
     const userPromise = await getUser();
     const { data, error } = await client.from("subscriptions").select("status").eq("user_id", userPromise?.id).single();
     console.log(data)
     if(error) console.log(error.message)
     const PAGE_SIZE = 3;
-    const currentPage = parseInt(searchParams.page || '1');
+    const currentPage = parseInt((await searchParams).page || '1');
     const size = currentPage > 1 ? PAGE_SIZE + 1 : PAGE_SIZE;
     const start = (currentPage - 1) * size;
     const end = start + PAGE_SIZE
@@ -53,11 +53,11 @@ export default async function ArticlesPage({ searchParams }: { searchParams: { [
                         </div>
                     ))}
                 </div>
-            </section>: null}
-            <section className='w-full flex flex-col p-8 space-y-8'>
+            </section>: <section className='w-full flex flex-col p-8 space-y-8'>
                 <ArticlesComp articles={articles}  />
                 <PaginationComp currentPage={currentPage} totalPages={totalPages} />
-            </section>
+            </section>}
+            
 
         </main>
     )
