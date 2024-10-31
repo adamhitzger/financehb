@@ -41,14 +41,14 @@ export default function About() {
                     
                     <div className={`text-right text-base md:text-lg`}>
                         <p>Zabývám se finančním poradenstvím, investicím a správě portfolií. Pomáhám lidem spravovat portfolia více jak 28 let.  Na mé stránce najdete <Link target="_blank" href={"/clanky"} className="underline text-secondary-foreground">články</Link> a makroekonomické analýzy, nové investiční příležistosti jako je <Link target="_blank" href={"/clanky/vse-co-potrebujete-vedet-o-dipu"} className="underline text-secondary-foreground">DIP</Link>.  
-                        Přihlaste se k odběru <Link href={"/#newsletter"} className="underline text-secondary-foreground">newslettru</Link> at Vám nic neuteče! Pro více informací si zakupte <Link target="_blank" href={"/paywall"} className="underline text-secondary-foreground">předplatné.</Link>  Nezapomňte si stáhnout <Link target="_blank" href={"/e-book"} className="underline text-secondary-foreground">e-book.</Link>  </p>
+                        Přihlaste se k odběru <Link target="_blank" href={"/#newsletter"} className="underline text-secondary-foreground">newslettru</Link> at Vám nic neuteče! Pro více informací si zakupte <Link target="_blank" href={"/paywall"} className="underline text-secondary-foreground">předplatné.</Link>  Nezapomňte si stáhnout <Link target="_blank" href={"/e-book"} className="underline text-secondary-foreground">e-book.</Link>  </p>
 
                     </div>
-                    <Link href={"/#calendly"}>
+                    <Link href={"/sluzby"} target="_blank">
                                 <Button 
                                 className="no-underline mx-auto font-light" variant={"default"}
                                 >
-                                    Vyberte si termín z &nbsp;<span className="text-secondary font-normal underline">kalendáře</span>&nbsp;<MoveUpRight className="text-secondary"/>
+                                    Sjednejte si se mnou &nbsp;<span className="text-secondary font-normal underline">schůzku</span>&nbsp;<MoveUpRight className="text-secondary"/>
                                 </Button>
                             </Link>
                             <div className="w-full grid justify-enter grid-cols-2 sm:hidden lg:grid lg:grid-cols-4 gap-4 p-3">

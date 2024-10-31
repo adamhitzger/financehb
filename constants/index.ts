@@ -7,7 +7,7 @@ export const navLinks: Links[] = [
     },
     {
         name: "Služby",
-        route: "/#sluzby",
+        route: "/sluzby",
     },
     {
         name: "Články",

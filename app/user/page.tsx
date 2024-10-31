@@ -3,12 +3,9 @@ import { getUser } from '@/auth/server';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { MoveUpRight } from 'lucide-react';
 import { ChangeDetails } from '@/components/modals/changeDetails';
 import { Delete, SignOut } from '@/components/userbuttons';
 import { ChangePass } from '@/components/modals/changePass';
-import { stripe } from '@/lib/utils';
-import { redirect } from 'next/navigation';
 import {
     Card,
     CardContent,

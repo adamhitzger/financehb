@@ -25,7 +25,7 @@ export default function Header() {
                         
                             <Link href={"/#contact"} target="_blank">
                                 <Button size={"lg"}
-                                className="no-underline font-light bg-secondary-foreground  text-base"
+                                className="no-underline font-light bg-secondary-foreground w-1/2 sm:w-full lg:w-1/2 mx-auto  text-base"
                                 >
                                     Domluvte si &nbsp;<span className="text-secondary font-normal underline">schůzku</span>&nbsp;<MoveUpRight className="text-secondary"/>
                                 </Button>
