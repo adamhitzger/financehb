@@ -1,12 +1,9 @@
 import {ArticlesComp} from '@/components/articles';
 import PaginationComp from '@/components/pagination';
 import PaymentButton from '@/components/paymentButton';
-import { Button } from '@/components/ui/button';
 import { sanityFetch } from '@/sanity/lib/client';
 import { ALL_ARTICLES_QUERY, COUNT_ALL_ARTICLES, SUBSCRIPTIONS_QUERY } from '@/sanity/lib/queries';
 import { Articles, Subscriptions } from '@/types';
-import { MoveUpRight } from 'lucide-react';
-import Link from 'next/link';
 import { createSupabaseClient, getUser } from '@/auth/server';
 export default async function ArticlesPage(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
     const client = await createSupabaseClient();
