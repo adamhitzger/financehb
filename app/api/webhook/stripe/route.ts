@@ -120,7 +120,7 @@ export async function POST(req: Request){
                 if(user.error) console.log(user.error);
                 if(user.data) console.log(user.data);
                 
-                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscription_id", session.id)
+                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", session.id)
                 if(error) console.log(error.message);
                 if(data) console.log(data);
             } catch (err) {
