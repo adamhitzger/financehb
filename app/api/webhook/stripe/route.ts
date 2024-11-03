@@ -85,7 +85,7 @@ if(!raynet.ok){
             if(insert_r_id.data) console.log(insert_r_id.data);
 */
             }
-            if(auth && auth?.stripeId === stripeId ){
+            if(auth?.id ){
             const {data, error} = await client.from("subscriptions").insert({
                 user_id: auth.id as string,
                 stripe_subscriptions_id: subscription.id as string,
