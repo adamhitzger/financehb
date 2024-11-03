@@ -22,25 +22,24 @@ export async function POST(req: Request){
         return new Response("Webhook error", { status: 400 });
     }
 
-    const session = event.data.object as Stripe.Checkout.Session;
 
     switch(event.type){
         case "checkout.session.completed":
             try{
-            const subscription = await stripe.subscriptions.retrieve(
-                session.subscription as string
+            const session = await stripe.subscriptions.retrieve(
+                (event.data.object as Stripe.Checkout.Session).id
             );
             const stripeId = session.customer as string
-            const auth = await getUser()
+            const auth = await getUser();
             if(auth?.id && auth?.email && auth?.name && auth?.surname && auth?.stripeId && auth?.stripeId === stripeId ){
             const {data, error} = await client.from("subscriptions").insert({
                 user_id: auth.id as string,
-                stripe_subscriptions_id: subscription.id as string,
-                periodStart: subscription.current_period_start,
-                periodEnd: subscription.current_period_end,
-                status: "Aktivní",
-                plan_id: subscription.items.data[0].plan.id as string,
-                interval: String(subscription.items.data[0].plan.interval),
+                stripe_subscriptions_id: session.id as string,
+                periodStart: session.current_period_start,
+                periodEnd: session.current_period_end,
+                status: session.status,
+                plan_id: session.items.data[0].plan.id as string,
+                interval: String(session.items.data[0].plan.interval),
             })
             if(error) console.log(error.message);
             if(data) console.log(data);
@@ -65,11 +64,14 @@ export async function POST(req: Request){
                 }),
               
             });
+            
             if(raynetId.ok){
-                const r_id = await raynetId.json();
-            if (r_id.success) {
-                const raynet = await client.from("profiles").insert({raynet_id: r_id.data.id}).eq("id", auth.id);
+                const {id} = await raynetId.json();
+                console.log(id);
+            if (id.success) {
+                const raynet = await client.from("profiles").insert({raynet_id: id}).eq("id", auth.id);
                 if(raynet.error) console.log(raynet.error);
+                if(raynet.data) console.log(raynet.data)
             } else {
                 throw new Error("Creation was not successful");
             }
@@ -84,8 +86,8 @@ export async function POST(req: Request){
             break;
         case "customer.subscription.updated":
             try{
-                const subscription = await stripe.subscriptions.retrieve(
-                    session.subscription as string
+                const session = await stripe.subscriptions.retrieve(
+                    (event.data.object as Stripe.Subscription).id
                 );
                 const stripeId = session.customer as string
                 const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
@@ -93,12 +95,12 @@ export async function POST(req: Request){
                 if(user.data) console.log(user.data);
                 
                 const {data, error} = await client.from("subscriptions").update({
-                    stripe_subscriptions_id: subscription.id as string,
-                    periodStart: subscription.current_period_start,
-                    periodEnd: subscription.current_period_end,
-                    status: "Aktivní",
-                    plan_id: subscription.items.data[0].plan.id as string,
-                    interval: String(subscription.items.data[0].plan.interval),
+                    stripe_subscriptions_id: session.id as string,
+                    periodStart: session.current_period_start,
+                    periodEnd: session.current_period_end,
+                    status: session.status,
+                    plan_id: session.items.data[0].plan.id as string,
+                    interval: String(session.items.data[0].plan.interval),
                 }).eq("user_id", user.data.id)
                 if(error) console.log(error.message);
                 if(data) console.log(data);
@@ -109,15 +111,15 @@ export async function POST(req: Request){
                 break;
             case "customer.subscription.deleted":
             try{
-                const subscription = await stripe.subscriptions.retrieve(
-                    session.subscription as string
+                const session = await stripe.subscriptions.retrieve(
+                    (event.data.object as Stripe.Subscription).id
                 );
                 const stripeId = session.customer as string
                 const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
                 if(user.error) console.log(user.error);
                 if(user.data) console.log(user.data);
                 
-                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", subscription.id)
+                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subsciption_id", session.id)
                 if(error) console.log(error.message);
                 if(data) console.log(data);
             } catch (err) {

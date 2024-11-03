@@ -34,9 +34,9 @@ export default async function UserPage(props: { searchParams: Promise<{ [key: st
                 <div className='w-full flex flex-col md:flex-row gap-4'>
                     <div className='bg-primary-foreground rounded-xl w-full flex flex-col p-5 shadow-xl space-y-4'>
                         <h3 className='text-4xl font-bold'>Osobní údaje</h3>
-                        <Input defaultValue={user?.name} />
-                        <Input defaultValue={user?.surname} />
-                        <Input defaultValue={user?.email} />
+                        <Input defaultValue={user?.name} readOnly/>
+                        <Input defaultValue={user?.surname} readOnly/>
+                        <Input defaultValue={user?.email} readOnly/>
                         <div className='grid grid-cols-1 grid-rows-4 gap-5 md:grid-cols-2 mdgrid-rows-2'>
                             <Link href={"/user?details=true"}>
                                 <Button variant={"secondary"} size={"lg"}>Změnit údaje</Button>
