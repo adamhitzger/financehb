@@ -26,16 +26,16 @@ export async function POST(req: Request){
     switch(event.type){
     case "invoice.payment_succeeded":
               try{
-                const session = await stripe.subscriptions.retrieve(
-                    (event.data.object as Stripe.Invoice).id
+                const subscription = await stripe.subscriptions.retrieve(
+                    session.subscription as string
                 );
                 const {data, error} = await client.from("subscriptions").update({
-                    periodStart: session.current_period_start,
-                    periodEnd: session.current_period_end,
-                    status: session.status,
-                    plan_id: session.items.data[0].plan.id as string,
-                    interval: String(session.items.data[0].plan.interval),
-                }).eq("stripe_subscriptions_id", session.id)
+                    periodStart: subscription.current_period_start,
+                    periodEnd: subscription.current_period_end,
+                    status: subscription.status,
+                    plan_id: subscription.items.data[0].plan.id as string,
+                    interval: String(subscription.items.data[0].plan.interval),
+                }).eq("stripe_subscriptions_id", subscription.id)
                 if(error) console.log(error.message);
                 if(data) console.log(data);
               }catch(error){
@@ -49,7 +49,7 @@ export async function POST(req: Request){
             );
             const stripeId = session.customer as string
             const auth = await getUser();
-            if(!auth?.raynet_id){
+           if(!auth?.raynet_id){
                 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
@@ -76,13 +76,14 @@ if(!raynet.ok){
   throw new Error(`Request failed with status: ${raynet.status}`);
 }
   const raynet_id = await raynet.json() as RaynetResponse;
-  console.log(raynet_id)
+  console.log(raynet_id.data.id)
+  /*
             const insert_r_id = await client.from("profiles").insert({
                 raynet_id: raynet_id.data.id
             }).eq("id", auth?.id)
             if(insert_r_id.error) console.error("Error when inserting raynet id: ", insert_r_id.error);
             if(insert_r_id.data) console.log(insert_r_id.data);
-
+*/
             }
             if(auth && auth?.stripeId === stripeId ){
             const {data, error} = await client.from("subscriptions").insert({
