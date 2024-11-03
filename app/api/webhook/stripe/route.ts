@@ -7,7 +7,7 @@ export async function POST(req: Request){
     const body = await req.text();
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
     const client = await createSupabaseClient("deleteAccount");
-    const headerList = await headers()
+    const headerList = await headers();
     const signature = headerList.get("Stripe-Signature") as string;
     
     let event: Stripe.Event;
@@ -25,6 +25,24 @@ export async function POST(req: Request){
 
 
     switch(event.type){
+    case "invoice.payment_succeeded":
+              try{
+                const session = await stripe.subscriptions.retrieve(
+                    (event.data.object as Stripe.Invoice).id
+                );
+                const {data, error} = await client.from("subscriptions").update({
+                    periodStart: session.current_period_start,
+                    periodEnd: session.current_period_end,
+                    status: session.status,
+                    plan_id: session.items.data[0].plan.id as string,
+                    interval: String(session.items.data[0].plan.interval),
+                }).eq("stripe_subscriptions_id", session.id)
+                if(error) console.log(error.message);
+                if(data) console.log(data);
+              }catch(error){
+                console.error("Error - invoice.payment_succeded: ", error);
+              }
+            break;
         case "checkout.session.completed":
             try{
             const session = await stripe.subscriptions.retrieve(
@@ -44,41 +62,9 @@ export async function POST(req: Request){
             })
             if(error) console.log(error.message);
             if(data) console.log(data);
-            const raynetId = await fetch(raynetAPIUrl, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
-                    "X-Instance-Name": "financehb",
-                },
-                body: JSON.stringify({
-                    name: auth.name + " " + auth.surname,
-                    rating: "A",
-                    state: "A_POTENTIAL",
-                    role: "A_SUBSCRIBER",
-                    tags: ["Měsíční report"],
-                    primaryAddress: {
-                        contactInfo: {
-                          email: auth.email,
-                        }
-                    }
-                }),
-              
-            });
             
-            if(raynetId.ok){
-                const {id} = await raynetId.json();
-                console.log(id);
-            if (id.success) {
-                const raynet = await client.from("profiles").insert({raynet_id: id}).eq("id", auth.id);
-                if(raynet.error) console.log(raynet.error);
-                if(raynet.data) console.log(raynet.data)
-            } else {
-                throw new Error("Creation was not successful");
-            }
-        } else {
-            throw new Error(`Request failed with status: ${raynetId.status}`);
-        }
+            
+            
         }
         } catch (err) {
             console.error('Unexpected error:', err);
@@ -90,11 +76,6 @@ export async function POST(req: Request){
                 const session = await stripe.subscriptions.retrieve(
                     (event.data.object as Stripe.Subscription).id
                 );
-                const stripeId = session.customer as string
-                const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
-                if(user.error) console.log(user.error);
-                if(user.data) console.log(user.data);
-                
                 const {data, error} = await client.from("subscriptions").update({
                     stripe_subscriptions_id: session.id as string,
                     periodStart: session.current_period_start,
@@ -102,7 +83,7 @@ export async function POST(req: Request){
                     status: session.status,
                     plan_id: session.items.data[0].plan.id as string,
                     interval: String(session.items.data[0].plan.interval),
-                }).eq("user_id", user.data.id)
+                }).eq("stripe_subscriptions_id", session.id)
                 if(error) console.log(error.message);
                 if(data) console.log(data);
             } catch (err) {
@@ -114,13 +95,10 @@ export async function POST(req: Request){
             try{
                 const session = await stripe.subscriptions.retrieve(
                     (event.data.object as Stripe.Subscription).id
-                );
-                const stripeId = session.customer as string
-                const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
-                if(user.error) console.log(user.error);
-                if(user.data) console.log(user.data);
-                
-                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", session.id)
+                );           
+                const {data, error} = await client.from("subscriptions").update({
+                    status: "canceled"
+                }).eq("stripe_subscriptions_id", session.id);
                 if(error) console.log(error.message);
                 if(data) console.log(data);
             } catch (err) {

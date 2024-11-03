@@ -1,5 +1,6 @@
 "use server";
 
+import { RaynetResponse } from "@/types";
 import { createSupabaseClient, getUser, protectedRoute } from "../auth/server";
 import { getErrorMessage, stripe } from "../lib/utils";
 import { redirect } from "next/navigation";
@@ -24,21 +25,49 @@ export async function signUp(formData: FormData){
         const surname = formData.get("surname") as string;
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
-    
         const { auth } = await createSupabaseClient();
-    
+        const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
+  const raynet = await fetch(raynetAPIUrl, {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
+        "X-Instance-Name": "financehb",
+    },
+    body: JSON.stringify({
+        name: name + " " + surname,
+        rating: "A",
+        state: "A_POTENTIAL",
+        role: "A_SUBSCRIBER",
+        tags: ["Měsíční report"],
+        primaryAddress: {
+        contactInfo: {
+          email: email,
+        }
+      },
+    }),
+  
+});
+if(!raynet.ok){
+  throw new Error(`Request failed with status: ${raynet.status}`);
+}
+  const data = await raynet.json() as RaynetResponse;
+  console.log(data)
+if (data.success === "true" && data.data?.id) {
+  
         const { error } = await auth.signUp({
           email,
           password,
           options: {
             data: {
               first_name: name,
-              last_name: surname
+              last_name: surname,
+              raynet_id: data.data.id
             }
           }
         });
         if (error) throw error;
-        
+      }
         return { errorMessage: null };
       } catch (error) {
         return { errorMessage: getErrorMessage(error) };
@@ -231,11 +260,11 @@ export async function createPayment(formData: FormData){
         name: "auto",
       },
       success_url:process.env.NODE_ENV === "production"
-      ? "https://financehb.vercel.app/payment/success"
+      ? "https://financehb-ifkh.vercel.app/payment/success"
       : "http://localhost:3000/payment/success",
   cancel_url:
     process.env.NODE_ENV === "production"
-      ? "https://financehb.vercel.app/payment/cancelled"
+      ? "https://financehb-ifkh.vercel.app/payment/cancelled"
       : "http://localhost:3000/payment/cancelled",
 });
     console.log("Stripeid:", customerStripeId);

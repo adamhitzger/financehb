@@ -1,5 +1,13 @@
 import { User as SupabaseUser } from "@supabase/supabase-js";
 
+export type RaynetResponse = {
+success: string;
+data: {
+  id: number;
+};
+};
+
+
 type DBStatus = "Aktivní" | "Zrušené" |"Neaktivní";
 export type DBUser = {
   id: string;
