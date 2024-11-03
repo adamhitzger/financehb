@@ -79,7 +79,7 @@ if(!raynet.ok){
   console.log(raynet_id)
             const insert_r_id = await client.from("profiles").insert({
                 raynet_id: raynet_id.data.id
-            }).eq("user_id", auth?.id)
+            }).eq("id", auth?.id)
             if(insert_r_id.error) console.error("Error when inserting raynet id: ", insert_r_id.error);
             if(insert_r_id.data) console.log(insert_r_id.data);
 
