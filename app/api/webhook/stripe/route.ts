@@ -4,18 +4,19 @@ import { stripe } from "@/lib/utils";
 import { headers } from "next/headers";
 
 export async function POST(req: Request){
+    const body = await req.text();
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
     const client = await createSupabaseClient("deleteAccount");
-    const headersList = await headers()
-    const signature = headersList.get("Stripe-Signature") as string;
-    const body = await req.text();
+    const headerList = await headers()
+    const signature = headerList.get("Stripe-Signature") as string;
+    
     let event: Stripe.Event;
 
     try {
         event = stripe.webhooks.constructEvent(
             body,
             signature,
-            process.env.STRIPE_WEBHOOK_SECRET as string
+            process.env.STRIPE_WEBHOOK_SECRET!
         );
     } catch (error: unknown) {
          console.error(`Webhook Error: ${(error as Error).message}`);
