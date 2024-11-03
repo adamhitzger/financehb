@@ -54,7 +54,7 @@ export default async function UserPage(props: { searchParams: Promise<{ [key: st
                         </div>
                     </div>
                 </div>
-                {data?.status === "Aktivní"
+                {data?.status === "active"
                     && user?.stripeId &&
                     <Card className="w-full bg-primary-foreground shadow-lg shadow-secondary-foreground">
                         <CardHeader>
