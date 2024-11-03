@@ -2,16 +2,15 @@ import { createSupabaseClient, getUser } from "@/auth/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/utils";
 import { headers } from "next/headers";
-
+import { RaynetResponse } from "@/types";
 export async function POST(req: Request){
     const body = await req.text();
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
     const client = await createSupabaseClient("deleteAccount");
     const headerList = await headers();
     const signature = headerList.get("Stripe-Signature") as string;
-    
     let event: Stripe.Event;
-
+    
     try {
         event = stripe.webhooks.constructEvent(
             body,
@@ -23,7 +22,7 @@ export async function POST(req: Request){
         return new Response("Webhook error", { status: 400 });
     }
 
-
+    let session = event.data.object as Stripe.Checkout.Session
     switch(event.type){
     case "invoice.payment_succeeded":
               try{
@@ -45,25 +44,58 @@ export async function POST(req: Request){
             break;
         case "checkout.session.completed":
             try{
-            const session = await stripe.subscriptions.retrieve(
-                (event.data.object as Stripe.Checkout.Session).id
+            const subscription = await stripe.subscriptions.retrieve(
+                session.subscription as string
             );
             const stripeId = session.customer as string
             const auth = await getUser();
-            if(auth?.id && auth?.email && auth?.name && auth?.surname && auth?.stripeId && auth?.stripeId === stripeId ){
+            if(!auth?.raynet_id){
+                
+  const raynet = await fetch(raynetAPIUrl, {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
+        "X-Instance-Name": "financehb",
+    },
+    body: JSON.stringify({
+        name: auth?.name + " " + auth?.surname,
+        rating: "A",
+        state: "A_POTENTIAL",
+        role: "A_SUBSCRIBER",
+        tags: ["Měsíční report"],
+        primaryAddress: {
+        contactInfo: {
+          email: auth?.email,
+        }
+      },
+    }),
+  
+});
+if(!raynet.ok){
+  throw new Error(`Request failed with status: ${raynet.status}`);
+}
+  const raynet_id = await raynet.json() as RaynetResponse;
+  console.log(raynet_id)
+            const insert_r_id = await client.from("profiles").insert({
+                raynet_id: raynet_id.data.id
+            }).eq("user_id", auth?.id)
+            if(insert_r_id.error) console.error("Error when inserting raynet id: ", insert_r_id.error);
+            if(insert_r_id.data) console.log(insert_r_id.data);
+
+            }
+            if(auth && auth?.stripeId === stripeId ){
             const {data, error} = await client.from("subscriptions").insert({
                 user_id: auth.id as string,
-                stripe_subscriptions_id: session.id as string,
-                periodStart: session.current_period_start,
-                periodEnd: session.current_period_end,
-                status: session.status,
-                plan_id: session.items.data[0].plan.id as string,
-                interval: String(session.items.data[0].plan.interval),
+                stripe_subscriptions_id: subscription.id as string,
+                periodStart: subscription.current_period_start,
+                periodEnd: subscription.current_period_end,
+                status: subscription.status,
+                plan_id: subscription.items.data[0].plan.id as string,
+                interval: String(subscription.items.data[0].plan.interval),
             })
             if(error) console.log(error.message);
             if(data) console.log(data);
-            
-            
             
         }
         } catch (err) {
