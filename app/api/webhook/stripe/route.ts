@@ -33,7 +33,7 @@ export async function POST(req: Request){
             const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
             if(user.error) console.log(user.error);
             if(user.data) console.log(user.data);
-    /*       if(!auth?.raynet_id){
+         if(!user.data.raynet_id){
                 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
@@ -43,14 +43,14 @@ export async function POST(req: Request){
         "X-Instance-Name": "financehb",
     },
     body: JSON.stringify({
-        name: auth?.name + " " + auth?.surname,
+        name: user.data.name + " " + user.data.surname,
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
         tags: ["Měsíční report"],
         primaryAddress: {
         contactInfo: {
-          email: auth?.email,
+          email: user.data.email,
         }
       },
     }),
@@ -64,11 +64,11 @@ if(!raynet.ok){
   
             const insert_r_id = await client.from("profiles").update({
                 raynet_id: raynet_id.data.id
-            }).eq("id", auth?.id)
+            }).eq("id", user.data.id)
             if(insert_r_id.error) console.error("Error when updating raynet id: ", insert_r_id.error);
             if(insert_r_id.data) console.log(insert_r_id.data);
 
-            }*/
+            }
             
                 const {data, error} = await client.from("subscriptions").insert({
                     user_id: user.data.id as string,
