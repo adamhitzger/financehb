@@ -24,7 +24,7 @@ export default async function UserPage(props: { searchParams: Promise<{ [key: st
     const { data, error } = await client.from("subscriptions").select("status").eq("user_id", user?.id).single();
     console.log(data)
     if(error) console.log(error.message)
-    
+    console.log(user?.raynet_id)
 
     return (
         <main className="flex min-h-screen flex-col items-center py-8 justify-between space-y-4">
@@ -46,7 +46,7 @@ export default async function UserPage(props: { searchParams: Promise<{ [key: st
                             </Link>
                             <SignOut />
                             {user && user?.id &&
-                                <Delete id={user.id} />
+                                <Delete id={user.id} raynet_id={user.raynet_id}/>
                             }
 
                             {changeDetails && <ChangeDetails id={user?.id} name={user?.name} surname={user?.surname} email={user?.email} />}

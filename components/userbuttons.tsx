@@ -27,12 +27,12 @@ export function SignOut() {
     )
 }
 
-export function Delete({ id }: { id: string }) {
+export function Delete({ id, raynet_id }: { id: string, raynet_id:number }) {
     const [isPending, startTransition] = useTransition();
     const router = useRouter()
     const handleClicDeleteButton = async () => {
         startTransition(async () => {
-            const { errorMessage } = await deleteAction(id);
+            const { errorMessage } = await deleteAction(raynet_id,id);
             if (errorMessage) {
                 toast.error(errorMessage);
             } else {

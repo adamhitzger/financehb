@@ -33,7 +33,7 @@ export async function POST(req: Request){
             const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
             if(user.error) console.log(user.error);
             if(user.data) console.log(user.data);
-         if(!user.data.raynet_id){
+         if(user.data.raynet_id === null){
                 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
@@ -130,13 +130,7 @@ if(!raynet.ok){
                 const subscription = await stripe.subscriptions.retrieve(
                     session.subscription as string
                 );
-                const {data, error} = await client.from("subscriptions").update({
-                    periodStart: subscription.current_period_start,
-                    periodEnd: subscription.current_period_end,
-                    status: subscription.status,
-                    plan_id: subscription.items.data[0].plan.id as string,
-                    interval: String(subscription.items.data[0].plan.interval),
-                }).eq("stripe_subscriptions_id", subscription.id);
+                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", subscription.id);
                 if(error) console.log(error.message);
                 if(data) console.log(data);
               }catch(error){
