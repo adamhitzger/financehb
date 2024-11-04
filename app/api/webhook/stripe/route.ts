@@ -33,7 +33,7 @@ export async function POST(req: Request){
             const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
             if(user.error) console.log(user.error);
             if(user.data) console.log(user.data);
-         if(user.data.raynet_id === null){
+         if(user.data.raynet_id === null ){
                 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
@@ -43,7 +43,7 @@ export async function POST(req: Request){
         "X-Instance-Name": "financehb",
     },
     body: JSON.stringify({
-        name: user.data.name + " " + user.data.surname,
+        name: user.data.first_name + " " + user.data.last_name,
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
