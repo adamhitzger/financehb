@@ -10,7 +10,8 @@ export const ebookType = defineType({
         defineField({
             name: "heading",
             title: "Nadpis",
-            type: "string"
+            type: "string",
+            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "text",
@@ -18,17 +19,28 @@ export const ebookType = defineType({
             type: "array",
             of: [
                 {type: "block"},
-            ]
+            ],
+            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "image",
             title: "Úvodní fotka",
-            type: "image"
+            type: "image",
+            fields: [
+                {
+                    
+                                name: "alt",
+                                title: "Alt",
+                                type: "string",
+                              },
+            ],
+            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "ebook",
             title: "E-book soubor",
             type: "file",
+            validation: (rule) => rule.required(),
         })
     ]
 })

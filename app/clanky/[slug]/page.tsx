@@ -6,6 +6,24 @@ import { Article } from '@/types'
 import { PortableText } from 'next-sanity';
 import React from 'react'
 import Link from 'next/link';
+import { Metadata } from 'next';
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const slug = params;
+    const project: Article = await sanityFetch<Article>({ query: ARTICLE_QUERY, params: params });
+  
+    return {
+      title: `${project.name} | Project`,
+      description: project.overview,
+      openGraph: {
+        images: project.picture || "add-a-fallback-project-image-here",
+        title: project.name,
+        authors: "Petr Krajcigr",
+        releaseDate: project.datum,
+        description: project.overview,
+      },
+    };
+  }
+
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
     const article = await sanityFetch<Article>({ query: ARTICLE_QUERY, params: params });
     console.log(article)

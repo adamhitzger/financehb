@@ -11,22 +11,33 @@ export const socialFeedType = defineType({
             name: "name",
             title: "Název článku",
             type: "string",
+            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "href",
             title: "Odkaz",
             type: "url",
+            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "image",
             title: "Hlavní fotka",
-            type: "image"
+            type: "image",
+            fields: [
+                {
+                    
+                                name: "alt",
+                                title: "Alt",
+                                type: "string",
+                              },
+            ],
         }),
         defineField({
             name: "overview",
             title: "Náhledový text",
             type: "array",
-            of: [{type: "block"}]
+            of: [{type: "block"}],
+            validation: (rule) => rule.required(),
         }),
     ]
 })

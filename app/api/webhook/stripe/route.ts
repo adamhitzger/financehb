@@ -4,8 +4,10 @@ import { stripe } from "@/lib/utils";
 import { headers } from "next/headers";
 import { RaynetResponse } from "@/types";
 export async function POST(req: Request){
+    const date = new Date();
     const body = await req.text();
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
+    const invoiceUrl = "tps://api.idoklad.cz/v3/IssuedInvoices";
     const client = await createSupabaseClient("deleteAccount");
     const headerList = await headers();
     const signature = headerList.get("Stripe-Signature") as string;
@@ -30,11 +32,42 @@ export async function POST(req: Request){
                 session.subscription as string
             );
             const stripeId = session.customer as string
+            const total = session.amount_total as number;
             const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
             if(user.error) console.log(user.error);
             if(user.data) console.log(user.data);
-         if(user.data.raynet_id === null ){
-                
+         if(user.data.raynet_id === null && total !== 0){
+   const idoklad = await fetch(invoiceUrl, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + Buffer.from(process.env.IDOKALD_TOKEN!).toString("base64"),
+        body: JSON.stringify({
+            ConstantSymbolId: 7,
+            CurrencyId: 1,
+            DateOfIssue:`${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}`,
+            DateOfMaturity:`${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()+1}`,
+            DocumentSerialNumber: 0,
+            IsEet: false,
+            IsIncomeTax: true,
+            Items: [
+                {
+                    amount: total/100,
+                    DiscountPercentage: subscription.discount || 0,
+                    PriceType: 1,
+                    VatRateType: 2,
+                    Name: `Faktura za předplatné - ${user.data.first_name} - ${user.data.last_name}`,
+
+                }
+            ],
+            NumericSequenceId: Number(`${date.getFullYear()}${date.getUTCMonth()+1}${date.getUTCDate()}`),
+            PartnerId:10025124,
+            PaymentOptionId:1,
+        }
+    ),
+    },
+   }
+);             
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
     headers: {
@@ -44,6 +77,8 @@ export async function POST(req: Request){
     },
     body: JSON.stringify({
         name: user.data.first_name + " " + user.data.last_name,
+        firstName: user.data.fist_name,
+        lastName: user.data.last_name,
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",

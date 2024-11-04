@@ -168,13 +168,14 @@ export async function updateForgotUser(formData: FormData) {
   }
 }
 
-export async function deleteAction(raynet_id:number, userId: string) {
+export async function deleteAction(raynet_id:number | null, userId: string) {
   const raynetAPIUrl = `https://app.raynet.cz/api/v2/company/${raynet_id}`;
   try{
     await protectedRoute();
 
     const { auth } = await createSupabaseClient("deleteAccount");
     const client = await createSupabaseClient();
+    if(raynet_id){
     const raynetDel = await fetch(raynetAPIUrl , {
       method: "DELETE",
     headers: {
@@ -183,9 +184,11 @@ export async function deleteAction(raynet_id:number, userId: string) {
         "X-Instance-Name": "financehb",
     },
     })
+  
     if(!raynetDel.ok){
       throw Error("Error while deleting user from Raynet ")
     }
+  }
     const signOut = await auth.signOut();
     if(signOut.error) throw signOut.error;
 

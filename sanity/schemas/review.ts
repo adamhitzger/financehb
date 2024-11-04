@@ -11,6 +11,7 @@ export const reviewType = defineType({
         name: "name",
         title: "Celé jméno",
         type: "string",
+        validation: (rule) => rule.required(),
      }),
      defineField({
         name: "text",
@@ -18,12 +19,14 @@ export const reviewType = defineType({
         type: "array",
         of: [
             {type: "block"}
-        ]
+        ],
+        validation: (rule) => rule.required(),
      })   ,
      defineField({
         name: "datum",
         title: "Datum",
         type: "date",
+        validation: (rule) => rule.required(),
      })
     ]
 })

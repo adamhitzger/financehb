@@ -11,16 +11,19 @@ export const subsType = defineType({
             name: "price",
             title: "Cena předplatného",
             type: "number",
+            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "season",
             title: "Doba předplatného",
             type: "string",
+            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "stripePriceId",
             title: "ID linku ze Stripu",
             type: "string",
+            validation: (rule) => rule.required(),
         }),
     ]
 })

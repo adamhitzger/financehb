@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PortableTextComponents } from "next-sanity";
 
 export const components: Partial<PortableTextComponents> = {
@@ -28,5 +29,16 @@ export const components: Partial<PortableTextComponents> = {
             if (ytb) return <iframe width="600" height="300" src={value?.href} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
             else return <Link href={value?.href} className="underline text-secondary-foreground">{children}</Link>
         }
-    }
+    },
+    types: {
+        image: ({ value }: { value: any }) => (
+          <Image
+            src={value}
+            alt={value}
+            className="rounded-lg"
+            width={800}
+            height={800}
+          />
+        ),
+      },
 }
