@@ -30,7 +30,9 @@ export async function POST(req: Request){
                 session.subscription as string
             );
             const stripeId = session.customer as string
-            const auth = await getUser();
+            const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
+            if(user.error) console.log(user.error);
+            if(user.data) console.log(user.data);
     /*       if(!auth?.raynet_id){
                 
   const raynet = await fetch(raynetAPIUrl, {
@@ -67,20 +69,19 @@ if(!raynet.ok){
             if(insert_r_id.data) console.log(insert_r_id.data);
 
             }*/
-            if(auth?.id ){
+            
                 const {data, error} = await client.from("subscriptions").insert({
-                    user_id: auth.id as string,
+                    user_id: user.data.id as string,
                     stripe_subscriptions_id: subscription.id as string,
                     periodStart: subscription.current_period_start,
                     periodEnd: subscription.current_period_end,
-                    status: subscription.status,
+                    status: subscription.status as string,
                     plan_id: subscription.items.data[0].plan.id as string,
                     interval: String(subscription.items.data[0].plan.interval),
                 })
             if(error) console.log("Vkládaní nového předplatného se nepodřilo: ",error);
             if(data) console.log(data);
             
-        }
         } catch (err) {
             console.error('Unexpected error:', err);
             return new Response('Unexpected error', { status: 500 });
