@@ -24,24 +24,6 @@ export async function POST(req: Request){
 
     let session = event.data.object as Stripe.Checkout.Session
     switch(event.type){
-    case "invoice.payment_succeeded":
-              try{
-                const subscription = await stripe.subscriptions.retrieve(
-                    session.subscription as string
-                );
-                const {data, error} = await client.from("subscriptions").update({
-                    periodStart: subscription.current_period_start,
-                    periodEnd: subscription.current_period_end,
-                    status: subscription.status,
-                    plan_id: subscription.items.data[0].plan.id as string,
-                    interval: String(subscription.items.data[0].plan.interval),
-                }).eq("stripe_subscriptions_id", subscription.id)
-                if(error) console.log(error.message);
-                if(data) console.log(data);
-              }catch(error){
-                console.error("Error - invoice.payment_succeded: ", error);
-              }
-            break;
         case "checkout.session.completed":
             try{
             const subscription = await stripe.subscriptions.retrieve(
@@ -49,7 +31,7 @@ export async function POST(req: Request){
             );
             const stripeId = session.customer as string
             const auth = await getUser();
-           if(!auth?.raynet_id){
+    /*       if(!auth?.raynet_id){
                 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
@@ -77,25 +59,25 @@ if(!raynet.ok){
 }
   const raynet_id = await raynet.json() as RaynetResponse;
   console.log(raynet_id.data.id)
-  /*
-            const insert_r_id = await client.from("profiles").insert({
+  
+            const insert_r_id = await client.from("profiles").update({
                 raynet_id: raynet_id.data.id
             }).eq("id", auth?.id)
-            if(insert_r_id.error) console.error("Error when inserting raynet id: ", insert_r_id.error);
+            if(insert_r_id.error) console.error("Error when updating raynet id: ", insert_r_id.error);
             if(insert_r_id.data) console.log(insert_r_id.data);
-*/
-            }
+
+            }*/
             if(auth?.id ){
-            const {data, error} = await client.from("subscriptions").insert({
-                user_id: auth.id as string,
-                stripe_subscriptions_id: subscription.id as string,
-                periodStart: subscription.current_period_start,
-                periodEnd: subscription.current_period_end,
-                status: subscription.status,
-                plan_id: subscription.items.data[0].plan.id as string,
-                interval: String(subscription.items.data[0].plan.interval),
-            })
-            if(error) console.log(error.message);
+                const {data, error} = await client.from("subscriptions").insert({
+                    user_id: auth.id as string,
+                    stripe_subscriptions_id: subscription.id as string,
+                    periodStart: subscription.current_period_start,
+                    periodEnd: subscription.current_period_end,
+                    status: subscription.status,
+                    plan_id: subscription.items.data[0].plan.id as string,
+                    interval: String(subscription.items.data[0].plan.interval),
+                })
+            if(error) console.log("Vkládaní nového předplatného se nepodřilo: ",error);
             if(data) console.log(data);
             
         }
@@ -141,6 +123,24 @@ if(!raynet.ok){
                 break;
             default:
             console.warn(`Unhandled event type: ${event.type}`);
+            break;
+            case "invoice.payment_succeeded":
+              try{
+                const subscription = await stripe.subscriptions.retrieve(
+                    session.subscription as string
+                );
+                const {data, error} = await client.from("subscriptions").update({
+                    periodStart: subscription.current_period_start,
+                    periodEnd: subscription.current_period_end,
+                    status: subscription.status,
+                    plan_id: subscription.items.data[0].plan.id as string,
+                    interval: String(subscription.items.data[0].plan.interval),
+                }).eq("stripe_subscriptions_id", subscription.id);
+                if(error) console.log(error.message);
+                if(data) console.log(data);
+              }catch(error){
+                console.error("Error - invoice.payment_succeded: ", error);
+              }
             break;
     }
     return new Response(null, { status: 200 });
