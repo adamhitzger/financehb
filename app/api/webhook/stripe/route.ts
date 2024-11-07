@@ -146,10 +146,9 @@ if(!raynet.ok){
             try{
                 const session = await stripe.subscriptions.retrieve(
                     (event.data.object as Stripe.Subscription).id
-                );           
-                const {data, error} = await client.from("subscriptions").update({
-                    status: "canceled"
-                }).eq("stripe_subscriptions_id", session.id);
+                );     
+                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", session.id);
+                      
                 if(error) console.log(error.message);
                 if(data) console.log(data);
             } catch (err) {
@@ -165,7 +164,14 @@ if(!raynet.ok){
                 const subscription = await stripe.subscriptions.retrieve(
                     session.subscription as string
                 );
-                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", subscription.id);
+                const {data, error} = await client.from("subscriptions").update({
+                    stripe_subscriptions_id: subscription.id as string,
+                    periodStart: subscription.current_period_start,
+                    periodEnd: subscription.current_period_end,
+                    status: subscription.status,
+                    plan_id: subscription.items.data[0].plan.id as string,
+                    interval: String(subscription.items.data[0].plan.interval),
+                }).eq("stripe_subscriptions_id", subscription.id)
                 if(error) console.log(error.message);
                 if(data) console.log(data);
               }catch(error){
