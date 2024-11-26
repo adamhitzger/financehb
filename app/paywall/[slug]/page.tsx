@@ -5,7 +5,71 @@ import { ARTICLE_QUERY } from '@/sanity/lib/queries'
 import { Article } from '@/types'
 import { PortableText } from 'next-sanity';
 import React from 'react'
-import Link from 'next/link';
+import { Metadata } from 'next';
+export async function generateMetadata({params}:{params: { slug: string}}):Promise<Metadata>{
+    const p: Article = await sanityFetch<Article>({ query: ARTICLE_QUERY, params: params });
+  
+    return{
+        icons: {
+            icon: "/images/main.jpg"
+          },
+          applicationName: "Finance HB",
+          generator: "Next.ts",
+          title: `Petr Krajcigr, Finance HB - ${p.name}`,
+          description: p.overview,
+          authors: [{name: "Adam Hitzger"}, {name: "Petr Krajcigr"}],
+          keywords: [
+             p.overview, 
+            "správa portfolia Havlíčkův Brod",
+            "investice Havlíčkův Brod",
+            "portfolio management Havlíčkův Brod",
+            "investiční poradce Havlíčkův Brod",
+            "peníze na investice Havlíčkův Brod",
+            "zhodnocení financí Havlíčkův Brod",
+            "finanční plánování Havlíčkův Brod",
+            "osobní investice Havlíčkův Brod",
+            "dlouhodobé investování Havlíčkův Brod",
+            "investiční služby Havlíčkův Brod",
+            "portfolio manažer Havlíčkův Brod",
+            "finanční poradenství Havlíčkův Brod",
+            "zajištění investic Havlíčkův Brod",
+            "investiční strategie Havlíčkův Brod",
+            "kapitálové trhy Havlíčkův Brod",
+            "profesionální správa portfolia Havlíčkův Brod",
+            "investice do akcií Havlíčkův Brod",
+            "investování s expertem Havlíčkův Brod",
+            "finanční nezávislost Havlíčkův Brod",
+            "pasivní příjem Havlíčkův Brod",
+            "správa investičních fondů Havlíčkův Brod",
+            "peníze a investice Havlíčkův Brod",
+            "investování pro budoucnost Havlíčkův Brod",
+            "kvalitní finanční služby Havlíčkův Brod",
+            "investiční příležitosti Havlíčkův Brod"
+        ],
+        creator: "Adam Hitzger",
+                publisher: "Adam Hitzger",
+                formatDetection: {
+                    email: false,
+                    address: false,
+                    telephone: false,
+                  },
+        openGraph: {
+          title: `Finance Havlíčkův Brod - ${p.name}`,
+          description: p.overview,
+          url: `https://www.financehb.cz/nemovitosti/${p.slug}`,
+          siteName: "Finance Havlíčkův Brod",
+          images: [
+            {
+                url: p.picture,
+                width: 800,
+                height: 600,
+            },
+        ],
+          locale: "cs_CZ",
+          type: "website",
+        }
+    }
+}
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }>}) {
     const article = await sanityFetch<Article>({ query: ARTICLE_QUERY, params: params });

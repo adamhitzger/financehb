@@ -1,13 +1,12 @@
-import { createSupabaseClient, getUser } from "@/auth/server";
+import { createSupabaseClient } from "@/auth/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/utils";
 import { headers } from "next/headers";
 import { RaynetResponse } from "@/types";
+import { createInvoice } from "@/actions/users";
 export async function POST(req: Request){
-    const date = new Date();
     const body = await req.text();
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
-    const invoiceUrl = "tps://api.idoklad.cz/v3/IssuedInvoices";
     const client = await createSupabaseClient("deleteAccount");
     const headerList = await headers();
     const signature = headerList.get("Stripe-Signature") as string;
@@ -23,51 +22,21 @@ export async function POST(req: Request){
          console.error(`Webhook Error: ${(error as Error).message}`);
         return new Response("Webhook error", { status: 400 });
     }
-
+    
     let session = event.data.object as Stripe.Checkout.Session
+    const stripeId = session.customer as string
+    const total = session.amount_total as number;
+    const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
+    if(user.error) console.log(user.error);
+    if(user.data) console.log(user.data);
     switch(event.type){
         case "checkout.session.completed":
             try{
             const subscription = await stripe.subscriptions.retrieve(
                 session.subscription as string
             );
-            const stripeId = session.customer as string
-            const total = session.amount_total as number;
-            const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
-            if(user.error) console.log(user.error);
-            if(user.data) console.log(user.data);
-         if(user.data.raynet_id === null && total !== 0){
-   const idoklad = await fetch(invoiceUrl, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: "Basic " + Buffer.from(process.env.IDOKALD_TOKEN!).toString("base64"),
-        body: JSON.stringify({
-            ConstantSymbolId: 7,
-            CurrencyId: 1,
-            DateOfIssue:`${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}`,
-            DateOfMaturity:`${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()+1}`,
-            DocumentSerialNumber: 0,
-            IsEet: false,
-            IsIncomeTax: true,
-            Items: [
-                {
-                    amount: total/100,
-                    DiscountPercentage: subscription.discount || 0,
-                    PriceType: 1,
-                    VatRateType: 2,
-                    Name: `Faktura za předplatné - ${user.data.first_name} - ${user.data.last_name}`,
-
-                }
-            ],
-            NumericSequenceId: Number(`${date.getFullYear()}${date.getUTCMonth()+1}${date.getUTCDate()}`),
-            PartnerId:10025124,
-            PaymentOptionId:1,
-        }
-    ),
-    },
-   }
-);             
+        await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
+if(user.data.raynet_id === null){ 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
     headers: {
@@ -82,12 +51,14 @@ export async function POST(req: Request){
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
-        tags: ["Měsíční report"],
-        primaryAddress: {
-        contactInfo: {
-          email: user.data.email,
-        }
-      },
+        tags: ["Měsíční akt z KPT přihl. z webu"],
+        addresses: [
+            {
+            contactInfo: {
+                email: user.data.email,
+        },
+    }
+    ],
     }),
   
 });
@@ -123,10 +94,14 @@ if(!raynet.ok){
         }
             break;
         case "customer.subscription.updated":
+            
+         
             try{
                 const session = await stripe.subscriptions.retrieve(
                     (event.data.object as Stripe.Subscription).id
                 );
+                if(session.status === "active") await createInvoice(total, user.data.first_name,user.data.last_name ,session.discount?.coupon.percent_off);
+
                 const {data, error} = await client.from("subscriptions").update({
                     stripe_subscriptions_id: session.id as string,
                     periodStart: session.current_period_start,
@@ -174,6 +149,8 @@ if(!raynet.ok){
                 }).eq("stripe_subscriptions_id", subscription.id)
                 if(error) console.log(error.message);
                 if(data) console.log(data);
+                await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
+
               }catch(error){
                 console.error("Error - invoice.payment_succeded: ", error);
               }

@@ -6,6 +6,14 @@ data: {
   id: number;
 };
 };
+export type GetRaynetResponse = {
+    success: string;
+    data: DataItem[];
+}
+
+interface DataItem {
+    id: number;
+}
 
 
 type DBStatus = "Aktivní" | "Zrušené" |"Neaktivní";

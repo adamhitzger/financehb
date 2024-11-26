@@ -12,7 +12,6 @@ export const client = createClient({
   useCdn,
 })
 
-
 export async function sanityFetch<QueryResponse>({
   query,
   params = {},

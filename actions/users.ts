@@ -4,7 +4,7 @@
 import { createSupabaseClient, getUser, protectedRoute } from "../auth/server";
 import { getErrorMessage, stripe } from "../lib/utils";
 import { redirect } from "next/navigation";
-
+import { GetRaynetResponse } from "@/types";
 export async function createCustomerPortal(stripeId: FormData) {
 
   
@@ -26,7 +26,8 @@ export async function signUp(formData: FormData){
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
         const { auth } = await createSupabaseClient();
-        
+        const client = await createSupabaseClient("deleteAccount");
+        const raynetAPIUrl = `https://app.raynet.cz/api/v2/company/?primaryAddress-contactInfo.email=${email}`;
    const { data, error } = await auth.signUp({
           email,
           password,
@@ -38,6 +39,26 @@ export async function signUp(formData: FormData){
           }
         });
         if (error) throw error;
+        const raynet = await fetch(raynetAPIUrl, {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
+              "X-Instance-Name": "financehb",
+          },
+      });
+      if(!raynet.ok){
+        throw new Error(`Request failed with status: ${raynet.status}`);
+      }
+        const raynet_id = await raynet.json() as GetRaynetResponse;
+        if(raynet_id.data[0].id && data.user?.id){
+        console.log(raynet_id.data[0].id)
+        const insert_id = await client.from("profiles").update({
+          raynet_id: raynet_id.data[0].id
+      }).eq("id", data.user.id)
+      if(insert_id.error) throw new Error(insert_id.error.message);
+      if(insert_id.data) console.log(insert_id.data);
+      }
         return { errorMessage: null };
       } catch (error) {
         return { errorMessage: getErrorMessage(error) };
@@ -240,6 +261,7 @@ export async function createPayment(formData: FormData){
       mode: "subscription",
       billing_address_collection: "auto",
       payment_method_types: ["card"],
+      allow_promotion_codes: true,
       line_items: [{ price: stripeId, quantity: 1 }],
       customer_update: {
         address: "auto",
@@ -257,3 +279,43 @@ export async function createPayment(formData: FormData){
     
     return redirect(session.url as string);
 }
+
+export async function createInvoice(total: number,fname: string, lname: string, discount: number | null | undefined ){
+  const date = new Date();
+  const invoiceUrl = "tps://api.idoklad.cz/v3/IssuedInvoices";
+  if(discount === null || discount == undefined) discount = 0;
+  else discount;
+  const idoklad = await fetch(invoiceUrl, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + Buffer.from(process.env.IDOKALD_TOKEN!).toString("base64"),
+        body: JSON.stringify({
+            ConstantSymbolId: 7,
+            CurrencyId: 1,
+            DateOfIssue:`${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}`,
+            DateOfMaturity:`${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()+1}`,
+            DocumentSerialNumber: 0,
+            IsEet: false,
+            IsIncomeTax: true,
+            Items: [
+                {
+                    amount: total/100,
+                    DiscountPercentage: discount,
+                    PriceType: 1,
+                    VatRateType: 2,
+                    Name: `Faktura za předplatné - ${date.getFullYear()}/${date.getUTCMonth()+1}/${date.getUTCDate()} - ${fname} ${lname}`,
+
+                }
+            ],
+            NumericSequenceId: Number(`${date.getFullYear()}${date.getUTCMonth()+1}${date.getUTCDate()}`),
+            PartnerId:10025124,
+            PaymentOptionId:1,
+        }
+    ),
+    },
+   }
+);  
+if(!idoklad.ok) return console.log(`Problem with iDoklad Invoice - Status: ${idoklad.status}; MEssage: ${idoklad.statusText}`);
+if(idoklad.ok) return console.log("iDoklad Invoice succefully created") ;
+} 

@@ -44,7 +44,7 @@ export default function About() {
                         Přihlaste se k odběru <Link target="_blank" href={"/#newsletter"} className="underline text-secondary-foreground">newslettru</Link> at Vám nic neuteče! Pro více informací si zakupte <Link target="_blank" href={"/paywall"} className="underline text-secondary-foreground">předplatné.</Link>  Nezapomňte si stáhnout <Link target="_blank" href={"/e-book"} className="underline text-secondary-foreground">e-book.</Link>  </p>
 
                     </div>
-                    <Link href={"/sluzby"} target="_blank">
+                    <Link href={"/sluzby#calendly"} target="_blank">
                                 <Button 
                                 className="no-underline mx-auto font-light" variant={"default"}
                                 >

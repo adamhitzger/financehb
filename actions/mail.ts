@@ -19,7 +19,7 @@ export async function sendNewsletter(formData: FormData){
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
-        tags: ["Měsíční report zdarma 1m"],
+        tags: ["Měsíční aktuality z kapitálového trhu - zdarma ke stažení"],
         primaryAddress: {
         contactInfo: {
           email: email,

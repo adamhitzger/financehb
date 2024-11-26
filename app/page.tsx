@@ -25,7 +25,7 @@ export default async function Home() {
       <Header/>
       <section className="flex flex-col w-full p-5 lg:p-16 space-y-8 bg-primary" >
         <h2 className={`font-ibarra font-bold tracking-wide text-secondary-foreground text-3xl lg:text-5xl`}>Sledujte mě</h2>
-        <div className="w-full grid grid-cols-2 grid-rows-2 sm:grid-cols-2 md:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-2 ">
+        <div className="w-full grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-2 ">
           {Socials.map((s: SocialNetwork, id) => (
             <div key={id} className="bg-primary-foreground rounded-xl p-3 hover:shadow-lg hover:shadow-secondary-foreground transition ease-in-out delay-100 duration-200">
               <h4 className={`text-secondary-foreground text-2xl font-medium font-ibarra`}>{s.heading}</h4>

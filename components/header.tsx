@@ -23,7 +23,7 @@ export default function Header() {
                     </div>
                     
                         
-                            <Link href={"/#contact"} target="_blank">
+                            <Link href={"/sluzby#contact"} target="_blank">
                                 <Button size={"lg"}
                                 className="no-underline font-light bg-secondary-foreground w-1/2 sm:w-full lg:w-1/2 mx-auto  text-base"
                                 >
