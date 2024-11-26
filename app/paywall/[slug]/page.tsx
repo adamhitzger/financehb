@@ -6,7 +6,7 @@ import { Article } from '@/types'
 import { PortableText } from 'next-sanity';
 import React from 'react'
 import { Metadata } from 'next';
-export async function generateMetadata({params}:{params: { slug: string}}):Promise<Metadata>{
+export async function generateMetadata({params}:{params: Promise<{ slug: string}>}):Promise<Metadata>{
     const p: Article = await sanityFetch<Article>({ query: ARTICLE_QUERY, params: params });
   
     return{

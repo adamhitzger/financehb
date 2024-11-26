@@ -4,7 +4,7 @@ import { REALITY_QUERY } from "@/sanity/lib/queries"
 import { Reality } from "@/types"
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-export async function generateMetadata({params}:{params: { slug: string}}):Promise<Metadata>{
+export async function generateMetadata({params}:{params: Promise<{ slug: string}>}):Promise<Metadata>{
     let r = await sanityFetch<Reality>({ query: REALITY_QUERY, params });
     
     return{
