@@ -25,7 +25,7 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
         flex: "flex-row-reverse",
         bg: "secondary",
         color: "primary"
-        }
+    }
 ];
   const plans = [
     { name: "Basic", price: "$9.99/mo" },
