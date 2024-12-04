@@ -64,7 +64,7 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
           className={`bg-${s.bg} p-8 lg:p-16  text-${s.color}`}>
           <div className={`flex flex-wrap sm:flex-nowrap sm:${s.flex} w-full border-secondary-foreground border p-3`}>
           <div className="w-full sm:w-1/2 flex flex-col  px-5 justify-center font-light">
-              <div className="border flex flex-col w-full space-y-8 ">
+              <div className=" flex flex-col w-full space-y-8 ">
                   
                       <h2 className={`text-3xl lg:text-5xl  text-left font-ibarra`}>
                           {s.header}
@@ -76,7 +76,7 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
                   
               </div>
           </div>
-          <div className={`w-full sm:w-1/2 flex md:justify-center border items-center`}>
+          <div className={`w-full sm:w-1/2 flex md:justify-center items-center`}>
               <Image src={s.image} alt="Sjednejte si pojištění" width={512} height={512} className="object-fill bg-cover " />
           </div>
           </div>

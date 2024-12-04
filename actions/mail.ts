@@ -112,8 +112,7 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
                 </table>
             </td>
         </tr>
-    </table>
-</div>` ,
+    </table>` ,
         attachments: type === "Ebook" 
         ? [
             {

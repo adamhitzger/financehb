@@ -195,7 +195,6 @@ export async function deleteAction(raynet_id:number | null, userId: string) {
     await protectedRoute();
 
     const { auth } = await createSupabaseClient("deleteAccount");
-    const client = await createSupabaseClient();
     if(raynet_id){
     const raynetDel = await fetch(raynetAPIUrl , {
       method: "DELETE",
