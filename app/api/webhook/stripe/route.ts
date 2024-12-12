@@ -41,7 +41,7 @@ if(user.data.raynet_id === null){
     method: "PUT",
     headers: {
         "Content-Type": "application/json",
-        Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
+        Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL! + ":" + process.env.RAYNET_API_KEY!).toString("base64"),
         "X-Instance-Name": "financehb",
     },
     body: JSON.stringify({

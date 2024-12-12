@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
 import { ibarra } from "./font";
+import { getUser } from "@/auth/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -68,10 +69,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getUser();
   return (
     <html lang="cs">
       <body className={`${inter.className} ${ibarra.variable} `}>
-        <Navbar />
+        <Navbar user={user}/>
         {children}
         <Footer />
         <Toaster

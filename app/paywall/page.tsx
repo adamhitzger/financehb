@@ -12,6 +12,7 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
     console.log(data)
     if(error) console.log(error.message)
     const PAGE_SIZE = 3;
+    console.log(process.env)
 const searchParams = await props.searchParams
     const currentPage = parseInt(searchParams.page || '1');
     const size = currentPage > 1 ? PAGE_SIZE + 1 : PAGE_SIZE;

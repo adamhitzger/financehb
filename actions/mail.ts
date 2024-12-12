@@ -15,7 +15,7 @@ export async function sendNewsletter(formData: FormData){
         "X-Instance-Name": "financehb",
     },
     body: JSON.stringify({
-        name: formData.get("name") as string,
+        name: jmeno,
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",

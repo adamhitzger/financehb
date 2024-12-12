@@ -304,7 +304,6 @@ export async function createInvoice(total: number,fname: string, lname: string, 
                     PriceType: 1,
                     VatRateType: 2,
                     Name: `Faktura za předplatné - ${date.getFullYear()}/${date.getUTCMonth()+1}/${date.getUTCDate()} - ${fname} ${lname}`,
-
                 }
             ],
             NumericSequenceId: Number(`${date.getFullYear()}${date.getUTCMonth()+1}${date.getUTCDate()}`),
