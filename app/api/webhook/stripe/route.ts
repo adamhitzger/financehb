@@ -35,7 +35,7 @@ export async function POST(req: Request){
             const subscription = await stripe.subscriptions.retrieve(
                 session.subscription as string
             );
-        await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
+        //await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
 if(user.data.raynet_id === null){ 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
@@ -76,7 +76,7 @@ if(!raynet.ok){
 
             }
             
-                const {data, error} = await client.from("subscriptions").insert({
+            const {data, error} = await client.from("subscriptions").insert({
                     user_id: user.data.id as string,
                     stripe_subscriptions_id: subscription.id as string,
                     periodStart: subscription.current_period_start,
