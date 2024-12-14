@@ -8,8 +8,8 @@ export default function Header() {
     return (
         <header
             className={`bg-secondary w-full p-5 lg:p-16 text-secondary`}>
-            <div className="flex gap-6 p-5 flex-wrap sm:flex-nowrap sm:flex-row w-full bg-white border-secondary-foreground border-2 rounded-xl">
-            <div className="w-full sm:w-1/2 flex flex-col justify-center font-light">
+            <div className="flex gap-6 p-5 flex-wrap md:flex-nowrap sm:flex-row w-full bg-white border-secondary-foreground border-2 rounded-xl">
+            <div className="w-full md:w-1/2 flex flex-col justify-center font-light">
                 <div className="flex flex-col  w-full space-y-8  ">
                     
                         <h2 className={`text-3xl lg:text-5xl text-left  max-w-96 font-ibarra`}>
@@ -22,7 +22,7 @@ export default function Header() {
 
                     </div>
                     
-                    <iframe className="mx-auto border-2 border-secondary-foreground rounded-xl" width="560" height="315" src="https://www.youtube.com/embed/POPL9IAsTqo?si=jXmSN_G2M5I7e2i9" title="YouTube video Petr Krajcigr" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
+                    <iframe className="mx-auto border-2 border-secondary-foreground rounded-xl w-full sm:w-2/3  xl:h-64 xl:w-1/2 "  src="https://www.youtube.com/embed/POPL9IAsTqo?si=jXmSN_G2M5I7e2i9" title="YouTube video Petr Krajcigr" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
                         
                             <Link href={"/sluzby#contact"} target="_blank">
                                 <Button size={"lg"}
@@ -33,7 +33,7 @@ export default function Header() {
                             </Link>
                 </div>
             </div>
-            <div className={`w-full sm:w-1/2 flex justify-center items-center`}>
+            <div className={`w-full md:w-1/2 flex justify-center items-center`}>
                 <Image src={"/images/main.jpg"} alt="Header photo" width={1024} height={1024} className="object-fill bg-cover rounded-xl border-secondary-foreground border-2 hover:shadow-secondary-foreground hover:shadow-lg transition ease-in-out delay-100 duration-200" />
             </div>
             </div>
