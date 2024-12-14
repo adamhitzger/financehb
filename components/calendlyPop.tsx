@@ -11,8 +11,7 @@ export default function CalendlyPop() {
 
             <InlineWidget
                 url="https://calendly.com/petr-6/min"
-
-
+                
             />
         </section>
     )

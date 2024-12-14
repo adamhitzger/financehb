@@ -5,6 +5,7 @@ import { EBOOK_QUERY } from "@/sanity/lib/queries"
 import { Ebook } from "@/types"
 import { PortableText } from "next-sanity";
 import Image from "next/image";
+import Link from "next/link";
 export default async function EbookPage() {
     const ebook = await sanityFetch<Ebook>({ query: EBOOK_QUERY });
     console.log(ebook);
@@ -24,11 +25,16 @@ export default async function EbookPage() {
                     </div>
                 </div>
 
+<div className="flex flex-col space-y-2">
                 <div className="w-full md:w-4/5 flex flex-col space-y-2 p-5 bg-secondary rounded-xl text-primary mx-auto">
                     <div className="w-full flex flex-col space-y-2 text-left lg:text-center">
-                        <p className="font-light text-lg">Rádi byste se dozvěděli, jak si nejlépe zajistit svojí budoucnost? Vyplňte formulář a stáhněte si E-BOOK ZDARMA!</p>
+                        <p className="font-light text-xl">Rádi byste se dozvěděli, jak si nejlépe zajistit svojí budoucnost? Vyplňte formulář a stáhněte si E-BOOK ZDARMA!</p>
                     </div>
                     <EbookForm file={ebook.file} />
+                    
+                </div>
+                <span className="font-light text-lg text-center">Přihlášením k odběru souhlasíte se zpracováním osobních údajů. Více informací <Link href='/ochrana-osobnich-udaju' className="underline text-secondary-foreground" target="_blank">ZDE </Link> </span>
+                
                 </div>
             </section>
         </main>

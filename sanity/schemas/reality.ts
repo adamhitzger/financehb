@@ -94,7 +94,6 @@ export const realityType = defineType({
                     ],
                 }
             ],
-            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "price",

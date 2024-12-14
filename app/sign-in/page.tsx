@@ -3,7 +3,7 @@ import SignInForm from '@/components/signInForm'
 import Link from 'next/link'
 import React from 'react'
 
-export default function LogInPage() {
+export default function SignInPage() {
 
     return (
         <main className='w-full min-h-screen flex flex-col justify-center items-center'>

@@ -5,6 +5,7 @@ import { Input } from './ui/input';
 import React, { useState, useTransition } from 'react'
 import { sendNewsletter } from '@/actions/mail';
 import { Loader2, MoveUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Newsletter() {
     const [isPending, startTransition] = useTransition();
@@ -35,6 +36,6 @@ export default function Newsletter() {
             <Input className='w-full md:w-2/5' name="name" type="text" placeholder="Zadejte celé jméno" value={form.name} onChange={handleChange} required />
             <Input className='w-full md:w-2/5' name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required />
             <Button type="submit" size={'lg'} className='mx-auto bg-secondary-foreground text-lg text-primary font-light underline underline-offset-2 w-1/2 md:w-1/5 '>{isPending ? <Loader2 className='animate-spin' /> : <>Odeslat <MoveUpRight /></>}</Button>
-        </form>
+            </form>
     )
 }

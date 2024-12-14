@@ -11,7 +11,7 @@ import Slider from "./slider";
 export default function Sluzby({reviews}: {reviews: Reviews[]}) {
   const sections = [
     {
-    header: "POJIŠTĚTE SE PROTI ZKÁZÁM",
+    header: "POJISTĚTE SE PROTI ZKÁZÁM",
     text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita ad quia itaque dolorum cumque nesciunt iure eum explicabo, error illo a natus aut dicta delectus temporibus libero aliquam exercitationem tempore!",
     image: "/images/gallery.jpg",
     flex: "flex-row",
@@ -62,7 +62,7 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
       <section
       key={i}
           className={`bg-${s.bg} p-8 lg:p-16  text-${s.color}`}>
-          <div className={`flex flex-wrap sm:flex-nowrap sm:${s.flex} w-full border-secondary-foreground border p-3`}>
+          <div className={`flex flex-wrap sm:flex-nowrap sm:${s.flex} w-full border-secondary-foreground border-2 rounded-xl p-3`}>
           <div className="w-full sm:w-1/2 flex flex-col  px-5 justify-center font-light">
               <div className=" flex flex-col w-full space-y-8 ">
                   
@@ -77,18 +77,17 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
               </div>
           </div>
           <div className={`w-full sm:w-1/2 flex md:justify-center items-center`}>
-              <Image src={s.image} alt="Sjednejte si pojištění" width={512} height={512} className="object-fill bg-cover " />
+              <Image src={s.image} alt="Sjednejte si pojištění" width={512} height={512} className="object-fill bg-cover  hover:shadow-xl hover:shadow-secondary-foreground rounded-xl transition ease-in-out delay-100 duration-200" />
           </div>
           </div>
       </section> 
 
   ))}
-    <div className="bg-primary min-h-screen flex flex-col items-center justify-center p-4">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-secondary mb-4">Choose Your Financial Management Plan</h1>
-        <p className="text-secondary-foreground text-xl">Unlock the power of smart financial planning</p>
-      </div>
-      <div className="w-full max-w-6xl bg-secondary text-primary rounded-lg overflow-hidden">
+    <div className="bg-primary min-h-screen flex flex-col justify-center p-4 space-y-5">
+    <h2 className="text-secondary-foreground font-ibarra md:text-left font-bold tracking-wide  text-3xl lg:text-5xl">Finanční plány</h2>
+    <p className="text-base lg:text-xl font-light text-justify md:text-left text-secondary">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>
+           
+      <div className="w-full max-w-6xl mx-auto items-center bg-secondary text-primary rounded-lg overflow-hidden">
         <div className="grid grid-cols-4 gap-4 p-6 items-end">
           <div className="text-left font-bold">Features</div>
           {plans.map((plan) => (
@@ -105,7 +104,7 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
           {features.map((feature, index) => (
             <div
               key={feature.name}
-              className={`grid grid-cols-4 gap-4 p-4 ${index % 2 === 0 ? "bg-secondary" : "bg-secondary/90"}`}
+              className={`grid grid-cols-4 gap-4 p-4 ${index % 2 === 0 ? "bg-secondary/90" :"bg-secondary" }`}
             >
               <div className="text-left">{feature.name}</div>
               {[feature.basic, feature.pro, feature.enterprise].map((included, i) => (

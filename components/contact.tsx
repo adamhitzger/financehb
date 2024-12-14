@@ -50,7 +50,7 @@ export default function Contact() {
     }
     return (
         <div className="flex flex-col gap-4 lg:flex-row">
-            <form className="bg-primary p-4 lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 rounded-lg shadow-lg px-5 w-full gap-3 " action={handleSendEmail}>
+            <form className="bg-primary p-4 lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 rounded-lg shadow-xl shadow-secondary-foreground px-5 w-full gap-3 " action={handleSendEmail}>
                 <div className='flex flex-col w-full space-y-2'>
                     <Label>Celé jméno</Label>
                     <Input name="name" type="text" placeholder="Zadejte celé jméno" value={form.name} onChange={handleChange} required disabled={isPending} />
@@ -87,7 +87,7 @@ export default function Contact() {
                     <Button type="submit" variant={"default"} size={'lg'} className='mx-auto font-light '>{isPending ? <Loader2 className='animate-spin' /> : <>Odeslat < MoveUpRight /></>}</Button>
                     </div>
             </form>
-            <div className='lg:w-1/2 w-full rounded-lg shadow-lg h-96 lg:h-auto' id='map'>
+            <div className='lg:w-1/2 w-full rounded-lg shadow-lg shadow-secondary-foreground h-96 lg:h-auto' id='map'>
                 <Map
                     mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN!}
                     initialViewState={{

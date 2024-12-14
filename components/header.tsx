@@ -7,8 +7,8 @@ export default function Header() {
     
     return (
         <header
-            className={`bg-secondary w-full p-5 lg:p-16 text-primary`}>
-            <div className="flex gap-6 p-5 flex-wrap sm:flex-nowrap sm:flex-row w-full border-secondary-foreground border">
+            className={`bg-secondary w-full p-5 lg:p-16 text-secondary`}>
+            <div className="flex gap-6 p-5 flex-wrap sm:flex-nowrap sm:flex-row w-full bg-white border-secondary-foreground border-2 rounded-xl">
             <div className="w-full sm:w-1/2 flex flex-col justify-center font-light">
                 <div className="flex flex-col  w-full space-y-8  ">
                     
@@ -22,6 +22,7 @@ export default function Header() {
 
                     </div>
                     
+                    <iframe className="mx-auto border-2 border-secondary-foreground rounded-xl" width="560" height="315" src="https://www.youtube.com/embed/POPL9IAsTqo?si=jXmSN_G2M5I7e2i9" title="YouTube video Petr Krajcigr" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
                         
                             <Link href={"/sluzby#contact"} target="_blank">
                                 <Button size={"lg"}
@@ -33,7 +34,7 @@ export default function Header() {
                 </div>
             </div>
             <div className={`w-full sm:w-1/2 flex justify-center items-center`}>
-                <Image src={"/images/main.jpg"} alt="Header photo" width={1024} height={1024} className="object-fill bg-cover rounded-xl border-secondary-foreground border hover:shadow-secondary-foreground hover:shadow-lg transition ease-in-out delay-100 duration-200" />
+                <Image src={"/images/main.jpg"} alt="Header photo" width={1024} height={1024} className="object-fill bg-cover rounded-xl border-secondary-foreground border-2 hover:shadow-secondary-foreground hover:shadow-lg transition ease-in-out delay-100 duration-200" />
             </div>
             </div>
         </header>

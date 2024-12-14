@@ -150,9 +150,10 @@ if(type === "Ebook"){
       }
       })
     });
+    redirect(msg);
   }
+  
       }catch(error){
         console.log(error);
       }
-      if(type = "Ebook") redirect(msg);
     }

@@ -41,12 +41,15 @@ export default async function Home() {
           ))}
         </div>
         <Feed feed={feed}/>
-        <div className="w-full md:w-4/5 flex flex-col  p-5 space-y-4 bg-secondary rounded-xl text-primary mx-auto">
+        <div className="w-full md:w-4/5 flex flex-col  p-5 space-y-2 bg-secondary rounded-xl text-primary mx-auto">
           <h3 className="font-ibarra font-extrabold text-lg lg:text-2xl">Přihlaste se k měsíčnímu reportu a odebírejte netradiční finanční rady !</h3>
           <Newsletter />
         </div>
-        <p className="font-light text-center">* Jednou týdně Vám zašleme souhrn aktuálních informací z kapitálových trhů. Vše komentujeme optikou dlouhodobých investorů.</p>
-      </section>
+        <p className="font-light text-lg text-center">Přihlášením k odběru souhlasíte se zpracováním osobních údajů. Více informací <Link href='/ochrana-osobnich-udaju' className="underline text-secondary-foreground" target="_blank">ZDE </Link> <br />
+        
+       * Jednou týdně Vám zašleme souhrn aktuálních informací z kapitálových trhů. Vše komentujeme optikou dlouhodobých investorů.</p>
+      
+        </section>
       <About/>
       
 

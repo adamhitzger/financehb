@@ -56,23 +56,7 @@ export async function generateMetadata({params}:{params: Promise<{ slug: string}
           description: r.overview,
           url: `https://www.financehb.cz/nemovitosti/${r.slug}`,
           siteName: "Finance Havlíčkův Brod",
-          images: [
-            {
-                url: r.galleryUrls[0],
-                width: 800,
-                height: 600,
-            },
-            {
-                url: r.galleryUrls[1],
-                width: 800,
-                height: 600,
-            },
-            {
-                url: r.galleryUrls[2],
-                width: 800,
-                height: 600,
-            }
-        ],
+          
           locale: "cs_CZ",
           type: "website"
         }

@@ -29,8 +29,8 @@ export default function About() {
       ];
     return (
         <section
-            className={` bg-secondary w-full p-6 lg:p-16  text-primary`} id="omne">
-            <div className="border-secondary-foreground border">
+            className={` bg-secondary w-full p-6 lg:p-16  text-secondary`} id="omne">
+            <div className="border-secondary-foreground border-2 rounded-xl bg-primary">
             <div className="flex flex-wrap gap-6 sm:flex-nowrap sm:flex-row-reverse w-full  p-5">
             <div className="w-full sm:w-1/2 flex justify-center flex-col font-light">
                 <div className="flex flex-col w-full space-y-8  ">
@@ -67,7 +67,7 @@ export default function About() {
                 </div>
             </div>
             <div className={`w-full  sm:w-1/2 flex justify-center items-center`}>
-                <Image src={"/images/about.jpg"} alt="Header photo" width={1024} height={1024} className="object-fill bg-cover rounded-xl hover:shadow-lg hover:shadow-secondary-foreground transition ease-in-out delay-100 duration-200" />
+                <Image src={"/images/about.jpg"} alt="Header photo" width={1024} height={1024} className="object-fill bg-cover rounded-xl border-secondary-foreground border-2 hover:shadow-lg hover:shadow-secondary-foreground transition ease-in-out delay-100 duration-200" />
             </div>
             
             </div>
@@ -75,7 +75,7 @@ export default function About() {
                         {statistics.map((s, idx) => (
                             <div key={idx} className="flex flex-col items-center space-y-2 w-full">   
                                 {s.node}
-                                <hr className="w-1/2 mx-auto border-secondary-foreground"/>
+                                <hr className="w-1/2 mx-auto border-secondary-foreground border-2"/>
                                 <span className="text-lg text-center font-medium ">{s.heading}</span>
                                 <p className="text-center text-base">{s.text}</p>
                             </div>

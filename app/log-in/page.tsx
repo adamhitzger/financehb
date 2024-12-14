@@ -11,6 +11,8 @@ export default async function LogInPage(props: { searchParams: Promise<{ [key: s
             <section className='w-full p-4 flex flex-col items-center rounded-xl space-y-4'>
                 <LogInForm />
                 <div className='w-full flex flex-col text-center'>
+                <p className="font-light text-lg text-center">Přihlášením k odběru souhlasíte se zpracováním osobních údajů. Více informací <Link href='/ochrana-osobnich-udaju' className="underline text-secondary-foreground" target="_blank">ZDE </Link> </p>
+                <br />
                     <span className='text-lg'>Zapomeněli jste heslo?</span>
                     <Link className='text-lg underline underline-offset-2' href={"/log-in?forgot=true"}>Obnovte si heslo</Link>
                 </div>
