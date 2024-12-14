@@ -1,4 +1,5 @@
 "use server";
+import { redirect } from "next/navigation";
 import {createTransport } from "nodemailer"
 export async function sendNewsletter(formData: FormData){
   let jmeno: string = "";
@@ -153,4 +154,5 @@ if(type === "Ebook"){
       }catch(error){
         console.log(error);
       }
+      if(type = "Ebook") redirect(msg);
     }
