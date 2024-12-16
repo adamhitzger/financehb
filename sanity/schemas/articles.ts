@@ -17,7 +17,6 @@ export const articleType = defineType({
             name: "priority",
             title: "Priorita článku",
             type: "number",
-            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "slug",
@@ -71,7 +70,6 @@ export const articleType = defineType({
             name: "isFullyPaid",
             title: "Článek kompletně za paywallem",
             type: "boolean",
-            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "unpaid_text",
@@ -106,7 +104,14 @@ export const articleType = defineType({
                     ]
                 }
             ],
-            validation: (rule) => rule.required(),
+        }),
+        defineField({
+            name: "files",
+            title: "Soubory k článku",
+            type:"array",
+            of: [
+                {type: "file"},
+            ]
         }),
     ]
 })

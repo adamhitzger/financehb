@@ -7,7 +7,7 @@ export default function Header() {
     
     return (
         <header
-            className={`bg-secondary w-full p-5 lg:p-16 text-secondary`}>
+            className={`bg-secondary w-full p-5 lg:p-16 text-black`}>
             <div className="flex gap-6 p-5 flex-wrap md:flex-nowrap sm:flex-row w-full bg-white border-secondary-foreground border-2 rounded-xl">
             <div className="w-full md:w-1/2 flex flex-col justify-center font-light">
                 <div className="flex flex-col  w-full space-y-8  ">
