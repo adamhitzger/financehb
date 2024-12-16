@@ -25,7 +25,6 @@ export const articleType = defineType({
             options: {
                 source: "name",
             },
-            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "image",
