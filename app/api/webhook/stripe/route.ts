@@ -51,14 +51,33 @@ if(user.data.raynet_id === null){
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
-        tags: ["Měsíční akt z KPT přihl. z webu"],
         addresses: [
             {
+                address: {
+                    name: "Sídlo klienta",
+                    street: "",
+                    city: "",
+                    province: "",
+                    zipCode: "",
+                    country: "CZ",
+                    lat: 0,
+                    lng: 0
+                },
             contactInfo: {
                 email: user.data.email,
-        },
-    }
-    ],
+                email2: "",
+                fax: "",
+                otherContact: "",
+                tel1: "",
+                tel1Type: "",
+                tel2: "",
+                tel2Type: "",
+                www: "",
+                doNotSendMM: false
+                },
+            }
+            ],
+        tags: ["Měsíční akt z KPT přihl. z webu"],
     }),
   
 });
@@ -74,35 +93,6 @@ if(!raynet.ok){
             if(insert_r_id.error) console.error("Error when updating raynet id: ", insert_r_id.error);
             if(insert_r_id.data) console.log(insert_r_id.data);
 
-            }else{
-                const raynet = await fetch(raynetAPIUrl+user.data.raynet_id, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL! + ":" + process.env.RAYNET_API_KEY!).toString("base64"),
-                        "X-Instance-Name": "financehb",
-                    },
-                    body: JSON.stringify({
-                        name: user.data.first_name + " " + user.data.last_name,
-                        firstName: user.data.fist_name,
-                        lastName: user.data.last_name,
-                        rating: "A",
-                        state: "A_POTENTIAL",
-                        role: "A_SUBSCRIBER",
-                        tags: ["Měsíční akt z KPT přihl. z webu"],
-                        addresses: [
-                            {
-                            contactInfo: {
-                                email: user.data.email,
-                        },
-                    }
-                    ],
-                    }),
-                  
-                });
-                if(!raynet.ok){
-                  throw new Error(`Request failed with status: ${raynet.status}`);
-                }
             }
             
             const {data, error} = await client.from("subscriptions").insert({

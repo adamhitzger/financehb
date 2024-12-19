@@ -6,9 +6,10 @@ import { Article } from '@/types'
 import { PortableText } from 'next-sanity';
 import React from 'react'
 import { Metadata } from 'next';
-export async function generateMetadata({params}:{params: Promise<{ slug: string}>}):Promise<Metadata>{
+export async function generateMetadata(props:{params: Promise<{ slug: string}>}):Promise<Metadata> {
+    const params = await props.params;
     const p: Article = await sanityFetch<Article>({ query: ARTICLE_QUERY, params: params });
-  
+
     return{
         icons: {
             icon: "/images/main.jpg"
@@ -71,7 +72,8 @@ export async function generateMetadata({params}:{params: Promise<{ slug: string}
     }
 }
 
-export default async function ArticlePage({ params }: { params: Promise<{ slug: string }>}) {
+export default async function ArticlePage(props: { params: Promise<{ slug: string }>}) {
+    const params = await props.params;
     const article = await sanityFetch<Article>({ query: ARTICLE_QUERY, params: params });
     console.log(article)
     return (

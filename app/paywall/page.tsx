@@ -11,7 +11,7 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
     const { data, error } = await client.from("subscriptions").select("status").eq("user_id", userPromise?.id).single();
     console.log(data)
     if(error) console.log(error.message)
-    const PAGE_SIZE = 3;
+    const PAGE_SIZE = 4;
     console.log(process.env)
 const searchParams = await props.searchParams
     const currentPage = parseInt(searchParams.page || '1');
@@ -53,7 +53,7 @@ const searchParams = await props.searchParams
                     ))}
                 </div>
             </section>: <section className='w-full flex flex-col p-8 space-y-8'>
-                <ArticlesComp articles={articles}  />
+                <ArticlesComp articles={articles}  page='paywall'/>
                 <PaginationComp currentPage={currentPage} totalPages={totalPages} />
             </section>}
             

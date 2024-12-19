@@ -17,6 +17,7 @@ export const articleType = defineType({
             name: "priority",
             title: "Priorita článku",
             type: "number",
+            initialValue: 0
         }),
         defineField({
             name: "slug",
@@ -30,19 +31,6 @@ export const articleType = defineType({
             name: "image",
             title: "Hlavní fotka",
             type: "image",
-            fields: [
-                {
-                    name: "alt",
-                    title: "Alt",
-                    type: "string",
-                  },
-            ],
-            validation: (rule) => rule.required(),
-        }),
-        defineField({
-            name: "foto",
-            type: "image",
-            title: "Náhledová fotka",
             fields: [
                 {
                     name: "alt",
@@ -69,6 +57,7 @@ export const articleType = defineType({
             name: "isFullyPaid",
             title: "Článek kompletně za paywallem",
             type: "boolean",
+            initialValue: false
         }),
         defineField({
             name: "unpaid_text",
@@ -84,6 +73,11 @@ export const articleType = defineType({
                             type: "string",
                           },
                     ]
+                },
+                {type: "file",
+                    options: {
+                        accept: "video/mp4"
+                    }
                 }
             ],
             validation: (rule) => rule.required(),
@@ -112,5 +106,6 @@ export const articleType = defineType({
                 {type: "file"},
             ]
         }),
+
     ]
 })

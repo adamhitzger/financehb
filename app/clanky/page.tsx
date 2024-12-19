@@ -5,7 +5,7 @@ import { ARTICLES_QUERY, COUNT_ARTICLES } from '@/sanity/lib/queries';
 import { Articles } from '@/types';
 
 export default async function ArticlesPage(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
-    const PAGE_SIZE = 3;
+    const PAGE_SIZE = 4;
     const searchParams = await props.searchParams
     const currentPage = parseInt(searchParams.page || '1');
     const size = currentPage > 1 ? PAGE_SIZE + 1 : PAGE_SIZE;
@@ -20,9 +20,10 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
     const totalPages = Math.ceil(count / PAGE_SIZE);
     return (
         <main className="flex min-h-screen flex-col items-center justify-between ">
+            
             <section className="flex flex-col w-full p-8 space-y-8">
                 <h2 className="  font-bold tracking-wide text-secondary text-5xl">Články</h2>
-                <ArticlesComp articles={articles}  />
+                <ArticlesComp articles={articles}  page='clanky'/>
                 <PaginationComp currentPage={currentPage} totalPages={totalPages} />
             </section>
         </main>

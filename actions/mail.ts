@@ -20,12 +20,33 @@ export async function sendNewsletter(formData: FormData){
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
+        addresses: [
+          {
+              address: {
+                  name: "Sídlo klienta",
+                  street: "",
+                  city: "",
+                  province: "",
+                  zipCode: "",
+                  country: "CZ",
+                  lat: 0,
+                  lng: 0
+              },
+          contactInfo: {
+              email: email,
+              email2: "",
+              fax: "",
+              otherContact: "",
+              tel1: "",
+              tel1Type: "",
+              tel2: "",
+              tel2Type: "",
+              www: "",
+              doNotSendMM: false
+              },
+          }
+          ],
         tags: ["Měsíční aktuality z kapitálového trhu - zdarma ke stažení"],
-        primaryAddress: {
-        contactInfo: {
-          email: email,
-        }
-      },
     }),
   
 });
@@ -118,7 +139,7 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
         ? [
             {
               filename: "ebook.pdf",
-              path: msg, // pokud msg je URL
+              path: msg, 
             }
           ] 
         : [],
@@ -142,12 +163,34 @@ if(type === "Ebook"){
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
+        addresses: [
+          {
+              address: {
+                  name: "Sídlo klienta",
+                  street: "",
+                  city: "",
+                  province: "",
+                  zipCode: "",
+                  country: "CZ",
+                  lat: 0,
+                  lng: 0
+              },
+          contactInfo: {
+              email: email,
+              email2: "",
+              fax: "",
+              otherContact: "",
+              tel1: "",
+              tel1Type: "",
+              tel2: "",
+              tel2Type: "",
+              www: "",
+              doNotSendMM: false
+              },
+          }
+          ],
         tags: ["Stažený eBook"],
-        primaryAddress: {
-        contactInfo: {
-          email: email,
-        }
-      }
+        
       })
     });
     redirect(msg);

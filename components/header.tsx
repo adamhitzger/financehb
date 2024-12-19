@@ -22,7 +22,7 @@ export default function Header() {
 
                     </div>
                     
-                    <iframe className="mx-auto border-2 border-secondary-foreground rounded-xl w-full sm:w-2/3  xl:h-64 xl:w-1/2 "  src="https://www.youtube.com/embed/POPL9IAsTqo?si=jXmSN_G2M5I7e2i9" title="YouTube video Petr Krajcigr" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
+                    <iframe className="mx-auto border-2 border-secondary-foreground rounded-xl h-64"  src="https://www.youtube.com/embed/POPL9IAsTqo?si=jXmSN_G2M5I7e2i9" title="YouTube video Petr Krajcigr" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
                         
                             <Link href={"/sluzby#contact"} target="_blank">
                                 <Button size={"lg"}

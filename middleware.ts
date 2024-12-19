@@ -7,10 +7,12 @@ export async function middleware(request: NextRequest) {
       })
       const path = new URL(request.url).pathname;
 
-      const protectedRoutes = ["/paywall", "/paywall/:slug", "/user"];
+      const protectedRoutes = [/^\/paywall(\/.*)?$/, "/user"];
       const authRoutes = ["/log-in", "/sign-in", "/update-pass"];
     
-      const isProtectedRoute = protectedRoutes.includes(path);
+      const isProtectedRoute = protectedRoutes.some(route =>
+        route instanceof RegExp ? route.test(path) : route === path
+      );
       const isAuthRoute = authRoutes.includes(path);
     
       if (isProtectedRoute || isAuthRoute) {

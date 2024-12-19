@@ -28,7 +28,7 @@ export async function signUp(formData: FormData){
         const { auth } = await createSupabaseClient();
         const client = await createSupabaseClient("deleteAccount");
         const raynetAPIUrl = `https://app.raynet.cz/api/v2/company/?primaryAddress-contactInfo.email=${email}`;
-   const { data, error } = await auth.signUp({
+        const { data, error } = await auth.signUp({
           email,
           password,
           options: {
@@ -146,8 +146,6 @@ export const signOutAction = async () => {
     }
   };
 
-  
-  
 
   
 export async function forgotPassword(formData: FormData) {

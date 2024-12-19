@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import Image from "next/image";
 
-export function ArticlesComp({ articles }: { articles: Sanity[]}) {
+export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "clanky" | "paywall"}) {
     console.log(articles);
     if (articles.length === 0) return <div className="text-2xl font-medium">Nebyly nalezeny žádné články</div>
     else return (
@@ -27,7 +27,7 @@ export function ArticlesComp({ articles }: { articles: Sanity[]}) {
                         <div className={`hidden w-2/3 sm:flex flex-col justify-between ${idx % 2 === 0 ? " border-l-2 border-l-secondary-foreground text-right" : "border-r-2 border-r-secondary-foregborder-l-secondary-foreground text-left"}  p-5 font-light space-y-2 lg:p-10`}>
                             <h3 className="text-xl">{new Date(a.datum).toISOString().split("T")[0]} / {a.name}</h3>
                             <PortableText value={a.overview} components={components} />
-                            <Link href={`/paywall/${a.slug}`}><Button variant="default" className="text-lg">Celý článek <MoveUpRight /></Button></Link>
+                            <Link href={`/${page}/${a.slug}`}><Button variant="default" className="text-lg">Celý článek <MoveUpRight /></Button></Link>
                         </div>
 
                     </article>
