@@ -34,7 +34,7 @@ export const REALITIES_QUERY = groq`*[_type == 'reality' && status == 'Na prodej
    area,
    }`;
 
-export const ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false] | order(priority desc, date desc)[$start..$end]{
+export const ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false] | order(priority desc, datum desc)[$start..$end]{
     name,
     "slug": slug.current,
     "picture": image.asset->url,
@@ -42,7 +42,7 @@ export const ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false]
     overview,
 }`;
 
-export const HOME_ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false] | order(priority desc,date desc)[0..2] {
+export const HOME_ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == false] | order(priority desc,datum desc)[0..2] {
     name,
     "slug": slug.current,
     "picture": image.asset->url,
@@ -50,7 +50,7 @@ export const HOME_ARTICLES_QUERY = groq`*[_type == 'article' && isFullyPaid == f
     overview,
 }`;
 
-export const ALL_ARTICLES_QUERY = groq`*[_type == 'article'] | order(priority desc,date desc)[$start..$end]{
+export const ALL_ARTICLES_QUERY = groq`*[_type == 'article'] | order(priority desc,datum desc)[$start..$end]{
     name,
     "slug": slug.current,
     "picture": image.asset->url,

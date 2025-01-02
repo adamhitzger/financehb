@@ -17,7 +17,7 @@ export default function PodminkyPage() {
 Správcem osobních údajů je: Financehb.cz s.r.o., IČO: 06752888<br/>
 sídlem Nad Žlábkem 3758, 58001 Havlíčkův Brod, zapsaná na ŽÚ Havlíčkův Brod.<br/>
 Poskytovatel není plátcem DPH.<br/>
-email: info@lilidvorakova.cz<br/>
+email: petr@financehb.cz<br/>
 telefon: +420 777 820 080<br/>
 webová adresa: www.financehb.cz
 (dále také jen „správce“).<br/>
@@ -167,8 +167,8 @@ Subjekt údajů má právo kdykoli vznést námitku vůči zpracování osobníc
 Subjekt údajů má právo po správci požadovat vysvětlení zpracování osobních údajů, pokud se domnívá, že osobní údaje jsou zpracovávány v rozporu s právními předpisy.
 </li> <li> právo obrátit se na Úřad pro ochranu osobních údajů <br />
 Jestliže subjekt osobních údajů pochybuje o tom, že správce plní své povinnosti vyplývající z příslušných právních předpisů stran ochrany osobních údajů, má právo obrátit se na Úřad pro ochranu osobních údajů.
-Subjekt údajů se ze stejného důvodu může obrátit přímo na správce, a to prostřednictvím emailu email: info@lilidvorakova.cz.
-Veškerá práva (kromě práva obrátit se na Úřad pro ochranu osobních údajů) je možné realizovat prostřednictvím emailu info@lilidvorakova.cz.
+Subjekt údajů se ze stejného důvodu může obrátit přímo na správce, a to prostřednictvím emailu email: petr@financehb.cz.
+Veškerá práva (kromě práva obrátit se na Úřad pro ochranu osobních údajů) je možné realizovat prostřednictvím emailu petr@financehb.cz.
 </li>
                         </ul>
                         <p>Tyto zásady ochrany osobních údajů jsou účinné od 1.1.2025.</p>
