@@ -340,7 +340,6 @@ const headers = {
       DateOfIssue: now,
       DateOfMaturity: now,
       DateOfPayment: now,
-      DateOfPayment: now,
       DateOfTaxing: now,
       Description: `Faktura za předplatné - ${now} - ${fname} ${lname}`,
       DocumentSerialNumber: invoices.data.Data.Items.length+1,//
