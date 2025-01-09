@@ -284,7 +284,7 @@ async function getAccessToken() {
 
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Host": "api.idoklad.cz"
+    "Host": "identity.idoklad.cz"
   };
 
   const body = new URLSearchParams({
@@ -295,7 +295,7 @@ async function getAccessToken() {
   });
 
   try {
-    const response = await axios.post(url, body.toString(), { headers });
+    const response = await axios.post(url, body, { headers });
     return response.data.access_token;
   } catch (error) {
     console.error(error);
@@ -306,60 +306,67 @@ async function getAccessToken() {
 export async function createInvoice(total: number,fname: string, lname: string, discount: number | null | undefined ){
   
   const date = new Date();
-  const now = `${date.getFullYear()}-${date.getUTCMonth() + 1 > 9 ? `0${date.getUTCMonth() + 1}`: date.getUTCMonth()}-${date.getUTCDay() + 1 > 9 ? `0${date.getUTCDay()}`: date.getUTCDay()}`
+  const now = date.toISOString().split('T')[0];
   const invoiceUrl = "https://api.idoklad.cz/v3/IssuedInvoices";
   const contactUrl = "https://api.idoklad.cz/v3/Contacts"
   if(discount === null || discount == undefined) discount = 0;
 
   const accesToken = await getAccessToken()
+console.log(accesToken)
+const headers = {
+  "Content-Type": "application/json",
+  "Authorization": `Bearer ${accesToken}`,
+  "Host": "api.idoklad.cz"
+};
 
-  const headers = {
-    "Content-Type": "application/json",
-    "Authorization": `Basic ${accesToken}`,
-    "Host": "api.idoklad.cz"
-  }
 
   const contactBody ={
     CompanyName: `${fname} ${lname}`,
+    CountryId: 2,
     DeliveryAddresses: [
       {
-        Name: `${fname} ${lname}`,
+      Name: `${fname} ${lname}`,
       }
     ],
   }
   
   try{
-    const userId = await axios.post(contactUrl, contactBody, {headers})
-    console.log("Contact response:", userId.data);
-    const invoices = await axios.get(invoiceUrl)
-    console.log("Invoices response:", invoices.data);
+    const userId = await axios.post(contactUrl, contactBody,{headers})
+    console.log("Contact response:", userId.data.Data.Id);
+    const invoices = await axios.get(invoiceUrl, {headers})
+    console.log("Invoices response:", invoices.data.Data.Items.length+1);
     const body = {
-      CurrencyId: 1,//
+      CurrencyId: 2,//
       DateOfIssue: now,
       DateOfMaturity: now,
       DateOfPayment: now,
+      DateOfPayment: now,
+      DateOfTaxing: now,
+      Description: `Faktura za předplatné - ${now} - ${fname} ${lname}`,
       DocumentSerialNumber: invoices.data.Data.Items.length+1,//
       IsEet: false,
       IsIncomeTax: true,
       Items: [
         {
-          amount: 1,
+          Amount: 1,
           DiscountPercentage: discount,
           PriceType: 1,
           VatRateType: 2,
+          IsTaxMovement: false,
           Name: `Faktura za předplatné - ${now} - ${fname} ${lname}`,
           UnitPrice: total
         }
       ],
-      NumericSequenceId: invoices.data.Data.Items.length+1, //
+      NumericSequenceId: 5034542,
       PartnerId: userId.data.Data.Id, //
       PaymentOptionId: 1, //
     };
     
 
-    const idoklad = await axios.post(invoiceUrl, body.toString(), {headers})
+    const idoklad = await axios.post(invoiceUrl, body, {headers})
   console.log("Faktura vytvořena",idoklad.data)
   return idoklad.data
+
 }  catch(error: any){
   if (error.response) {
     console.error("Response data:", error.response.data);
