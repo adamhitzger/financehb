@@ -309,12 +309,12 @@ export async function createInvoice(total: number,fname: string, lname: string, 
   const invoiceUrl = "https://api.idoklad.cz/v3/IssuedInvoices";
   const contactUrl = "https://api.idoklad.cz/v3/Contacts"
   if(discount === null || discount == undefined) discount = 0;
-  else discount;
+
   const accesToken = await getAccessToken()
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization: "Basic " + Buffer.from(accesToken).toString("base64")
+    "Authorization": `Basic ${accesToken}`
   }
 
   const contactBody ={
@@ -327,8 +327,10 @@ export async function createInvoice(total: number,fname: string, lname: string, 
   }
   
   try{
-    const userId = await axios.post(contactUrl, contactBody.toString, {headers})
+    const userId = await axios.post(contactUrl, contactBody, {headers})
+    console.log("Contact response:", userIdResponse.data);
     const invoices = await axios.get(invoiceUrl)
+    console.log("Invoices response:", invoicesResponse.data);
     const body = {
       CurrencyId: 1,//
       DateOfIssue: now,
@@ -356,7 +358,16 @@ export async function createInvoice(total: number,fname: string, lname: string, 
     const idoklad = await axios.post(invoiceUrl, body.toString(), {headers})
   console.log("Faktura vytvořena",idoklad.data)
   return idoklad.data
-}  catch(error){
+}  catch(error: any){
+  if (error.response) {
+    console.error("Response data:", error.response.data);
+    console.error("Response status:", error.response.status);
+    console.error("Response headers:", error.response.headers);
+  } else if (error.request) {
+    console.error("Request made, no response received:", error.request);
+  } else {
+    console.error("Error message:", error.message);
+  }
   throw new Error(`iDoklad error: ${error}`)
 }
 
