@@ -328,9 +328,9 @@ export async function createInvoice(total: number,fname: string, lname: string, 
   
   try{
     const userId = await axios.post(contactUrl, contactBody, {headers})
-    console.log("Contact response:", userIdResponse.data);
+    console.log("Contact response:", userId.data);
     const invoices = await axios.get(invoiceUrl)
-    console.log("Invoices response:", invoicesResponse.data);
+    console.log("Invoices response:", invoices.data);
     const body = {
       CurrencyId: 1,//
       DateOfIssue: now,
