@@ -25,7 +25,6 @@ export async function POST(req: Request){
     
     let session = event.data.object as Stripe.Checkout.Session
     const stripeId = session.customer as string
-    const total = session.amount_total as number;
     const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
     if(user.error) console.log(user.error);
     if(user.data) console.log(user.data);
@@ -35,8 +34,13 @@ export async function POST(req: Request){
             const subscription = await stripe.subscriptions.retrieve(
                 session.subscription as string
             );
-        //await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
-if(user.data.raynet_id === null){ 
+            if (!session.subscription) {
+                console.error("Subscription ID is missing in the session object.");
+                return new Response("Subscription ID not found", { status: 400 });
+              }
+              const invoice = await stripe.invoices.retrieve(subscription.latest_invoice as string);
+const total = invoice.amount_due / 100;
+        if(user.data.raynet_id === null){ 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
     headers: {
@@ -106,7 +110,10 @@ if(!raynet.ok){
                 })
             if(error) console.log("Vkládaní nového předplatného se nepodřilo: ",error);
             if(data) console.log(data);
-            
+            const idoklad = await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
+                if(idoklad.data) console.log("iDoklad ok")
+                    else console.log("iDoklad error")
+              
         } catch (err) {
             console.error('Unexpected error:', err);
             return new Response('Unexpected error', { status: 500 });
@@ -119,7 +126,13 @@ if(!raynet.ok){
                 const session = await stripe.subscriptions.retrieve(
                     (event.data.object as Stripe.Subscription).id
                 );
-                if(session.status === "active") await createInvoice(total, user.data.first_name,user.data.last_name ,session.discount?.coupon.percent_off);
+                const invoice = await stripe.invoices.retrieve(session.latest_invoice as string);
+const total = invoice.amount_due / 100;
+                if(session.status === "active"){
+                    const idoklad = await createInvoice(total, user.data.first_name,user.data.last_name ,session.discount?.coupon.percent_off);
+                    if(idoklad.data) console.log("iDoklad ok")
+                        else console.log("iDoklad error")
+                } 
 
                 const {data, error} = await client.from("subscriptions").update({
                     stripe_subscriptions_id: session.id as string,
@@ -158,6 +171,12 @@ if(!raynet.ok){
                 const subscription = await stripe.subscriptions.retrieve(
                     session.subscription as string
                 );
+                const invoice = await stripe.invoices.retrieve(subscription.latest_invoice as string);
+const total = invoice.amount_due / 100;
+                if (!session.subscription) {
+                    console.error("Subscription ID is missing in the session object.");
+                    return new Response("Subscription ID not found", { status: 400 });
+                  }
                 const {data, error} = await client.from("subscriptions").update({
                     stripe_subscriptions_id: subscription.id as string,
                     periodStart: subscription.current_period_start,
@@ -168,10 +187,12 @@ if(!raynet.ok){
                 }).eq("stripe_subscriptions_id", subscription.id)
                 if(error) console.log(error.message);
                 if(data) console.log(data);
-                await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
-
+                const idoklad = await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
+                if(idoklad.data) console.log("iDoklad ok")
+                    else console.log("iDoklad error")
               }catch(error){
                 console.error("Error - invoice.payment_succeded: ", error);
+  return new Response("Failed to process subscription", { status: 500 });
               }
             break;
     }

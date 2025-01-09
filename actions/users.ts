@@ -5,6 +5,7 @@ import { createSupabaseClient, getUser, protectedRoute } from "../auth/server";
 import { getErrorMessage, stripe } from "../lib/utils";
 import { redirect } from "next/navigation";
 import { GetRaynetResponse } from "@/types";
+const axios = require("axios")
 export async function createCustomerPortal(stripeId: FormData) {
 
   
@@ -221,6 +222,7 @@ export async function createPayment(formData: FormData){
   await protectedRoute();
   const user = await getUser();
   const stripeId = formData.get("stripeId") as string;
+  const total = Number(formData.get("total"))
   if (!stripeId) {
     throw new Error("Stripe ID is missing.");
   }
@@ -274,44 +276,88 @@ export async function createPayment(formData: FormData){
 });
     console.log("Stripeid:", customerStripeId);
     
-    return redirect(session.url as string);
+  return redirect(session.url as string);
+}
+
+async function getAccessToken() {
+  const url = "https://identity.idoklad.cz/server/connect/token";
+
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+
+  const body = new URLSearchParams({
+    grant_type: "client_credentials",
+    client_id: process.env.IDOKLAD_CLIENT_ID!,
+    client_secret: process.env.IDOKLAD_CLIENT_SECRET!,
+    scope: "idoklad_api",
+  });
+
+  try {
+    const response = await axios.post(url, body.toString(), { headers });
+    return response.data.access_token;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 export async function createInvoice(total: number,fname: string, lname: string, discount: number | null | undefined ){
+  
   const date = new Date();
-  const invoiceUrl = "tps://api.idoklad.cz/v3/IssuedInvoices";
+  const now = `${date.getFullYear()}-${date.getUTCMonth() + 1 > 9 ? `0${date.getUTCMonth() + 1}`: date.getUTCMonth()}-${date.getUTCDay() + 1 > 9 ? `0${date.getUTCDay()}`: date.getUTCDay()}`
+  const invoiceUrl = "https://api.idoklad.cz/v3/IssuedInvoices";
+  const contactUrl = "https://api.idoklad.cz/v3/Contacts"
   if(discount === null || discount == undefined) discount = 0;
   else discount;
-  const idoklad = await fetch(invoiceUrl, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: "Basic " + Buffer.from(process.env.IDOKALD_TOKEN!).toString("base64"),
-        body: JSON.stringify({
-            ConstantSymbolId: 7,
-            CurrencyId: 1,
-            DateOfIssue:`${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}`,
-            DateOfMaturity:`${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()+1}`,
-            DocumentSerialNumber: 0,
-            IsEet: false,
-            IsIncomeTax: true,
-            Items: [
-                {
-                    amount: total/100,
-                    DiscountPercentage: discount,
-                    PriceType: 1,
-                    VatRateType: 2,
-                    Name: `Faktura za předplatné - ${date.getFullYear()}/${date.getUTCMonth()+1}/${date.getUTCDate()} - ${fname} ${lname}`,
-                }
-            ],
-            NumericSequenceId: Number(`${date.getFullYear()}${date.getUTCMonth()+1}${date.getUTCDate()}`),
-            PartnerId:10025124,
-            PaymentOptionId:1,
+  const accesToken = await getAccessToken()
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Basic " + Buffer.from(accesToken).toString("base64")
+  }
+
+  const contactBody ={
+    CompanyName: `${fname} ${lname}`,
+    DeliveryAddresses: [
+      {
+        Name: `${fname} ${lname}`,
+      }
+    ]
+  }
+  
+  try{
+    const userId = await axios.post(contactUrl, contactBody.toString, {headers})
+    const invoices = await axios.get(invoiceUrl)
+    const body = {
+      CurrencyId: 1,//
+      DateOfIssue: now,
+      DateOfMaturity: now,
+      DateOfPayment: now,
+      DocumentSerialNumber: invoices.data.Data.Items.length+1,//
+      IsEet: false,
+      IsIncomeTax: true,
+      Items: [
+        {
+          amount: 1,
+          DiscountPercentage: discount,
+          PriceType: 1,
+          VatRateType: 2,
+          Name: `Faktura za předplatné - ${now} - ${fname} ${lname}`,
+          UnitPrice: total
         }
-    ),
-    },
-   }
-);  
-if(!idoklad.ok) return console.log(`Problem with iDoklad Invoice - Status: ${idoklad.status}; MEssage: ${idoklad.statusText}`);
-if(idoklad.ok) return console.log("iDoklad Invoice succefully created") ;
+      ],
+      NumericSequenceId: invoices.data.Data.Items.length+1, //
+      PartnerId: userId.data.Data.Id, //
+      PaymentOptionId: 1, //
+    };
+    
+
+    const idoklad = await axios.post(invoiceUrl, body.toString(), {headers})
+  console.log("Faktura vytvořena",idoklad.data)
+  return idoklad.data
+}  catch(error){
+  throw new Error(`iDoklad error: ${error}`)
+}
+
 } 

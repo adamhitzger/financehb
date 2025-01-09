@@ -7,21 +7,13 @@ import router from 'next/router';
 import toast from 'react-hot-toast';
 import { createPayment } from "@/actions/users";
 
-export default function PaymentButton({ stripeId }: { stripeId: string }) {
-    const [isPending, startTransition] = useTransition();
-    const [form, setForm] = useState({
-        stripeId: stripeId
-    });
-
-    const handlePayment = (formData: FormData) => {
-        startTransition(async () => {
-            await createPayment(formData);
-        })
-    }
+export default function PaymentButton({ stripeId, total }: { stripeId: string, total: number }) {
+    
     return (
-        <form action={handlePayment}>
+        <form action={createPayment}>
             <input type='hidden' name='stripeId' value={stripeId} />
-            <Button className=' underline underline-offset-4 bg-secondary text-primary '>{isPending ? <Loader2 className={"animate-spin"} /> : <>Začít odebírat <MoveUpRight /></>}</Button>
+            <input type='hidden' name='total' value={total} />
+            <Button className=' underline underline-offset-4 bg-secondary text-primary '><>Začít odebírat <MoveUpRight /></></Button>
         </form>
     )
 }
