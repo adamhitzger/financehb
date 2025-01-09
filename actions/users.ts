@@ -284,6 +284,7 @@ async function getAccessToken() {
 
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
+    "Host": "api.idoklad.cz"
   };
 
   const body = new URLSearchParams({
@@ -314,7 +315,8 @@ export async function createInvoice(total: number,fname: string, lname: string, 
 
   const headers = {
     "Content-Type": "application/json",
-    "Authorization": `Basic ${accesToken}`
+    "Authorization": `Basic ${accesToken}`,
+    "Host": "api.idoklad.cz"
   }
 
   const contactBody ={
@@ -323,7 +325,7 @@ export async function createInvoice(total: number,fname: string, lname: string, 
       {
         Name: `${fname} ${lname}`,
       }
-    ]
+    ],
   }
   
   try{
