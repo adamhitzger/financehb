@@ -109,11 +109,7 @@ if(!raynet.ok){
                     interval: String(subscription.items.data[0].plan.interval),
                 })
             if(error) console.log("Vkládaní nového předplatného se nepodřilo: ",error);
-            if(data) console.log(data);
-            const idoklad = await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
-                if(idoklad.data) console.log("iDoklad ok")
-                    else console.log("iDoklad error")
-              
+            if(data) console.log(data);  
         } catch (err) {
             console.error('Unexpected error:', err);
             return new Response('Unexpected error', { status: 500 });
@@ -132,18 +128,21 @@ const total = invoice.amount_due / 100;
                     const idoklad = await createInvoice(total, user.data.first_name,user.data.last_name ,session.discount?.coupon.percent_off);
                     if(idoklad.data) console.log("iDoklad ok")
                         else console.log("iDoklad error")
-                } 
+                    const {data, error} = await client.from("subscriptions").update({
+                        stripe_subscriptions_id: session.id as string,
+                        periodStart: session.current_period_start,
+                        periodEnd: session.current_period_end,
+                        status: session.status,
+                        plan_id: session.items.data[0].plan.id as string,
+                        interval: String(session.items.data[0].plan.interval),
+                    }).eq("stripe_subscriptions_id", session.id)
+                    if(error) console.log(error.message);
+                    if(data) console.log(data);
+                }else if(session.status === "canceled"){
+                    const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", session.id)
+                }
 
-                const {data, error} = await client.from("subscriptions").update({
-                    stripe_subscriptions_id: session.id as string,
-                    periodStart: session.current_period_start,
-                    periodEnd: session.current_period_end,
-                    status: session.status,
-                    plan_id: session.items.data[0].plan.id as string,
-                    interval: String(session.items.data[0].plan.interval),
-                }).eq("stripe_subscriptions_id", session.id)
-                if(error) console.log(error.message);
-                if(data) console.log(data);
+                
             } catch (err) {
                 console.error('Unexpected error:', err);
                 return new Response('Unexpected error', { status: 500 });
@@ -173,6 +172,7 @@ const total = invoice.amount_due / 100;
                 );
                 const invoice = await stripe.invoices.retrieve(subscription.latest_invoice as string);
 const total = invoice.amount_due / 100;
+    const discount = subscription.discount?.coupon.percent_off ?? 0
                 if (!session.subscription) {
                     console.error("Subscription ID is missing in the session object.");
                     return new Response("Subscription ID not found", { status: 400 });
@@ -187,10 +187,7 @@ const total = invoice.amount_due / 100;
                 }).eq("stripe_subscriptions_id", subscription.id)
                 if(error) console.log(error.message);
                 if(data) console.log(data);
-                const idoklad = await createInvoice(total, user.data.first_name,user.data.last_name ,subscription.discount?.coupon.percent_off);
-                if(idoklad.data) console.log("iDoklad ok")
-                    else console.log("iDoklad error")
-              }catch(error){
+                 }catch(error){
                 console.error("Error - invoice.payment_succeded: ", error);
   return new Response("Failed to process subscription", { status: 500 });
               }

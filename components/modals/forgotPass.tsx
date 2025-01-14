@@ -8,6 +8,7 @@ import { useTransition, useState } from "react";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 
+
 export function ForgotPass() {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();

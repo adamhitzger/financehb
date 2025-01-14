@@ -9,12 +9,10 @@ import { ChangePass } from '@/components/modals/changePass';
 import {
     Card,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
 import { createSupabaseClient } from '@/auth/server';
-import { createInvoice } from '@/actions/users';
 import SubInfoForm from '@/components/subInfoForm';
 export default async function UserPage(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
     const client = await createSupabaseClient();
