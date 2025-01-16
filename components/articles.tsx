@@ -19,7 +19,7 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
                             <div className={`z-50  top-5 right-5 w-full p-5 flex flex-col space-y-2 ${idx % 2 === 0 ? "text-right" : "text-left"} sm:hidden`}>
                                 <h3 className="text-xl">{new Date(a.datum).toISOString().split("T")[0]} / {a.name}</h3>
                                 <PortableText value={a.overview} components={components} />
-                                <Link href={a.slug}><Button size={"sm"} className="bg-secondary" variant={"default"}>Celý článek <MoveUpRight /></Button></Link>
+                                <Link href={`/${page}/${a.slug}`}><Button size={"sm"} className="bg-secondary" variant={"default"}>Celý článek <MoveUpRight /></Button></Link>
 
                             </div>
 

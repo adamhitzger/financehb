@@ -67,7 +67,7 @@ export default function About() {
                 </div>
             </div>
             <div className={`w-full  sm:w-1/2 flex justify-center items-center`}>
-                <Image src={"/images/about.jpg"} alt="Header photo" width={1024} height={1024} className="object-fill bg-cover rounded-xl border-secondary-foreground border-2 hover:shadow-lg hover:shadow-secondary-foreground transition ease-in-out delay-100 duration-200" />
+            <iframe className="mx-auto border-2 border-secondary-foreground rounded-xl w-full h-96"  src="https://www.youtube.com/embed/POPL9IAsTqo?si=jXmSN_G2M5I7e2i9" title="YouTube video Petr Krajcigr" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
             </div>
             
             </div>
