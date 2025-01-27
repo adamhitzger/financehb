@@ -9,7 +9,6 @@ import Link from "next/link";
 import { HomeArticles } from "@/components/articles";
 import Header from "@/components/header";
 import About from "@/components/about";
-import Gallery from "@/components/gallery";
 import Feed from "@/components/socialFeed";
 export default async function Home() {
   const articlesPromise: Articles[] = await sanityFetch<Articles[]>({ query: HOME_ARTICLES_QUERY });

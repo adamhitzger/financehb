@@ -31,7 +31,7 @@ export default function PaginationComp({ currentPage, totalPages }: Props) {
         router.push(newUrl, { scroll: false });
     };
     return (
-        <Pagination>
+        <Pagination >
             <PaginationContent>
                 <PaginationItem>
                     {currentPage > 1 && (
@@ -44,7 +44,7 @@ export default function PaginationComp({ currentPage, totalPages }: Props) {
                     )}
                 </PaginationItem>
 
-                {Array.from({ length: totalPages }).map((_, idx) => (
+                {totalPages < 3 && Array.from({ length: totalPages }).map((_, idx) => (
                     <PaginationItem key={idx}>
                         <PaginationLink
                             href="#"

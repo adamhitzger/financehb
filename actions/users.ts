@@ -145,10 +145,8 @@ export const signOutAction = async () => {
     } catch (error) {
       return { errorMessage: getErrorMessage(error) };
     }
-  };
+};
 
-
-  
 export async function forgotPassword(formData: FormData) {
   try {
     
@@ -158,7 +156,7 @@ export async function forgotPassword(formData: FormData) {
       
   
       const { data,error } = await auth.resetPasswordForEmail(
-        email
+        email,
       );
       console.log(data)
       if (error) throw error;
@@ -169,13 +167,14 @@ export async function forgotPassword(formData: FormData) {
   }
 }
 
-export async function updateForgotUser(formData: FormData) {
+export async function updateForgotUser(formData: FormData, code: string) {
   try {
-    await protectedRoute();
       const email = formData.get("email") as string;
       const password = formData.get("password") as string;
       const {auth} = await createSupabaseClient();
-  
+
+      const codeEx = await auth.exchangeCodeForSession(code)
+      if(codeEx.error) return {errorMessage: "Nepodařilo se Vás ověřit"}
       const { data,error } = await auth.updateUser({
         email,
         password,

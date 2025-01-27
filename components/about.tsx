@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { HousePlus, MoveUpRight, ThumbsUp, Users, Wallet } from "lucide-react";
@@ -48,7 +48,7 @@ export default function About() {
                                 <Button 
                                 className="no-underline mx-auto font-light" variant={"default"}
                                 >
-                                    Sjednejte si se mnou &nbsp;<span className="text-secondary font-normal underline">schůzku</span>&nbsp;<MoveUpRight className="text-secondary"/>
+                                    Zamluvte si &nbsp;<span className="text-secondary font-normal underline">schůzku</span>&nbsp;<MoveUpRight className="text-secondary"/>
                                 </Button>
                             </Link>
                             <div className="w-full grid justify-enter grid-cols-2 sm:hidden lg:grid lg:grid-cols-4 gap-4 p-3">

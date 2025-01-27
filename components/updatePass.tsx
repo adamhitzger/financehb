@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { updateForgotUser } from "@/actions/users";
@@ -10,6 +10,9 @@ import { Loader2 } from "lucide-react";
 
 export function UpdatePass() {
     const router = useRouter();
+    const searchParams = useSearchParams()
+    const params = searchParams.get("code") as string
+    console.log(params)
     const [isPending, startTransition] = useTransition();
     const [form, setForm] = useState({
         email: "",
@@ -22,7 +25,7 @@ export function UpdatePass() {
 
     const handleUpdate = (formData: FormData) => {
         startTransition(async () => {
-            await updateForgotUser(formData);
+            await updateForgotUser(formData, params);
 
             toast.success("Probíhá změna údajů")
             router.push('/paywall')

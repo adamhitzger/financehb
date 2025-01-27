@@ -24,8 +24,11 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
             <section className="flex flex-col w-full p-8 md:p-16 space-y-8">
                 <h2 className="  font-bold tracking-wide text-secondary text-5xl">Články</h2>
                 <ArticlesComp articles={articles}  page='clanky'/>
+               
                 <PaginationComp currentPage={currentPage} totalPages={totalPages} />
-            </section>
+            
+              
+                </section>
         </main>
     )
 }

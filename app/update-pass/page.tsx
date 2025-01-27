@@ -2,7 +2,7 @@
 import { UpdatePass } from '@/components/updatePass'
 import React from 'react'
 
-export default function UpdateForgotPass() {
+export default async function UpdateForgotPass() {
 
     return (
         <main className='w-full min-h-screen p-4 flex flex-col justify-center items-center'>
