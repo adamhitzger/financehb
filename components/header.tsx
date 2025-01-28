@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import {  MoveUpRight,  } from "lucide-react";
+import { Suspense } from "react";
 export default function Header() {
     
     return (
@@ -33,7 +34,10 @@ export default function Header() {
                 </div>
             </div>
             <div className={`w-full md:w-1/2 flex justify-center items-center`}>
-                <Image src={"/images/main.jpg"} alt="Header photo" width={1024} height={1024} className="object-fill bg-cover rounded-xl border-secondary-foreground border-2 hover:shadow-secondary-foreground hover:shadow-lg transition ease-in-out delay-100 duration-200" />
+                
+            <video controls poster={"/images/thumbnail.jpg"} className="block w-full h-96">
+            <source src="/video.mp4" type="video/mp4"/>
+           </video>
             </div>
             </div>
         </header>
