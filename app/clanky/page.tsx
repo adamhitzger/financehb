@@ -20,15 +20,11 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
     const totalPages = Math.ceil(count / PAGE_SIZE);
     return (
         <main className="flex min-h-screen flex-col items-center justify-between ">
-            
             <section className="flex flex-col w-full p-8 md:p-16 space-y-8">
                 <h2 className="  font-bold tracking-wide text-secondary text-5xl">Články</h2>
-                <ArticlesComp articles={articles}  page='clanky'/>
-               
+                <ArticlesComp articles={articles}  page='clanky'/>     
                 <PaginationComp currentPage={currentPage} totalPages={totalPages} />
-            
-              
-                </section>
+            </section>
         </main>
     )
 }

@@ -31,7 +31,7 @@ export default function Navbar({user}: {user : DBUser | null}) {
             )}
             <div className='flex lg:hidden '>
                 <Sheet >
-                    <SheetTrigger><Menu width={36} height={36} /></SheetTrigger>
+                    <SheetTrigger aria-roledescription='dialog' aria-label="Open menu"><Menu width={36} height={36} /></SheetTrigger>
                     <SheetContent side={"right"}>
                         <div className='gap-5 w-full text-2xl  font-light text-black flex flex-col justify-center h-full '>
                             {navLinks.map((l: Links, i: number) => (

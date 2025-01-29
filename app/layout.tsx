@@ -71,7 +71,7 @@ export default async function RootLayout({
 }>) {
   const user = await getUser();
   return (
-    <html >
+    <html lang="cs">
       <body className={`${inter.className} ${ibarra.variable} `}>
         <Navbar user={user}/>
         {children}

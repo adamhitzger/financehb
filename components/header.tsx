@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import {  MoveUpRight,  } from "lucide-react";
+import {  Divide, MoveUpRight,  } from "lucide-react";
 import { Suspense } from "react";
 export default function Header() {
     
@@ -34,10 +34,11 @@ export default function Header() {
                 </div>
             </div>
             <div className={`w-full md:w-1/2 flex justify-center items-center`}>
-                
+                <Suspense fallback={<div className="w-full h-96 bg-primary-foreground"></div>}>
             <video controls poster={"/images/thumbnail.jpg"} className="block w-full h-96">
             <source src="/video.mp4" type="video/mp4"/>
            </video>
+           </Suspense>
             </div>
             </div>
         </header>

@@ -1,4 +1,4 @@
-
+"use client"
 import SignInForm from '@/components/signInForm'
 import Link from 'next/link'
 import React from 'react'
