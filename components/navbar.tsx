@@ -6,15 +6,14 @@ import { Button } from './ui/button'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Navbar({user}: {user : DBUser | null}) {
        console.log(user)
     return (
         <nav className='pr-6 w-full flex text-primary items-center justify-between flex-row bg-secondary border-b-secondary-foreground border-b'>
             <Link href={"/"} className='self-start'>
-                <div className='w-fit p-3  bg-secondary-foreground font-extrabold text-2xl tracking-wider'>
-                    FINANCE<span className='text-secondary'>HB</span>.cz
-                </div>
+                <Image  src={"/images/logo.png"} alt='Logo Financehb.cz' width={220} height={1028}/>
             </Link>
        
             <div className='space-x-5 py-7 text-xl hidden lg:flex'>
