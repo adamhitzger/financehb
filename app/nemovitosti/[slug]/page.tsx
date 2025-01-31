@@ -9,7 +9,7 @@ export async function generateMetadata({params}:{params: Promise<{ slug: string}
     
     return{
         icons: {
-            icon: "/images/main.jpg"
+            icon: "/images/logo.png"
           },
           applicationName: "Finance HB",
           generator: "Next.ts",

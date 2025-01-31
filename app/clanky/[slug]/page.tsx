@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import { sanityFetch } from '@/sanity/lib/client'
 import { components } from '@/sanity/lib/components';
 import { ARTICLE_QUERY } from '@/sanity/lib/queries'
@@ -13,7 +12,7 @@ export async function generateMetadata(props:{params: Promise<{ slug: string}>})
 
     return{
         icons: {
-            icon: "/images/main.jpg"
+            icon: "/images/logo.png"
           },
           applicationName: "Finance HB",
           generator: "Next.ts",

@@ -6,13 +6,13 @@ import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
 import { ibarra } from "./font";
 import { getUser } from "@/auth/server";
-
+import { Head } from "next/document";
 const inter = Inter({ subsets: ["latin"] });
 
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/images/main.jpg"
+    icon: "/images/logo.png"
   },
   applicationName: "Finance HB",
   generator: "Next.ts",
@@ -72,6 +72,13 @@ export default async function RootLayout({
   const user = await getUser();
   return (
     <html lang="cs">
+      <Head>
+      <link
+          rel="canonical"
+          href="https://www.financehb.cz"
+          key="canonical"
+        />
+      </Head>
       <body className={`${inter.className} ${ibarra.variable} `}>
         <Navbar user={user}/>
         {children}
