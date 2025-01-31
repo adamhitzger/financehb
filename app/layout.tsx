@@ -6,7 +6,7 @@ import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
 import { ibarra } from "./font";
 import { getUser } from "@/auth/server";
-import { Head } from "next/document";
+import Head from "next/head";
 const inter = Inter({ subsets: ["latin"] });
 
 
