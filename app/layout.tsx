@@ -6,45 +6,26 @@ import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
 import { ibarra } from "./font";
 import { getUser } from "@/auth/server";
-import Head from "next/head";
 const inter = Inter({ subsets: ["latin"] });
 
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/images/logo.png"
+    icon: "/logo.png"
   },
   applicationName: "Finance HB",
   generator: "Next.ts",
-  title: "Petr Krajcigr, Finance HB",
-  description: "V oboru financí pracuji od roku 1998 tedy více jak 24 let. Specializuji se na investice a rizika v osobních financích. Mými klienty jsou převážně manažeři a majitelé firem. Nikdy však neodmítnu pomoc s důležitým finančním rozhodnutím každému, kdo se na mě s důvěrou obrátí. Práce je mou vášní. Proto cílevědomě kombinuji praxi s teorií a mezinárodně uznávaný titul European Financial Advisor (EFA) vnímám jako potvrzení, že jsem na dobré cestě. Pravou motivací pro mě je, když mohu sledovat, jak výsledky mé práce přispívají k naplnění snů mých klientů.",
+  title: "Finance HB, správa investic a financí",
+  description: "V oboru financí pracuji od roku 1998 tedy více jak 27 let. Specializuji se na investice a rizika v osobních financích. Na mém webu najdete články, ebook, newsletter a můžete si předplatit obsah.",
   authors: [{name: "Adam Hitzger"}, {name: "Petr Krajcigr"}],
   keywords: [
-    "správa portfolia Havlíčkův Brod",
-    "investice Havlíčkův Brod",
-    "portfolio management Havlíčkův Brod",
-    "investiční poradce Havlíčkův Brod",
-    "peníze na investice Havlíčkův Brod",
-    "zhodnocení financí Havlíčkův Brod",
-    "finanční plánování Havlíčkův Brod",
-    "osobní investice Havlíčkův Brod",
-    "dlouhodobé investování Havlíčkův Brod",
-    "investiční služby Havlíčkův Brod",
-    "portfolio manažer Havlíčkův Brod",
-    "finanční poradenství Havlíčkův Brod",
-    "zajištění investic Havlíčkův Brod",
-    "investiční strategie Havlíčkův Brod",
-    "kapitálové trhy Havlíčkův Brod",
-    "profesionální správa portfolia Havlíčkův Brod",
-    "investice do akcií Havlíčkův Brod",
-    "investování s expertem Havlíčkův Brod",
-    "finanční nezávislost Havlíčkův Brod",
-    "pasivní příjem Havlíčkův Brod",
-    "správa investičních fondů Havlíčkův Brod",
-    "peníze a investice Havlíčkův Brod",
-    "investování pro budoucnost Havlíčkův Brod",
-    "kvalitní finanční služby Havlíčkův Brod",
-    "investiční příležitosti Havlíčkův Brod"
+    "správa portfolia ",
+    "investice",
+    "portfolio management",
+    "investiční poradce",
+    "finanční plánování",
+    "osobní investice",
+    " Havlíčkův Brod",
 ],
 creator: "Adam Hitzger",
         publisher: "Adam Hitzger",
@@ -55,7 +36,7 @@ creator: "Adam Hitzger",
           },
 openGraph: {
   title: "Finance Havlíčkův Brod",
-  description: "V oboru financí pracuji od roku 1998 tedy více jak 24 let. Specializuji se na investice a rizika v osobních financích. Mými klienty jsou převážně manažeři a majitelé firem. Nikdy však neodmítnu pomoc s důležitým finančním rozhodnutím každému, kdo se na mě s důvěrou obrátí. Práce je mou vášní. Proto cílevědomě kombinuji praxi s teorií a mezinárodně uznávaný titul European Financial Advisor (EFA) vnímám jako potvrzení, že jsem na dobré cestě. Pravou motivací pro mě je, když mohu sledovat, jak výsledky mé práce přispívají k naplnění snů mých klientů.",
+  description: "V oboru financí pracuji od roku 1998 tedy více jak 27 let. Specializuji se na investice a rizika v osobních financích. Na mém webu najdete články, ebook, newsletter a můžete si předplatit obsah.",
   url: "https://www.financehb.cz",
   siteName: "Finance Havlíčkův Brod",
   locale: "cs_CZ",
@@ -72,13 +53,13 @@ export default async function RootLayout({
   const user = await getUser();
   return (
     <html lang="cs">
-      <Head>
+      <head>
       <link
           rel="canonical"
           href="https://www.financehb.cz"
           key="canonical"
         />
-      </Head>
+      </head>
       <body className={`${inter.className} ${ibarra.variable} `}>
         <Navbar user={user}/>
         {children}

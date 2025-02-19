@@ -1,8 +1,7 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import {  Divide, MoveUpRight,  } from "lucide-react";
+import { MoveUpRight,  } from "lucide-react";
 import { Suspense } from "react";
 export default function Header() {
     
@@ -13,9 +12,9 @@ export default function Header() {
             <div className="w-full md:w-1/2 flex flex-col justify-center font-light">
                 <div className="flex flex-col  w-full space-y-8  ">
                     
-                        <h2 className={`text-3xl lg:text-5xl text-left  max-w-96 font-ibarra`}>
+                        <h1 className={`text-3xl lg:text-5xl text-left  max-w-96 font-ibarra`}>
                         DOVEDU VÁS K FINANČNÍ <span className="underline text-secondary-foreground">NEZAVISLOSTI</span>
-                        </h2>
+                        </h1>
                     
                     <div className={`text-left text-base sm:text-lg`}>
                         <p>Zabývám se finančním poradenstvím, investicím a správě portfolií. Pomáhám lidem spravovat portfolia více jak 28 let.  Na mé stránce najdete <Link href={"/clanky"} target="_blank" className="underline text-secondary-foreground ">články</Link> a makroekonomické analýzy, nové investiční příležistosti jako je <Link href={"/clanky/vse-co-potrebujete-vedet-o-dipu"} target="_blank" className="underline text-secondary-foreground ">DIP</Link>.  
@@ -35,7 +34,7 @@ export default function Header() {
             </div>
             <div className={`w-full md:w-1/2 flex justify-center items-center`}>
                 <Suspense fallback={<div className="w-full h-96 bg-primary-foreground"></div>}>
-            <video controls poster={"/images/thumbnail.jpg"} className="block w-full h-96">
+            <video controls poster={"/images/thumbnail.jpg"} playsInline={true} className="block w-full h-96">
             <source src="/video.mp4" type="video/mp4"/>
            </video>
            </Suspense>

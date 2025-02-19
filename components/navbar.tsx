@@ -13,7 +13,7 @@ export default function Navbar({user}: {user : DBUser | null}) {
     return (
         <nav className='pr-6 w-full flex text-primary items-center justify-between flex-row bg-secondary border-b-secondary-foreground border-b'>
             <Link href={"/"} className='self-start'>
-                <Image  src={"/images/logo.png"} alt='Logo Financehb.cz' width={220} height={1028}/>
+                <Image  src={"/logo.png"} alt='Logo Financehb.cz' width={220} height={1028}/>
             </Link>
        
             <div className='space-x-5 py-7 text-xl hidden lg:flex'>
