@@ -1,5 +1,6 @@
 import { Links, Service, SocialNetwork } from "@/types";
 
+
 export const navLinks: Links[] = [
     {
         name: "O mně",
@@ -50,7 +51,7 @@ export const Services: Service[] = [
     },
 ];
 
-export const Socials: SocialNetwork[] = [
+export const WebPromoLinks: SocialNetwork[] = [
     {
         heading: "E-book",
         value: "Chci se dozvědět víde o e-booku",
@@ -60,19 +61,36 @@ export const Socials: SocialNetwork[] = [
 {
     heading: "Předplatné",
     value: "Chci si zaplatit předplatné",
-    href: "/predplatne",
+    href: "/paywall",
     text: "Pomocí předplatného získáte přístup k informacím z kapitálových trhů, měsíční reporty aj."
 },
+
+]
+
+export const Socials: SocialNetwork[] = [
+    
 {
     heading: "Instagram",
     value: "Podívat se na nejnovější příspěvky",
     href: "https://www.instagram.com/financehb.cz/",
-    text: "Získejte přísun informací pomocí reelsů a postů na instagramu. Nezapomeňte odebírat a sdílet!"
+    text: "Získejte přísun informací pomocí reelsů a postů na instagramu. Nezapomeňte odebírat a sdílet!",
 },
 {
     heading: "Youtube",
     value: "Přihlásit k odběru",
     href: "https://www.youtube.com/channel/UCkp9gcnCVfZ3L-cPggo4uMw",
+    text: "Chcete dostávat aktuální informace ze světa ekonomiky, investic a kapitálových trhů? Přihlaste se k odběru našeho YouTube kanálu.,"
+},
+{
+    heading: "Facebook",
+    value: "Podívat se na nejnovější příspěvky",
+    href: "https://www.facebook.com/financehb.cz/",
+    text: "Získejte přísun informací pomocí reelsů a postů na instagramu. Nezapomeňte odebírat a sdílet!"
+},
+{
+    heading: "LinkedIn",
+    value: "Přihlásit k odběru",
+    href: "https://cz.linkedin.com/in/petrkrajcigr",
     text: "Chcete dostávat aktuální informace ze světa ekonomiky, investic a kapitálových trhů? Přihlaste se k odběru našeho YouTube kanálu.,"
 },
 ]

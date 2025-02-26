@@ -6,6 +6,7 @@ import { Ebook } from "@/types"
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
+
 export default async function EbookPage() {
     const ebook = await sanityFetch<Ebook>({ query: EBOOK_QUERY });
     console.log(ebook);
@@ -21,7 +22,9 @@ export default async function EbookPage() {
                     <div className="w-full md:w-1/2 flex justify-center space-x-0.5">
                         <div className="px-1 bg-black skew-x-4 h-auto">
                         </div>
+                        <Link href={ebook.file}>
                         <Image src={ebook.picture} alt={ebook.picture} width={300} height={280} className="object-fill bg-cover skew-x-4 " />
+                        </Link>
                     </div>
                 </div>
 

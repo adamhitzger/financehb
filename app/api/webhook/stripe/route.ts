@@ -4,6 +4,7 @@ import { stripe } from "@/lib/utils";
 import { headers } from "next/headers";
 import { RaynetResponse } from "@/types";
 import { createInvoice } from "@/actions/users";
+import { createTransport } from "nodemailer";
 export async function POST(req: Request){
     const body = await req.text();
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
@@ -11,7 +12,14 @@ export async function POST(req: Request){
     const headerList = await headers();
     const signature = headerList.get("Stripe-Signature") as string;
     let event: Stripe.Event;
-    
+    const transporter = createTransport({
+           service: "gmail",
+           auth: {
+            user: process.env.FROM_EMAIL,
+            pass: process.env.FROM_EMAIL_PASSWORD,
+           }
+          });
+          
     try {
         event = stripe.webhooks.constructEvent(
             body,
@@ -81,10 +89,16 @@ const total = invoice.amount_due / 100;
                 },
             }
             ],
-        tags: ["Měsíční akt z KPT přihl. z webu"],
+        tags: ["Měsíční akt z KPT placené"],
     }),
-  
+    
 });
+await transporter.sendMail({
+    from: process.env.FROM_EMAIL,
+    to: process.env.FROM_EMAIL,
+    subject: "Nové přihlášení - Měsíční akt z KPT placené",
+    text: `Celé jméno: ${user.data.fist_name + " " + user.data.last_name}, Email: ${user.data.email}`
+   })
 if(!raynet.ok){
   throw new Error(`Request failed with status: ${raynet.status}`);
 }

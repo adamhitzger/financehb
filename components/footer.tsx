@@ -6,7 +6,6 @@ import 'react-social-icons/youtube'
 import 'react-social-icons/linkedin'
 import Link from 'next/link'
 import { ArrowRight, Building, CalendarClock, Landmark, MapPin, PhoneIncoming, Link as LinkIcon } from 'lucide-react'
-import Image from 'next/image'
 
 export default function Footer() {
     const year: number = new Date().getFullYear();

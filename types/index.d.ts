@@ -1,5 +1,5 @@
 import { User as SupabaseUser } from "@supabase/supabase-js";
-
+import React from "react";
 export type RaynetResponse = {
 success: string;
 data: {
@@ -91,7 +91,9 @@ export interface SocialNetwork {
     value: string;
     href: string;
     text: string;
+    icon?: React.ReactNode 
 }
+
 
 export interface UrlQueryParams {
     params: string;

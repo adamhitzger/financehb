@@ -58,3 +58,4 @@ export async function protectedRoute() {
     const user = await getUser();
     if (!user) throw Error("Unauthorized");
 }
+

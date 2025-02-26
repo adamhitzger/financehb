@@ -1,5 +1,5 @@
 "use client"
-import { navLinks } from '@/constants'
+import { navLinks } from "@/constants"
 import { Links, DBUser } from '@/types'
 import React from 'react'
 import { Button } from './ui/button'
