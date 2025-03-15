@@ -7,11 +7,11 @@ export async function middleware(request: NextRequest) {
       })
       const path = new URL(request.url).pathname;
 
-      const protectedRoutes = [/^\/paywall(\/.*)?$/, "/user"];
+      const protectedRoutes = ["/paywall:slug", "/user"];
       const authRoutes = ["/log-in", "/sign-in", "/update-pass"];
     
       const isProtectedRoute = protectedRoutes.some(route =>
-        route instanceof RegExp ? route.test(path) : route === path
+        route === path
       );
       const isAuthRoute = authRoutes.includes(path);
     
@@ -22,9 +22,7 @@ export async function middleware(request: NextRequest) {
           return NextResponse.redirect(new URL("/log-in", request.url));
         }
     
-        if (isAuthRoute && user) {
-          return NextResponse.redirect(new URL("/paywall", request.url));
-        }
+        
       }
 
     

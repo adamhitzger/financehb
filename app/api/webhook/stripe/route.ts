@@ -89,7 +89,7 @@ const total = invoice.amount_due / 100;
                 },
             }
             ],
-        tags: ["Měsíční akt z KPT placené"],
+        tags: ["Mesicni akt z KPT"],
     }),
     
 });

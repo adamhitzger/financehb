@@ -47,6 +47,12 @@ export const articleType = defineType({
             validation: (rule) => rule.required(),
         }),
         defineField({
+            name: "emailText",
+            type: "string",
+            title: "Text pro emailovou šablonu",
+            validation: (rule) => rule.required(),
+        }),
+        defineField({
             name: "overview",
             title: "Náhledový text",
             type: "array",
@@ -75,6 +81,7 @@ export const articleType = defineType({
                     ]
                 },
                 {type: "file",
+                    title: "Video",
                     options: {
                         accept: "video/mp4"
                     }
@@ -95,6 +102,12 @@ export const articleType = defineType({
                             type: "string",
                           },
                     ]
+                },
+                {type: "file",
+                    title: "Video",
+                    options: {
+                        accept: "video/mp4"
+                    }
                 }
             ],
         }),

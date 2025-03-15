@@ -7,7 +7,7 @@ import { updateForgotUser } from "@/actions/users";
 import { useTransition, useState } from "react";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
-
+import {motion} from "framer-motion"
 export function UpdatePass() {
     const router = useRouter();
     const searchParams = useSearchParams()
@@ -35,10 +35,16 @@ export function UpdatePass() {
 
     return (
 
-        <div className="p-4 border w-96 shadow-lg rounded-md bg-white">
+        <motion.div
+        initial={{opacity:0, y:-250}}
+                animate={{opacity:1, y:0}}
+                exit={{opacity:0, y:-250}}
+                transition={{duration: 0.6}} className="p-4 border w-96 shadow-lg rounded-md bg-white">
             <div className="text-center space-y-2">
                 <h3 className="text-2xl font-bold text-gray-900 ">Uložit nové heslo</h3>
-                <form className="space-y-4" action={handleUpdate}>
+                <form 
+                
+                className="space-y-4" action={handleUpdate}>
                     <Input name="email" placeholder="Zadejte email" type="text" required disabled={isPending} onChange={handleChange} defaultValue={form.email} />
                     <Input name="password" type="password" placeholder="Zadejte heslo" required disabled={isPending} onChange={handleChange} defaultValue={form.password} />
                     <Button
@@ -51,6 +57,6 @@ export function UpdatePass() {
                 </form>
 
             </div>
-        </div>
+        </motion.div>
     );
 }

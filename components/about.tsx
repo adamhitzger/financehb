@@ -37,7 +37,7 @@ export default function About() {
   const isInView = useInView(ref, {once: false})
     const statistics = [
         {
-          node: <Wallet strokeWidth={1.5} className="w-12 h-12 text-secondary-foreground mx-auto" />,
+          node: <Wallet strokeWidth={1.5} className=" w-12 h-12 text-secondary-foreground mx-auto" />,
           heading: 800,
           endText: "mil. Kč",
           text: "Zpravuji na kap. trzích firmám a obcím"

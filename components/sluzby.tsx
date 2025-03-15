@@ -8,7 +8,15 @@ import { Reviews, Service } from "@/types";
 import CalendlyPop from "./calendlyPop";
 import Contact from "./contact";
 import Slider from "./slider";
+import { useRef } from "react";
+import {motion, useInView} from "framer-motion"
 export default function Sluzby({reviews}: {reviews: Reviews[]}) {
+  const sec = useRef(null)
+  const sec2 = useRef(null)
+  const text = useRef(null)
+const isInView = useInView(sec, {amount:0.3})
+const isInView2 = useInView(sec2, {amount:0.3})
+const isInView3 = useInView(text, {amount:0.3})
   const sections = [
     {
     header: "POJISTĚTE SE PROTI ZKÁZÁM",
@@ -16,7 +24,9 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
     image: "/images/gallery.jpg",
     flex: "flex-row",
     bg: "primary",
-    color: "black"
+    color: "black",
+    ref: sec,
+    isInV: isInView 
     },
     {
         header: "SJEDNEJTE SI POJISTKU NA ZDRAVI",
@@ -24,7 +34,9 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
         image: "/images/gallery3.jpg",
         flex: "flex-row-reverse",
         bg: "secondary",
-        color: "primary"
+        color: "primary",
+        ref: sec2,
+        isInV: isInView2
     }
 ];
   const plans = [
@@ -45,28 +57,43 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
     { name: "Dedicated support", basic: false, pro: false, enterprise: true },
   ]
 
+    
   return (
     <>
     <section className="flex flex-col w-full p-5 lg:p-16 space-y-8 bg-primary-foreground" id="sluzby">
         <h2 className={`text-secondary-foreground font-bold tracking-wide text-3xl lg:text-5xl font-ibarra`}>Čemu se věnuji</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-3 gap-5">
           {Services.map((s: Service, i: number) => (
-            <div key={i} className="bg-primary p-5 rounded-lg  flex w-full flex-col space-y-4  hover:shadow-lg hover:shadow-secondary-foreground transition ease-in-out delay-100 duration-200">
+            <motion.div
+            initial={{opacity:0, x: -600}}
+                    animate={{opacity: 1, x:0}}
+                    exit={{opacity: 0, x: -600}}
+                    transition={{duration: 0.2*(i+1)}}
+            key={i} className="bg-primary p-5 rounded-lg  flex w-full flex-col space-y-4  hover:shadow-lg hover:shadow-secondary-foreground transition ease-in-out delay-100 duration-200">
               <h3 className="text-xl text-secondary-foreground">{s.heading}</h3>
               <p className="font-extralight text-base text-black">{s.text}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
     {sections.map((s,i) => ( 
-      <section
+     
+      <motion.section
+      ref={s.ref}
       key={i}
           className={`bg-${s.bg} p-8 lg:p-16  text-${s.color}`}>
           <div className={`flex flex-wrap sm:flex-nowrap sm:${s.flex} w-full border-secondary-foreground border-2 rounded-xl p-3`}>
           <div className="w-full sm:w-1/2 flex flex-col  px-5 justify-center font-light">
-              <div className=" flex flex-col w-full space-y-8 ">
+              <motion.div 
+              initial={{opacity:0, x: -600}}
+              animate={s.isInV?{opacity: 1, x:0}: {}}
+              exit={{opacity: 0, x: -600}}
+              transition={{duration: 0.4}}
+              className=" flex flex-col w-full space-y-8 ">
                   
-                      <h2 className={`text-3xl lg:text-5xl  text-left font-ibarra`}>
+                      <h2
+                      
+                      className={`text-3xl lg:text-5xl  text-left font-ibarra`}>
                           {s.header}
                       </h2>
                   
@@ -74,18 +101,35 @@ export default function Sluzby({reviews}: {reviews: Reviews[]}) {
                       <p>{s.text}</p>
                   </div>
                   
-              </div>
+              </motion.div>
           </div>
-          <div className={`w-full sm:w-1/2 flex md:justify-center items-center`}>
+          <motion.div 
+          initial={{opacity:0, x: 600}}
+          animate={s.isInV?{opacity: 1, x:0}: {}}
+          exit={{opacity: 0, x: 600}}
+          transition={{duration: 0.4}}
+          className={`w-full sm:w-1/2 flex md:justify-center items-center`}>
               <Image src={s.image} alt="Sjednejte si pojištění" width={512} height={512} className="object-fill bg-cover  hover:shadow-xl hover:shadow-secondary-foreground rounded-xl transition ease-in-out delay-100 duration-200" />
+          </motion.div>
           </div>
-          </div>
-      </section> 
+      </motion.section> 
 
   ))}
-    <div className="bg-primary min-h-screen flex flex-col justify-center p-4 space-y-5">
-    <h2 className="text-secondary-foreground font-ibarra md:text-left font-bold tracking-wide  text-3xl lg:text-5xl">Finanční plány</h2>
-    <p className="text-base lg:text-xl font-light text-justify md:text-left text-secondary">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>
+    <div ref={text} className="bg-primary min-h-screen flex flex-col justify-center p-4 space-y-5">
+    <motion.h2 
+    ref={text}
+    initial={{opacity:0, x: 600}}
+    animate={isInView3?{opacity: 1, x:0}: {}}
+    exit={{opacity: 0, x: 600}}
+    transition={{duration: 0.5}}
+    className="text-secondary-foreground font-ibarra md:text-left font-bold tracking-wide  text-3xl lg:text-5xl">Finanční plány</motion.h2>
+    <motion.p 
+    ref={text}
+    initial={{opacity:0, x: -600}}
+    animate={isInView3?{opacity: 1, x:0}: {}}
+    exit={{opacity: 0, x: -600}}
+    transition={{duration: 0.5}}
+    className="text-base lg:text-xl font-light text-justify md:text-left text-black">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</motion.p>
            
       <div className="w-full max-w-6xl mx-auto items-center bg-secondary text-primary rounded-lg overflow-hidden">
         <div className="grid grid-cols-4 gap-4 p-6 items-end">

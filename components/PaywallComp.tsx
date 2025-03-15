@@ -1,0 +1,34 @@
+"use client"
+
+import { Subscriptions } from "@/types"
+import PaymentButton from "./paymentButton"
+import { useRef } from "react"
+import { useInView, motion } from "framer-motion"
+export default function Subscription({subs}:{subs: Subscriptions[]}){
+    const ref=useRef(null)
+    const isInView = useInView(ref)
+    return(
+        <div ref={ref} className='w-full grid grid-cols-1 grid-rows-4 md:grid-rows-1 md:grid-cols-4 gap-4'>
+                    {subs.map((sub: Subscriptions, id: number) => (
+                    
+        <motion.div
+         key={id}
+          className='bg-primary-foreground rounded-xl w-full flex flex-col items-center justify-between p-14 shadow-xl space-y-8'
+          initial={{opacity:0, x: -250}}
+          animate={isInView ? {opacity: 1, x: 0} : {}}
+          exit={{opacity:0, x: -250}}
+          transition={{duration: 0.5*(id+1)}}
+          >
+        <div className='flex flex-col text-center w-fit text-secondary'>
+            <span className='text-3xl font-medium'>{sub.price} Kč</span>
+            <span className='text-lg '>{sub.season}</span>
+        </div>
+
+        <div className='w-fit'>
+            <PaymentButton stripeId={sub.stripePriceId} total={sub.price}/>
+        </div>
+    </motion.div>
+    ))}
+                </div>
+    )
+}

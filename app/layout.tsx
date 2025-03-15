@@ -60,7 +60,7 @@ export default async function RootLayout({
           key="canonical"
         />
       </head>
-      <body className={`${inter.className} ${ibarra.variable} `}>
+      <body className={`${inter.className} ${ibarra.variable} overflow-x-hidden`}>
         <Navbar user={user}/>
         {children}
         <Footer />

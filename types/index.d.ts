@@ -24,6 +24,7 @@ export type DBUser = {
   surname: string;
   stripeId: string;
   raynet_id: number;
+  isMailSub: boolean;
 };
 
 export type DBSubscriptions = {

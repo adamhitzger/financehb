@@ -34,7 +34,7 @@ export const components: Partial<PortableTextComponents> = {
     types: {
         image: ({ value }: { value: any }) => (
           <Image
-            src={urlForImage(value).url()}
+            src={value?.asset?._ref}
             alt={value}
             className="rounded-lg w-96 mx-auto"
           />

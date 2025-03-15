@@ -5,7 +5,357 @@ import { createSupabaseClient, getUser, protectedRoute } from "../auth/server";
 import { getErrorMessage, stripe } from "../lib/utils";
 import { redirect } from "next/navigation";
 import { GetRaynetResponse } from "@/types";
+import { SanityDocument } from "next-sanity";
+import { urlForImage } from "@/sanity/lib/image";
+import {createTransport, SendMailOptions } from "nodemailer"
 const axios = require("axios")
+
+export async function generateEmailTemplate(documentData: SanityDocument, email: string) {
+  // Extract article data
+  const { name, overview, slug, image } = documentData
+  const articleUrl = `https://finance-ifkh.vercel.app/paywall/${slug?.current || ""}`
+  const imageUrl = urlForImage(image)
+
+  // Format date
+  const formattedDate = new Date().toLocaleDateString("cs-CZ", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+
+  // Benefits of being a supporter
+  const benefits = [
+    "Exkluzivní přístup k prémiového obsahu",
+    "Detailní analýzy kapitálových trhů",
+    "Přednostní přístup k novým článkům",
+    "Možnost stahování doplňkových materiálů",
+    "Konzultace s našimi odborníky",
+  ]
+
+  // Convert the HTML string to a format that can be used in the email
+  return `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Novinky ze světa kapitálových trhů</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+          }
+          .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+          }
+          .header {
+            text-align: center;
+            padding: 20px 0;
+          }
+          .logo {
+            max-width: 200px;
+            height: auto;
+          }
+          .content {
+            padding: 20px 0;
+          }
+          .article-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 10px;
+          }
+          .article-date {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+          }
+          .article-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+          }
+          .button {
+            display: inline-block;
+            background-color: #1a365d;
+            color: #ffffff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+          }
+          .benefits {
+            background-color: #f0f4f8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+          }
+          .benefits-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+          }
+          .benefits-list {
+            padding-left: 20px;
+          }
+          .footer {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            font-size: 12px;
+            color: #666;
+          }
+          .legal {
+            font-size: 11px;
+            color: #999;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+          }
+          .contact-info {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            text-align: center;
+          }
+          .contact-info p {
+            margin: 5px 0;
+          }
+          .main-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <img alt="Logo Financehb.cz" width="220" height="220" src="https:/financehb-ifkh.vercel.app/_next/image?url=%2Flogo.png&amp;w=640&amp;q=75">
+            <h1>Novinky ze světa kapitálových trhů</h1>
+          </div>
+          
+          <div class="content">
+            <p>Vážený čtenáři,</p>
+            <p>máme pro Vás nový článek z oblasti kapitálových trhů.</p>
+            
+            <div class="article-title">${name}</div>
+            <div class="article-date">${formattedDate}</div>
+            
+            <img src="${imageUrl}" alt="${name}" class="article-image">
+            
+            <div class="article-overview">
+              ${
+                typeof overview === "string"
+                  ? overview
+                  : "Přečtěte si náš nejnovější článek o aktuálním dění na kapitálových trzích."
+              }
+            </div>
+            
+            <p style="margin-top: 20px;">
+              <a href="${articleUrl}" class="button">Přečíst článek</a>
+              <a href="https://financehb-ifkh.vercel.app/paywall" class="button">Aktivovat předplatné</a>
+            </p>
+            
+            <div class="benefits">
+              <div class="benefits-title">Proč se stát naším předplatitelem?</div>
+              <ul class="benefits-list">
+                ${benefits.map((benefit) => `<li>${benefit}</li>`).join("")}
+              </ul>
+            </div>
+            
+            <p>Děkujeme za Vaši podporu a přejeme příjemné čtení!</p>
+            <p>S pozdravem,<br>Petr Krajcigr</p>
+            
+            <img alt="Logo Financehb.cz" width="300" height="300" src="https:/financehb-ifkh.vercel.app/_next/image?url=%2Fmain.jpg&amp;w=640&amp;q=75">
+            <div class="contact-info">
+              <p><strong>Kontaktní informace:</strong></p>
+              <p>Tel: +420 222 161 188</p>
+              <p>Email: <a href="mailto:petr@efekta-iz.cz">petr@efekta-iz.cz</a></p>
+              <p>Email: <a href="mailto:info@financehb.cz">info@financehb.cz</a></p>
+            </div>
+          </div>
+          
+          <div class="footer">
+            <p>© ${new Date().getFullYear()} Financehb.cz s.r.o. Všechna práva vyhrazena.</p>
+            <p>Pokud si nepřejete dostávat tyto e-maily, můžete se <a href="https://financehb-ifkh.vercel.app/sign-out?mail=${email}">Odhlásit zde</a>.</p>
+          </div>
+          
+          <div class="legal">
+            <p>Finanční služby propagované a nabízené na tomto webu poskytuje společnost Financehb.cz s.r.o a zde uvedení poradci jako fyzické osoby: Petr Krajcigr, kteří jsou v oblasti:</p>
+            <hr style="border: 1px solid #eee; margin: 10px 0;">
+            <ul>
+              <li>pojištění registrovaní podle zákona č. 170/2018 Sb. jako vázaní zástupci samostatného zprostředkovatele pojištění,</li>
+              <li>doplňkového penzijního spoření podle zákona č. 256/2004 Sb. jako vázaní zástupci investičního zprostředkovatele,</li>
+              <li>spotřebitelských úvěrů podle zákona č. 257/2016 Sb. jako vázaní zástupci samostatného zprostředkovatele spotřebitelského úvěru, společnosti Chytrý Honza a.s. Jungmannova Plaza, Jungmannova 745/24,110 00 Praha 1. Tuto skutečnost je možné ověřit v Seznamu regulovaných a registrovaných subjektů finančního trhu České národní banky na <a href="http://www.cnb.cz/cnb/jerrs">http://www.cnb.cz/cnb/jerrs</a>, kde také najdete aktuální podrobnosti o registraci a jejím rozsahu.</li>
+            </ul>
+          </div>
+        </div>
+      </body>
+    </html>
+  `
+}
+
+export const handleSendMails = async (formData: FormData, documentData: SanityDocument) => {
+  const tags = formData.getAll("tags") as Array<string>
+  let emails: string[] = []
+  const transporter = createTransport({
+      service: "gmail",
+      auth: {
+       user: process.env.FROM_EMAIL,
+       pass: process.env.FROM_EMAIL_PASSWORD,
+      }
+     });
+
+     const mailOptions: any = {
+      from: process.env.FROM_EMAIL,
+      subject: "Nové přihlášení - Měsíční aktuality z KPT",
+     }
+     
+  const raynetAPIUrl = `https://app.raynet.cz/api/v2/company/?tags[LIKE]=${tags.map(t => t)}`
+  const headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Basic " + Buffer.from(process.env.RAYNET_EMAIL +":"+process.env.RAYNET_API_KEY).toString("base64"),
+      "X-Instance-Name": "financehb"
+    };
+  console.log(raynetAPIUrl)
+      try{
+          const getEmails = await axios.get(raynetAPIUrl, {headers})
+          console.log(`Found ${getEmails.data.totalCount} recipients`)
+          for(let i = 0; i<getEmails.data.totalCount;i++){
+              const email: string = getEmails.data.data[i].primaryAddress.contactInfo.email
+              
+              if (!email) {
+                console.log(`Skipping recipient ${i + 1} - no email address`)
+                continue
+              }
+              emails.push(email)
+              const htmlContent = await generateEmailTemplate(documentData, email)
+
+      // Send the email
+      const sendResult = await transporter.sendMail({
+        ...mailOptions,
+        to: email,
+        html: htmlContent,
+      })
+      if (sendResult.rejected && sendResult.rejected.length > 0) {
+        console.error(`Email to ${email} was rejected, stopping send process`)
+        break
+      }
+
+      // Add a small delay between emails to avoid rate limits
+      await new Promise((resolve) => setTimeout(resolve, 300))
+    }
+
+    return {
+      success: true,
+      emails,
+    }
+     }catch(error) {
+          console.log("Error v akci sendMails(): ", error)
+      } 
+}
+
+export async function signOutFromMailsUnregistered(formData: FormData): Promise<{success: boolean, message: string}>{
+  try{
+    const idS: number[] = [];
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
+      "X-Instance-Name": "financehb",
+  }
+  const body = { rating: "B"}
+    const mail = formData.get("email") as string;
+    const getSignOut = await axios.get(`https://app.raynet.cz/api/v2/company/?primaryAddress-contactInfo.email=${mail}`, {headers})
+    
+    if(getSignOut.status !== 200){
+      return {
+        success: false,
+        message: "Nebyl jste odhlášen. Vyskytla se chyba."
+      }
+    }
+    console.log(getSignOut.data.data[0]?.id)
+    for(let i=0; i<getSignOut.data.totalCount;i++){
+      idS.push(getSignOut.data.data[i]?.id)
+    }
+    console.log(idS)
+    for(let i=0; i<getSignOut.data.totalCount;i++){
+      const signOut = await axios.post(`https://app.raynet.cz/api/v2/company/${idS[i]}`,body, {headers})
+      console.log(signOut)
+      if(signOut.status !== 200){
+        return {
+          success: false,
+          message: "Nebyl jste odhlášen. Vyskytla se chyba."
+        }
+      }
+    }
+    return {
+      success: true,
+      message: "Byl jste odhlášen."
+    }
+
+  }catch(error){
+    console.log("Chyba při odhlašování emailu z Raynetu: ", error)
+    return {
+      success: false,
+      message: "Nebyl jste odhlášen. Vyskytla se chyba."
+    }
+  }
+}
+
+export async function signOutFromMails(formData: FormData): Promise<{success: boolean, message: string}>{
+  try{
+    const client = await createSupabaseClient()
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
+      "X-Instance-Name": "financehb",
+  }
+  const body = { rating: "B"}
+    const rId = Number(formData.get("raynetId"));
+    const id = formData.get("dbId") as string;
+    const signOut = await axios.post(`https://app.raynet.cz/api/v2/company/${rId}`,body, {headers})
+    console.log(signOut)
+    if(signOut.status === 200){
+      const {data, error} = await client.from("profiles").update({
+        isMailSub: false
+      }).eq("id", id)
+      console.log(error)
+      if(error) return{
+        success: false,
+        message: "Chyba při ukládání dat"
+      }
+      else return {
+        success: true,
+        message: "Byl jste odhlášen."
+      }
+    }else{
+      return {
+        success: false,
+        message: "Nebyl jste odhlášen. Vyskytla se chyba."
+      }
+    }
+    
+  }catch(error){
+    console.log("Chyba při odhlašování emailu z Raynetu: ", error)
+    return {
+      success: false,
+      message: "Nebyl jste odhlášen. Vyskytla se chyba."
+    }
+  }
+}
+
 export async function createCustomerPortal(stripeId: FormData) {
 
   
@@ -55,7 +405,7 @@ export async function signUp(formData: FormData){
         if(raynet_id.data[0].id && data.user?.id){
         console.log(raynet_id.data[0].id)
         const insert_id = await client.from("profiles").update({
-          raynet_id: raynet_id.data[0].id
+          raynet_id: raynet_id.data[0].id,
       }).eq("id", data.user.id)
       if(insert_id.error) throw new Error(insert_id.error.message);
       if(insert_id.data) console.log(insert_id.data);

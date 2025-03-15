@@ -5,6 +5,7 @@ import { sanityFetch } from '@/sanity/lib/client';
 import { ALL_ARTICLES_QUERY, COUNT_ALL_ARTICLES, SUBSCRIPTIONS_QUERY } from '@/sanity/lib/queries';
 import { Articles, Subscriptions } from '@/types';
 import { createSupabaseClient, getUser } from '@/auth/server';
+import Subscription from '@/components/PaywallComp';
 export default async function ArticlesPage(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
     const client = await createSupabaseClient();
     const userPromise = await getUser();
@@ -36,22 +37,9 @@ const searchParams = await props.searchParams
                 <h2 className=" font-ibarra font-bold tracking-wide text-secondary-foreground text-3xl lg:text-5xl">Předplatné</h2>
                 <p className="text-base lg:text-xl font-light text-center md:text-left">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>
             </section>
-            {supabase?.status !== "active" ? 
+            {supabase?.status !== "active" || !myUser ? 
             <section className='w-full flex flex-col py-8 px-4 text-secondary text-center space-y-5'>
-                <div className='w-full grid grid-cols-1 grid-rows-4 md:grid-rows-1 md:grid-cols-4 gap-4'>
-                    {subs.map((s: Subscriptions, id: number) => (
-                        <div key={id} className='bg-primary-foreground rounded-xl w-full flex flex-col items-center justify-between p-14 shadow-xl space-y-8'>
-                            <div className='flex flex-col text-center w-fit text-secondary'>
-                                <span className='text-3xl font-medium'>{s.price} Kč</span>
-                                <span className='text-lg '>{s.season}</span>
-                            </div>
-
-                            <div className='w-fit'>
-                                <PaymentButton stripeId={s.stripePriceId} total={s.price}/>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                    <Subscription subs={subs}/>
             </section>: <section className='w-full flex flex-col p-8 space-y-8'>
                 <ArticlesComp articles={articles}  page='paywall'/>
                 <PaginationComp currentPage={currentPage} totalPages={totalPages} />

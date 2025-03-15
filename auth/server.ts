@@ -47,7 +47,8 @@ export async function getUser() {
       name: dbUser.data?.first_name,
       surname: dbUser.data?.last_name,
       stripeId: dbUser.data?.stripeId,
-      raynet_id: dbUser.data?.raynet_id
+      raynet_id: dbUser.data?.raynet_id,
+      isMailSub: dbUser.data?.isMailSub
     }
 
     return user

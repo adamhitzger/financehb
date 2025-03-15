@@ -7,6 +7,7 @@ import toast from "react-hot-toast"
 import { useRouter } from "next/navigation";
 import { logIn } from "@/actions/users";
 import { Loader2 } from "lucide-react";
+import {motion} from "framer-motion"
 export default function LogInForm() {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
@@ -32,7 +33,13 @@ export default function LogInForm() {
         })
     }
     return (
-        <form className="w-full lg:w-1/2 flex flex-col p-3 space-y-7 bg-secondary rounded-2xl" action={handleLogIn}>
+        <motion.form 
+        className="w-full lg:w-1/2 flex flex-col p-3 space-y-7 bg-secondary rounded-2xl" action={handleLogIn}
+        initial={{opacity:0, y:-250}}
+        animate={{opacity:1, y:0}}
+        exit={{opacity:0, y:-250}}
+        transition={{duration: 0.6}}
+        >
             <div> <h2 className="  font-bold tracking-wide text-3xl font-ibarra lg:text-5xl text-primary my-2 text-underline">Přihlaste se</h2></div>
             <div className="flex flex-col w-full space-y-4">
                 <Input name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required disabled={isPending} />
@@ -41,7 +48,7 @@ export default function LogInForm() {
                     {isPending ? <Loader2 className={"animate-spin"} /> : "Přihlásit se"}
                 </Button>
             </div>
-        </form>
+        </motion.form>
     )
 }
 

@@ -126,7 +126,7 @@ attachments:
               },
           }
           ],
-        tags: ["Měsíční akt z KPT z webu vzor"],
+        tags: ["Mesicni akt z KPT VZOR zdarma"],
     }),
     
 });
@@ -276,8 +276,7 @@ if(type === "Ebook"){
               },
           }
           ],
-        tags: ["Stažený eBook"],
-        
+        tags: ["Stazeny eBook Financehb.cz"],
       })
     });
     await transporter.sendMail(mailOptions)
