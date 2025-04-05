@@ -12,8 +12,8 @@ const axios = require("axios")
 
 export async function generateEmailTemplate(documentData: SanityDocument, email: string) {
   // Extract article data
-  const { name, overview, slug, image } = documentData
-  const articleUrl = `https://finance-ifkh.vercel.app/paywall/${slug?.current || ""}`
+  const { name, emailText, slug, image } = documentData
+  const articleUrl = `https://financehb-ifkh.vercel.app/paywall/${slug?.current || ""}`
   const imageUrl = urlForImage(image)
 
   // Format date
@@ -142,7 +142,7 @@ export async function generateEmailTemplate(documentData: SanityDocument, email:
       <body>
         <div class="container">
           <div class="header">
-            <img alt="Logo Financehb.cz" width="220" height="220" src="https:/financehb-ifkh.vercel.app/_next/image?url=%2Flogo.png&amp;w=640&amp;q=75">
+            <img alt="Logo Financehb.cz" width="220" height="140" src="https:/financehb-ifkh.vercel.app/_next/image?url=%2Flogo.png&amp;w=640&amp;q=75">
             <h1>Novinky ze světa kapitálových trhů</h1>
           </div>
           
@@ -155,10 +155,10 @@ export async function generateEmailTemplate(documentData: SanityDocument, email:
             
             <img src="${imageUrl}" alt="${name}" class="article-image">
             
-            <div class="article-overview">
+            <div class="article-emailText">
               ${
-                typeof overview === "string"
-                  ? overview
+                typeof emailText === "string"
+                  ? emailText
                   : "Přečtěte si náš nejnovější článek o aktuálním dění na kapitálových trzích."
               }
             </div>
@@ -178,7 +178,7 @@ export async function generateEmailTemplate(documentData: SanityDocument, email:
             <p>Děkujeme za Vaši podporu a přejeme příjemné čtení!</p>
             <p>S pozdravem,<br>Petr Krajcigr</p>
             
-            <img alt="Logo Financehb.cz" width="300" height="300" src="https:/financehb-ifkh.vercel.app/_next/image?url=%2Fmain.jpg&amp;w=640&amp;q=75">
+            <img alt="petr Krajcigr, EFA" width="300" height="300" src="	https://financehb-ifkh.vercel.app/_next/image?url=%2Fimages%2Fgallery.jpg&w=1080&q=75">
             <div class="contact-info">
               <p><strong>Kontaktní informace:</strong></p>
               <p>Tel: +420 222 161 188</p>
@@ -223,7 +223,7 @@ export const handleSendMails = async (formData: FormData, documentData: SanityDo
       subject: "Nové přihlášení - Měsíční aktuality z KPT",
      }
      
-  const raynetAPIUrl = `https://app.raynet.cz/api/v2/company/?tags[LIKE]=${tags.map(t => t)}`
+  const raynetAPIUrl = `https://app.raynet.cz/api/v2/company/?tags[LIKE]=${tags.map(t => t)}&rating=A`
   const headers = {
       "Content-Type": "application/json",
       "Authorization": "Basic " + Buffer.from(process.env.RAYNET_EMAIL +":"+process.env.RAYNET_API_KEY).toString("base64"),
@@ -705,7 +705,7 @@ const headers = {
           UnitPrice: total
         }
       ],
-      NumericSequenceId: 5034542,
+      NumericSequenceId: 2489511,
       PartnerId: userId.data.Data.Id, //
       PaymentOptionId: 1, //
     };
