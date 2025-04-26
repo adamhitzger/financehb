@@ -2,7 +2,6 @@ import { EnvelopeIcon } from "@sanity/icons";
 import { DocumentActionProps } from "sanity";
 import { useState } from "react";
 import { handleSendMails } from "@/actions/users";
-const axios = require("axios")
 
 
 export default function sendMails({ draft, published, onComplete }: DocumentActionProps) {

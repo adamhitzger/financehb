@@ -50,7 +50,6 @@ export const articleType = defineType({
             name: "emailText",
             type: "string",
             title: "Text pro emailovou šablonu",
-            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "overview",
