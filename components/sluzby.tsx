@@ -40,9 +40,9 @@ const isInView3 = useInView(text, {amount:0.3})
     }
 ];
   const plans = [
-    { name: "Basic", price: "$9.99/mo" },
-    { name: "Pro", price: "$24.99/mo" },
-    { name: "Enterprise", price: "Custom" },
+    { name: "Základní", price: "249 Kč" },
+    { name: "Pokročilé", price: "359 Kč" },
+    { name: "UHNWI", price: "Custom" },
   ]
 
   const features = [
@@ -131,15 +131,15 @@ const isInView3 = useInView(text, {amount:0.3})
     transition={{duration: 0.5}}
     className="text-base lg:text-xl font-light text-justify md:text-left text-black">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</motion.p>
            
-      <div className="w-full max-w-6xl mx-auto items-center bg-secondary text-primary rounded-lg overflow-hidden">
+      <div className="w-full max-w-6xl mx-auto items-center bg-secondary text-primary rounded-lg overflow-y-visible">
         <div className="grid grid-cols-4 gap-4 p-6 items-end">
           <div className="text-left font-bold">Features</div>
           {plans.map((plan) => (
             <div key={plan.name} className="text-center">
-              <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-              <p className="text-2xl font-bold mb-4">{plan.price}</p>
+              <h3 className="text-sm sm:text.lg font-bold mb-2">{plan.name}</h3>
+              <p className="text-base sm:text-lg font-bold mb-4">{plan.price}</p>
               <Button className="w-full no-underline bg-secondary-foreground text-secondary hover:bg-secondary-foreground/90">
-                Choose Plan <MoveUpRight/>
+                Zvolit <MoveUpRight className="hidden sm:flex"/>
               </Button>
             </div>
           ))}

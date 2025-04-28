@@ -17,7 +17,7 @@ export default function SubInfoForm({stripeId}: {stripeId: string}) {
     return (
         <form action={subInfo}>
                                 <input type="hidden" name="stripeId" value={stripeId} required/>
-                                <Button variant={"destructive"} size={"lg"} disabled={isPending}>{isPending ? <Loader2 className='animate-spin'/> : <>Info o předplatném </>}</Button>
+                                <Button variant={"destructive"} size={"lg"} disabled={isPending}>{isPending ? <Loader2 className='animate-spin'/> : <>Předplatné </>}</Button>
                             </form>
     )
 }

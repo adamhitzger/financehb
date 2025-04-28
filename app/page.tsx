@@ -20,17 +20,13 @@ export default async function Home() {
   console.log(articles);
   console.log(feed)
   return (
-    <main className="flex min-h-screen  flex-col items-center justify-between ">
+    <>
       <Header/>
       <MainPage feed={feed}/>
       <About/>
-      
+      <HomeArticles articles={articles}/>
 
-      <section className="flex flex-col w-full p-8 space-y-8">
-        <h2 className=" font-ibarra font-bold tracking-wide text-secondary text-3xl lg:text-5xl">Články</h2>
-        <HomeArticles articles={articles}/>
-        <Link href={"/clanky"} className=" mx-auto"><Button size={"sm"} className="justify-between underline underline-offset-4 bg-secondary text-primary text-base mx-auto">Starší články <MoveUpRight /></Button></Link>
-      </section>
-    </main >
+      
+    </ >
   );
 }

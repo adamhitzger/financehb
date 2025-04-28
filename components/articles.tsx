@@ -53,7 +53,11 @@ export function HomeArticles({ articles }: { articles: Sanity[]}) {
     const isInView = useInView(sec, {margin: "0px 0px 0px 0px", amount:0})
     if (articles.length === 0) return <div className="text-2xl font-medium">Nebyly nalezeny žádné články</div>
     else return (
-        <div ref={sec} className="overflow-scroll grid md:grid-cols-3 w-full gap-4">
+        <section className="flex flex-col w-full p-8 space-y-8">
+        <h2 className=" font-ibarra font-bold tracking-wide text-secondary text-3xl lg:text-5xl">Články</h2>
+        
+        
+        <div ref={sec} className="grid md:grid-cols-3 w-full gap-4">
             {articles &&
                 articles.map((a: Sanity, idx: number) => (
                     <motion.article 
@@ -80,5 +84,7 @@ export function HomeArticles({ articles }: { articles: Sanity[]}) {
                     </motion.article>
                 ))}
         </div>
+        <Link href={"/clanky"} className=" mx-auto"><Button size={"sm"} className="justify-between underline underline-offset-4 bg-secondary text-primary text-base mx-auto">Starší články <MoveUpRight /></Button></Link>
+      </section>
     )
 }

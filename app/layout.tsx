@@ -62,7 +62,9 @@ export default async function RootLayout({
       </head>
       <body className={`${inter.className} ${ibarra.variable} overflow-x-hidden`}>
         <Navbar user={user}/>
+        <main className="flex min-h-screen overflow-x-hidden flex-col items-center justify-between ">
         {children}
+        </main>
         <Footer />
         <Toaster
           toastOptions={{

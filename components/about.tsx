@@ -69,10 +69,7 @@ export default function About() {
             <div 
             
              className="w-full sm:w-1/2 flex justify-center flex-col font-light">
-                <motion.div initial={{ opacity: 0, x: -250 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}} // Animate only when in view
-        exit={{ opacity: 0, x: -250 }}
-        transition={{ duration: 0.5}} ref={ref} className="flex flex-col w-full space-y-8  ">
+                <div  className="flex flex-col w-full space-y-8  ">
                     
                         <h2  className={`text-3xl lg:text-5xl  text-right font-ibarra`}>
                         KDO <span className="underline text-secondary-foreground">JSEM ?</span>
@@ -98,7 +95,7 @@ export default function About() {
                     </div>
                     
                             
-                </motion.div>
+                </div>
             </div>
             <motion.div
             initial={{ opacity: 0, x: 250 }}

@@ -6,6 +6,27 @@ data: {
   id: number;
 };
 };
+
+export type FullUser = {
+    id: number;
+    name: string;
+    role: string;
+    email: string;
+    tel?: string | null;
+    two_fa?: string | null;
+}
+
+export interface ActionResponse<T> {
+    success: boolean;
+    message: string;
+    submitted: boolean;
+    errors?: {
+        [K in keyof T]?: string[];
+    };
+    inputs?: T;
+}
+
+
 export type GetRaynetResponse = {
     success: string;
     data: DataItem[];
@@ -31,8 +52,8 @@ export type DBSubscriptions = {
     id: string;
     user_id: string;
     stripe_subscriptions_id: string;
-    periodStart: number;
-    periodEnd: number;
+    period_start: number;
+    period_end: number;
     status: DBStatus;
     interval: string;
     plan_id: string;

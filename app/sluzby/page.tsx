@@ -6,8 +6,7 @@ export default async function PoradenstviPage(){
     const reviews: Reviews[] = await sanityFetch<Reviews[]>({ query: REVIEWS_QUERY });
   
     return(
-        <main className="flex min-h-screen flex-col items-center justify-between ">
+        
             <Sluzby reviews={reviews}/>
-        </main>
     )
 }
