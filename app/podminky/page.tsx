@@ -13,7 +13,7 @@ export default function PodminkyPage() {
                 <li>pojištění registrovaní podle zákona č. 170/2018 Sb. jako vázaní zástupci samostatného zprostředkovatele pojištění,</li>
                 <li>doplňkového penzijního spoření podle zákona č. 256/2004 Sb. jako vázaní zástupci investičního zprostředkovatele,</li>
                 <li>spotřebitelských úvěrů podle zákona č. 257/2016 Sb. jako vázaní zástupci samostatného zprostředkovatele spotřebitelského úvěru,
-                    společnosti Chytrý Honza a.s. Jungmannova Plaza, Jungmannova 745/24,110 00 Praha 1. Tuto skutečnost je možné ověřit v Seznamu regulovaných a registrovaných subjektů finančního trhu České národní banky na <Link className='underline hover:text-secondary-foreground visited:text-secondary-foreground' href={"http://www.cnb.cz/cnb/jerrs"}>http://www.cnb.cz/cnb/jerrs</Link>, kde také najdete aktuální podrobnosti o registraci a jejím rozsahu.</li>
+                    společnosti Chytrý Honza a.s. sídlem Radlická 365/154, Radlice, 158 00 Praha. Tuto skutečnost je možné ověřit v Seznamu regulovaných a registrovaných subjektů finančního trhu České národní banky na <Link className='underline hover:text-secondary-foreground visited:text-secondary-foreground' href={"http://www.cnb.cz/cnb/jerrs"}>http://www.cnb.cz/cnb/jerrs</Link>, kde také najdete aktuální podrobnosti o registraci a jejím rozsahu.</li>
             </ul>
         </main>
     )

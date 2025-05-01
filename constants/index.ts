@@ -38,7 +38,7 @@ export const Services: Service[] = [
         text: "Pokud nemáte dostatek času nebo chuti přemýšlet nad svou budoucností, obraťte se na mě. Společně se podíváme na to, co je pro vaši budoucnost nejlepší. A díky mým zkušenostem nám to půjde hladce.",
     },
     {
-        heading: "04/ Investice do podílových fondů",
+        heading: "04/ Investice do podílových fondů, ETF, nemovitostí komodit a jiných investic",
         text: "Rozhodli jste se investovat do podílových fondů, ale nejste si v tomto oboru zcela jistí? Jsem zde pro vás, a díky tomu, že mám za sebou již řadu úspěšných investic, najdeme společně tu správnou cestu bez zbytečných komplikací.",
     },
     {

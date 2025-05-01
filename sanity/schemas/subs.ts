@@ -15,7 +15,7 @@ export const subsType = defineType({
         }),
         defineField({
             name: "season",
-            title: "Doba předplatného",
+            title: "Název a doba předplatného",
             type: "string",
             validation: (rule) => rule.required(),
         }),

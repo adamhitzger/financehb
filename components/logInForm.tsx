@@ -25,10 +25,11 @@ export default function LogInForm() {
             const { errorMessage } = await logIn(formData);
 
             if (errorMessage) {
-                toast.error(errorMessage)
+                console.log(errorMessage)
+                toast.error("Zadal jste špatně heslo nebo e-mail")
             } else {
                 router.push('/paywall')
-                toast.success("Přihlášen")
+                toast.success("Byl jste přihlášen")
             }
         })
     }

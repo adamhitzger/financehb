@@ -22,7 +22,7 @@ function Counter({icon,text, to, endText}:{icon: React.ReactNode,text:string, to
       
       <div ref={ref} className="flex text-center flex-col items-center space-y-1">
         {icon}
-        <div className="flex flex-row space-x-1 items-end">
+        <div className="flex flex-col items-center lg:flex-row lg:items-end">
         <motion.span className="font-medium text-2xl">{rounded}</motion.span><span className="text-2xl px-2 font-light">{`${endText}`}</span>
         </div>
         <p>

@@ -15,8 +15,8 @@ export default function SignOutmail(){
     const signOutMail= (formData: FormData) => {
         startTransition(async () => {
             const signOut = await signOutFromMailsUnregistered(formData)
-            if(signOut.success) toast.success(signOut.message)
-            else toast.error(signOut.message)
+            if(signOut.success) toast.success("Byl jste odhlášen")
+            else toast.error("Vyskytl se problém s odhlášením.")
         })
     }
     return(

@@ -1,11 +1,6 @@
-import Newsletter from "@/components/newsletter";
-import { Button } from "@/components/ui/button";
-import { Socials } from "@/constants";
 import { sanityFetch } from "@/sanity/lib/client";
 import { HOME_ARTICLES_QUERY,  SOCIAL_FEED } from "@/sanity/lib/queries";
 import { Articles, Socialfeed, SocialNetwork } from "@/types";
-import { ArrowRight, MoveUpRight } from "lucide-react";
-import Link from "next/link";
 import { HomeArticles } from "@/components/articles";
 import Header from "@/components/header";
 import About from "@/components/about";
@@ -20,13 +15,11 @@ export default async function Home() {
   console.log(articles);
   console.log(feed)
   return (
-    <>
+    <main className="flex min-h-screen w-full overflow-x-hidden flex-col items-center justify-between ">
       <Header/>
       <MainPage feed={feed}/>
       <About/>
-      <HomeArticles articles={articles}/>
-
-      
-    </ >
+      <HomeArticles articles={articles}/>  
+    </main>
   );
 }

@@ -1,10 +1,12 @@
 "use client"
 
-import { Subscriptions } from "@/types"
+import { DBUser, Subscriptions } from "@/types"
 import PaymentButton from "./paymentButton"
 import { useRef } from "react"
 import { useInView, motion } from "framer-motion"
-export default function Subscription({subs}:{subs: Subscriptions[]}){
+import { Button } from "./ui/button"
+import Link from "next/link"
+export default function Subscription({subs, user}:{subs: Subscriptions[], user: DBUser}){
     const ref=useRef(null)
     const isInView = useInView(ref)
     return(
@@ -23,9 +25,9 @@ export default function Subscription({subs}:{subs: Subscriptions[]}){
             <span className='text-3xl font-medium'>{sub.price} Kč</span>
             <span className='text-lg '>{sub.season}</span>
         </div>
-
+                        
         <div className='w-fit'>
-            <PaymentButton stripeId={sub.stripePriceId} total={sub.price}/>
+        {user ? <Link href={"/log-in"}><Button variant={"default"} size={"lg"} className='font-medium text-lg'>Přihlásit se</Button></Link> :<PaymentButton stripeId={sub.stripePriceId} total={sub.price}/>}
         </div>
     </motion.div>
     ))}

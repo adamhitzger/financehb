@@ -38,7 +38,7 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
                         <div className={`hidden w-2/3 sm:flex flex-col justify-between ${idx % 2 === 0 ? " border-l-2 border-l-secondary-foreground text-right" : "border-r-2 border-r-secondary-foregborder-l-secondary-foreground text-left"}  p-5 font-light space-y-2 lg:p-10`}>
                             <h3 className="text-xl">{new Date(a.datum).toISOString().split("T")[0]} / {a.name}</h3>
                             <PortableText value={a.overview} components={components} />
-                            <Link href={`/${page}/${a.slug}`}><Button variant="default" className="text-lg">Celý článek <MoveUpRight /></Button></Link>
+                            <Link href={`/${page}/${a.slug}`}><Button variant="default"  className="text-lg">Celý článek <MoveUpRight /></Button></Link>
                         </div>
 
                     </motion.article>

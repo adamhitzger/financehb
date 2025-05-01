@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { GetRaynetResponse } from "@/types";
 import { SanityDocument } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
-import {createTransport, SendMailOptions } from "nodemailer"
+import {createTransport } from "nodemailer"
 const axios = require("axios")
 
 export async function generateEmailTemplate(documentData: SanityDocument, email: string) {
@@ -198,7 +198,7 @@ export async function generateEmailTemplate(documentData: SanityDocument, email:
             <ul>
               <li>pojištění registrovaní podle zákona č. 170/2018 Sb. jako vázaní zástupci samostatného zprostředkovatele pojištění,</li>
               <li>doplňkového penzijního spoření podle zákona č. 256/2004 Sb. jako vázaní zástupci investičního zprostředkovatele,</li>
-              <li>spotřebitelských úvěrů podle zákona č. 257/2016 Sb. jako vázaní zástupci samostatného zprostředkovatele spotřebitelského úvěru, společnosti Chytrý Honza a.s. Jungmannova Plaza, Jungmannova 745/24,110 00 Praha 1. Tuto skutečnost je možné ověřit v Seznamu regulovaných a registrovaných subjektů finančního trhu České národní banky na <a href="http://www.cnb.cz/cnb/jerrs">http://www.cnb.cz/cnb/jerrs</a>, kde také najdete aktuální podrobnosti o registraci a jejím rozsahu.</li>
+              <li>spotřebitelských úvěrů podle zákona č. 257/2016 Sb. jako vázaní zástupci samostatného zprostředkovatele spotřebitelského úvěru, společnosti Chytrý Honza a.s. sídlem Radlická 365/154, Radlice, 158 00 Praha. Tuto skutečnost je možné ověřit v Seznamu regulovaných a registrovaných subjektů finančního trhu České národní banky na <a href="http://www.cnb.cz/cnb/jerrs">http://www.cnb.cz/cnb/jerrs</a>, kde také najdete aktuální podrobnosti o registraci a jejím rozsahu.</li>
             </ul>
           </div>
         </div>
@@ -369,6 +369,7 @@ export async function createCustomerPortal(stripeId: FormData) {
 
   return redirect(session.url);
 }
+
 export async function signUp(formData: FormData){
   
     try {
@@ -571,7 +572,6 @@ export async function createPayment(formData: FormData){
   await protectedRoute();
   const user = await getUser();
   const stripeId = formData.get("stripeId") as string;
-  const total = Number(formData.get("total"))
   if (!stripeId) {
     throw new Error("Stripe ID is missing.");
   }
@@ -604,6 +604,7 @@ export async function createPayment(formData: FormData){
         console.log(data);
       }
   }
+
     const session = await stripe.checkout.sessions.create({
       customer: customerStripeId as string,
       mode: "subscription",

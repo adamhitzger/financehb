@@ -37,9 +37,9 @@ const searchParams = await props.searchParams
                 <h2 className=" font-ibarra font-bold tracking-wide text-secondary-foreground text-3xl lg:text-5xl">Předplatné</h2>
                 <p className="text-base lg:text-xl font-light text-center md:text-left">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>
             </section>
-            {supabase?.status !== "active" || !myUser ? 
+            {supabase?.status !== "active" && myUser  ? 
             <section className='w-full flex flex-col py-8 px-4 text-secondary text-center space-y-5'>
-                    <Subscription subs={subs}/>
+                    <Subscription subs={subs} user={myUser}/>
             </section>: <section className='w-full flex flex-col p-8 space-y-8'>
                 <ArticlesComp articles={articles}  page='paywall'/>
                 <PaginationComp currentPage={currentPage} totalPages={totalPages} />

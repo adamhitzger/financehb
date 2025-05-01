@@ -27,7 +27,8 @@ export default function SignInForm() {
             const { errorMessage } = await signUp(formData);
 
             if (errorMessage) {
-                toast.error(errorMessage)
+                console.log(errorMessage)
+                toast.error("Zadal jste špatně heslo nebo e-mail")
             } else {
                 router.push('/')
                 toast.success("Na Váš účet byl zaslán ověřovací odkaz")
