@@ -403,7 +403,8 @@ export async function signUp(formData: FormData){
         throw new Error(`Request failed with status: ${raynet.status}`);
       }
         const raynet_id = await raynet.json() as GetRaynetResponse;
-        if(raynet_id.data[0].id && data.user?.id){
+        console.log(raynet_id)
+        if(raynet_id.totalCount > 0 && data.user?.id){
         console.log(raynet_id.data[0].id)
         const insert_id = await client.from("profiles").update({
           raynet_id: raynet_id.data[0].id,

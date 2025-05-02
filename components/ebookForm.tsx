@@ -66,9 +66,7 @@ export default function EbookForm({ ebook }: { ebook: Ebook }) {
                     className="w-full md:w-1/2 flex justify-center space-x-0.5">
                         <div className="px-1 bg-black skew-x-4 h-auto">
                         </div>
-                        <Link href={ebook.file}>
                         <Image src={ebook.picture} alt={ebook.picture} width={300} height={280} className="object-fill bg-cover skew-x-4 " />
-                        </Link>
                     </motion.div>
                 </div>
 

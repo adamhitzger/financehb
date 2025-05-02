@@ -143,9 +143,9 @@ const isInView2 = useInView(sec2, {amount:0.3})
       </motion.section> 
 
   ))}
-    <div ref={text} className="bg-primary min-h-screen flex flex-col justify-center p-4 space-y-5">
+    <div ref={text} className="bg-primary min-h-screen flex flex-col justify-center p-4 space-y-5" id="cenik">
     <h2 
-    className="text-secondary-foreground font-ibarra md:text-left font-bold tracking-wide  text-3xl lg:text-5xl">Finanční plány</h2>
+    className="text-secondary-foreground font-ibarra md:text-left font-bold tracking-wide  text-3xl lg:text-5xl">Placené poradenství</h2>
     <p 
     
     className="text-base lg:text-xl font-light text-justify md:text-left text-black">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>

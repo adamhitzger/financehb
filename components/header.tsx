@@ -43,7 +43,7 @@ export default function Header() {
                     exit={{ opacity: 0, y: -250 }} 
                     transition={{ duration: 0.5, delay: 0.5 }}
                         >
-                            <Link href={"/sluzby#contact"} target="_blank" className="mx-auto">
+                            <Link href={"/sluzby"} target="_blank" className="mx-auto">
                                 <Button size={"lg"}
                                 className="no-underline font-light bg-secondary-foreground w-full    text-base"
                                 >

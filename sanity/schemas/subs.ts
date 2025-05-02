@@ -9,7 +9,13 @@ export const subsType = defineType({
     fields: [
         defineField({
             name: "price",
-            title: "Cena předplatného",
+            title: "Cena předplatného mesicne",
+            type: "number",
+            validation: (rule) => rule.required(),
+        }),
+        defineField({
+            name: "yrlPrice",
+            title: "Cena předplatného rocne",
             type: "number",
             validation: (rule) => rule.required(),
         }),
@@ -21,6 +27,12 @@ export const subsType = defineType({
         }),
         defineField({
             name: "stripePriceId",
+            title: "ID linku ze Stripu na měsíc",
+            type: "string",
+            validation: (rule) => rule.required(),
+        }),
+        defineField({
+            name: "yrlStripePriceId na rok",
             title: "ID linku ze Stripu",
             type: "string",
             validation: (rule) => rule.required(),

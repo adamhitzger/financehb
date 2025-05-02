@@ -3,6 +3,7 @@ import { Socialfeed } from "@/types";
 import Link from "next/link";
 import { PortableText } from "next-sanity";
 import { components } from "@/sanity/lib/components";
+
 export default function Feed({feed}: {feed: Socialfeed[]}){
 if(feed.length === 0) return(<h3 className="text-destructive font-medium text-center">Žádné příspěvky</h3>)    
 else return(

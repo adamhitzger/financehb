@@ -2,6 +2,7 @@ import { User as SupabaseUser } from "@supabase/supabase-js";
 import React from "react";
 export type RaynetResponse = {
 success: string;
+totalCount: number;
 data: {
   id: number;
 };
@@ -29,6 +30,7 @@ export interface ActionResponse<T> {
 
 export type GetRaynetResponse = {
     success: string;
+    totalCount: number;
     data: DataItem[];
 }
 
@@ -76,8 +78,10 @@ export interface Reviews {
 
 export interface Subscriptions {
     price: number;
+    yrlPrice: number;
     season: string;
-    stripePriceId: string;
+    stripePriceId: string
+    yrlStripePriceId: string;
 }
 
 export interface Articles {

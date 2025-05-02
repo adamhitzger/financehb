@@ -53,16 +53,16 @@ export const Services: Service[] = [
 
 export const WebPromoLinks: SocialNetwork[] = [
     {
-        heading: "E-book",
+        heading: "",
         value: "Chci se dozvědět víde o e-booku",
         href: "/e-book",
-        text: "V našem e-booku Jak investují dolaroví milionáři se dozvíte, jak investují a jak se od nich můžete inspirovat. Jakým způsobem přemýšlí nad majetkem a jakých chybám se vyvarovat."
+        text: "Ať už jste na začátku kariéry, v jejím plném tempu nebo se pomalu připravujete na zasloužený odpočinek – nikdy není brzy (ani pozdě) začít budovat svou finanční budoucnost.\n Tento praktický e-book vám ukáže, jak se vyhnout nejčastějším chybám a připravit se na důchod bez zbytečného stresu.\n Stáhněte si ho zdarma a buďte připraveni – protože na klidný důchod se nečeká, ten se plánuje. "
 },
 {
-    heading: "Předplatné",
-    value: "Chci si zaplatit předplatné",
+    heading: "📈 Aktuality z kapitálového trhu ",
+    value: "Buďte o krok napřed – bez složitého hledání.",
     href: "/paywall",
-    text: "Pomocí předplatného získáte přístup k informacím z kapitálových trhů, měsíční reporty aj."
+    text: "Získejte každý měsíc přehledné a srozumitelné informace přímo do své e-mailové schránky.\n Co hýbe trhy, kde se otevírají příležitosti a na co si dát pozor?\n Měsíční aktuality vám ušetří čas a udrží vás v obraze.\n Stačí kliknout – a začít číst. "
 },
 
 ]

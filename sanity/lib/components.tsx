@@ -27,7 +27,7 @@ export const components: Partial<PortableTextComponents> = {
         strike: ({ children }) => <s className=" font-bold">{children}</s>,
         link: ({ children, value }) => {
             const ytb: boolean = value.href.startsWith("https://www.youtube.com/embed/");
-            if (ytb) return <iframe src={value?.href} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="mx-auto h-96"></iframe>
+            if (ytb) return <iframe src={value?.href} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="mx-auto w-full lg:w-1/2 h-96"></iframe>
             else return <Link href={value?.href} className="underline text-secondary-foreground">{children}</Link>
         }
     },
@@ -45,7 +45,7 @@ export const components: Partial<PortableTextComponents> = {
               : null;
         
             return videoUrl ? (
-              <video controls className="rounded-lg border-secondary-foreground mx-auto h-96">
+              <video controls className="rounded-lg border-secondary-foreground mx-auto w-96">
                 <source src={videoUrl} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
