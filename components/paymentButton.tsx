@@ -11,7 +11,7 @@ export default function PaymentButton({ stripeId, total }: { stripeId: string, t
         <form action={createPayment}>
             <input type='hidden' name='stripeId' value={stripeId} />
             <input type='hidden' name='total' value={total} />
-            <Button size={"lg"} className=' underline underline-offset-4 bg-secondary text-primary '><>Začít odebírat <MoveUpRight /></></Button>
+            <Button size={"lg"} className=' underline underline-offset-4 bg-secondary text-primary '><>Začít odebírat <MoveUpRight className='w-5 h-5'/></></Button>
         </form>
     )
 }

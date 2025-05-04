@@ -27,7 +27,7 @@ export default function Subscription({subs, user}:{subs: Subscriptions[], user: 
         </div>
                         
         <div className='w-fit'>
-        {user ? <Link href={"/log-in"}><Button variant={"default"} size={"lg"} className='font-medium text-lg'>Přihlásit se</Button></Link> :<PaymentButton stripeId={sub.stripePriceId} total={sub.price}/>}
+        {!user ? <Link href={"/log-in"}><Button variant={"default"} size={"lg"} className='font-medium text-lg'>Přihlásit se</Button></Link> :<PaymentButton stripeId={sub.stripePriceId} total={sub.price}/>}
         </div>
     </motion.div>
     ))}
