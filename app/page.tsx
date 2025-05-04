@@ -16,9 +16,10 @@ export default async function Home() {
   console.log(feed)
   return (
     <main className="flex min-h-screen w-full overflow-x-hidden flex-col items-center justify-between ">
+       <About/>
       <Header/>
       <MainPage feed={feed}/>
-      <About/>
+    
       <HomeArticles articles={articles}/>  
     </main>
   );

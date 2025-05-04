@@ -75,7 +75,7 @@ export default function Footer() {
                 </div>
                 <div className='w-fit flex space-x-4 mx-auto'>
                     {icons.map((i, id) => (
-                        <SocialIcon url={i.link} key={id} network={i.icon} />
+                        <SocialIcon url={i.link} target='_blank' key={id} network={i.icon} />
                     ))}
                 </div>
                 <p className='text-center text-base'>Finanční služby propagované a nabízené na tomto webu poskytuje společnost Financehb.cz s.r.o a zde uvedení poradci jako fyzické osoby: Petr Krajcigr, kteří jsou v oblasti… <Link target={"_blank"} href={"/podminky"} className='underline'> číst více</Link></p>

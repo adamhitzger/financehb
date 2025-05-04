@@ -6,8 +6,13 @@ import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
 import { ibarra } from "./font";
 import { getUser } from "@/auth/server";
-const inter = Inter({ subsets: ["latin"] });
+import CookiesBanner from "@/components/modals/cookiesAllow";
+import { sanityFetch } from "@/sanity/lib/client"
+import { EBOOK_QUERY } from "@/sanity/lib/queries"
+import { Ebook } from "@/types"
+import EbookModal from "@/components/modals/ebookModal";
 
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   icons: {
@@ -50,7 +55,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getUser();
+  const userPromise = await getUser();
+  const ebookPromise = await sanityFetch<Ebook>({ query: EBOOK_QUERY });
+  const [user, ebook] = await Promise.all([
+    userPromise,
+    ebookPromise
+  ])
   return (
     <html lang="cs">
       <head>
@@ -61,8 +71,10 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.className} ${ibarra.variable} overflow-x-hidden`}>
+      <EbookModal ebook={ebook}/>
+      <CookiesBanner/>
         <Navbar user={user}/>
-        
+       
         {children}
         <Footer />
         <Toaster

@@ -10,12 +10,12 @@ export default function Subscription({subs, user}:{subs: Subscriptions[], user: 
     const ref=useRef(null)
     const isInView = useInView(ref)
     return(
-        <div ref={ref} className='w-full grid grid-cols-1 grid-rows-4 md:grid-rows-1 md:grid-cols-4 gap-4'>
+        <div ref={ref} className='mx-auto w-full justify-center flex flex-row flex-wrap gap-4'>
                     {subs.map((sub: Subscriptions, id: number) => (
                     
         <motion.div
          key={id}
-          className='bg-primary-foreground rounded-xl w-full flex flex-col items-center justify-between p-14 shadow-xl space-y-8'
+          className='bg-primary-foreground rounded-xl w-full sm:w-1/3 xl:w-1/4 flex flex-col items-center justify-between p-14 shadow-xl space-y-8'
           initial={{opacity:0, x: -250}}
           animate={isInView ? {opacity: 1, x: 0} : {}}
           exit={{opacity:0, x: -250}}

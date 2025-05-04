@@ -176,19 +176,16 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
                 <table role="presentation" style="width: 602px; margin: 0 auto; background-color: #ffffff; border-collapse: collapse;">
                     <tr>
                         <td style="padding: 40px 30px; background-color: #0A1a49; text-align: center;">
-                            <h1 style="margin: 0; font-size: 24px; color: #ffffff;">Your eBook is Ready, ${jmeno}!</h1>
+                            <h1 style="margin: 0; font-size: 24px; color: #ffffff;">Váš e-Book dorazil, ${jmeno}!</h1>
                         </td>
                     </tr>
                     <tr>
                         <td style="padding: 40px 30px;">
                             <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 24px; color: #0A1a49;">
-                                Thank you for your interest in our eBook. Your download is now ready!
-                            </p>
-                            <p style="text-align: center;">
-                                <a href="${msg}" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 12px 20px; background-color: #C2B067; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold;">Download eBook</a>
+                                Děkuji za Váš zájem si stáhnout můj e-Book a dozvědět se nové informace.
                             </p>
                             <p style="margin: 20px 0 20px 0; font-size: 16px; line-height: 24px; color: #0A1a49; text-align: center;">
-                                Preview and highlights of your eBook:
+                                Kapitoly a highlighty eBooku:
                             </p>
                             <table role="presentation" style="width: 100%; border-collapse: collapse;">
                                 <tr>
@@ -196,15 +193,17 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
                                         <img src="${msg}" alt="eBook preview" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
                                     </td>
                                     <td style="width: 50%; padding-left: 15px; vertical-align: top;">
-                                        <h2 style="margin: 0 0 10px 0; font-size: 18px; color: #0A1a49;">What's Inside:</h2>
+                                        <h2 style="margin: 0 0 10px 0; font-size: 18px; color: #0A1a49;">Co najdete uvnitř:</h2>
                                         <ul style="margin: 0; padding: 0 0 0 20px; font-size: 14px; line-height: 20px; color: #0A1a49;">
-                                            <li style="margin-bottom: 10px;">Comprehensive guide to [topic]</li>
-                                            <li style="margin-bottom: 10px;">Practical tips and strategies</li>
-                                            <li style="margin-bottom: 10px;">Real-world case studies</li>
-                                            <li style="margin-bottom: 10px;">Expert insights and analysis</li>
+                                            <li style="margin-bottom: 10px;">Co je to DIP</li>
+                                            <li style="margin-bottom: 10px;">Kolikm potřebuji na vlastní rentu</li>
+                                            <li style="margin-bottom: 10px;">Kdy půjdu do důchodu</li>
+                                            <li style="margin-bottom: 10px;">Spoření dětem</li>
                                         </ul>
                                         <p style="margin: 20px 0 0 0; font-size: 14px; line-height: 20px; color: #0A1a49;">
-                                            This eBook is packed with valuable information to help you [benefit]. Whether you're a beginner or an expert, you'll find actionable advice to [achieve goal].
+                                            Každý z nás se v nějaké fázi života začne zamýšlet nad tím, jak bude jeho finanční
+situace vypadat v důchodovém věku. Začneme přehodnocovat své finanční plány
+a budeme si chtít zajistit bezstarostný důchod...
                                         </p>
                                     </td>
                                 </tr>
@@ -214,7 +213,7 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
                     <tr>
                         <td style="padding: 30px; background-color: #f4f4f4; text-align: center;">
                             <p style="margin: 0; font-size: 14px; line-height: 20px; color: #999999;">
-                                If you have any questions about the eBook or trouble downloading, please contact our support team.
+                                V případě potíží se stažením souboru klikněte <a href="${msg}" target="_blank" rel="noopener noreferrer" style="text-decoration: underline">zde</a>
                             </p>
                         </td>
                     </tr>

@@ -146,10 +146,43 @@ const isInView2 = useInView(sec2, {amount:0.3})
     <div ref={text} className="bg-primary min-h-screen flex flex-col justify-center p-4 space-y-5" id="cenik">
     <h2 
     className="text-secondary-foreground font-ibarra md:text-left font-bold tracking-wide  text-3xl lg:text-5xl">Placené poradenství</h2>
+    <h3 
+    className=" font-ibarra md:text-left font-bold tracking-wide  text-2xl lg:text-4xl">🔒 Dlouhodobá důvěra, profesionální péče o váš majetek </h3>
     <p 
     
-    className="text-base lg:text-xl font-light text-justify md:text-left text-black">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>
-           
+    className="text-base lg:text-xl font-light text-justify md:text-left text-black">Díky mým dlouholetým zkušenostem klienti ví, že se na mě mohou spolehnout – i když sami nemají čas vše sledovat. Chtějí mít kontrolu nad svým majetkem, ale zároveň partnera, který sleduje změny, hlídá detaily a přichází s řešeními. Proto využívají placené poradenství, které jim poskytuje jistotu, klid a VIP přístup ke správě financí. 
+
+    Ať už spravujete majetek do 1 milionu korun, nebo jste manažer či ředitel firmy s portfoliem v řádech milionů – mám pro vás řešení. </p>
+    <h3 
+    className=" font-ibarra md:text-left font-bold tracking-wide  text-2xl lg:text-4xl">🧩 Co získáte díky placenému poradenství? </h3>
+    <ul className="list-disc mx-5 space-y-1">
+      <li><span className="font-bold">Pravidelnou péči a kontrolu nad majetkem </span>– minimálně jednou ročně projdeme aktuální hodnotu a úpravy plánu </li>
+      <li><span className="font-bold">Aktualizaci finančního plánu a konzultace zdarma</span></li> 
+
+      <li><span className="font-bold">Měsíční aktuality z trhu</span> a přehled novinek bez složitého hledání</li> 
+
+      <li><span className="font-bold">Snížení poplatků u investic </span></li>
+
+      <li><span className="font-bold">Online archivaci smluv, </span>přístup k přehledné majetkové tabulce a hlídání klíčových termínů</li> 
+
+      <li><span className="font-bold">Garanci odpovědi na vaše dotazy do druhého dne </span></li>
+
+      <li><span className="font-bold">Hlášení pojistných událostí přes službu EUCS</span>, včetně právního servisu – bez stresu, bez zdržení </li>
+      
+    </ul>
+    <h3 
+    className=" font-ibarra md:text-left font-bold tracking-wide  text-2xl lg:text-4xl">🧭 Vyberte si ze 3 variant poradenství:  </h3>
+    <ul className="list-decimal mx-5 space-y-1">
+      <li><span className="font-bold">Základní balíček</span> – ideální pro aktivní jednotlivce i rodiny </li>
+      <li><span className="font-bold">Rozšířený servis </span>– pro náročnější klienty s vyšším objemem financí </li> 
+
+      <li><span className="font-bold">VIP správa</span> – pro ty, kteří chtějí plný komfort, individuální přístup a maximální efektivitu </li>    
+    </ul>
+         <p>👉 Posuňte správu svého majetku na vyšší úroveň. Staňte se klientem s profesionální péčí, která šetří čas, peníze i starosti. 
+
+ 
+<br/>
+<span className="font-bold">Pokud vás tato nabídka zaujala, neváhejte se ozvat – rád vám vše osobně představím.</span></p>  
       <div className="w-full max-w-6xl mx-auto items-center bg-secondary text-primary rounded-lg overflow-y-visible">
         <div className="grid grid-cols-4 gap-4 p-6 items-end">
           <div className="text-left font-bold">Tarif</div>

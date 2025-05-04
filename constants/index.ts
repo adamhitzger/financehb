@@ -51,22 +51,6 @@ export const Services: Service[] = [
     },
 ];
 
-export const WebPromoLinks: SocialNetwork[] = [
-    {
-        heading: "",
-        value: "Chci se dozvědět víde o e-booku",
-        href: "/e-book",
-        text: "Ať už jste na začátku kariéry, v jejím plném tempu nebo se pomalu připravujete na zasloužený odpočinek – nikdy není brzy (ani pozdě) začít budovat svou finanční budoucnost.\n Tento praktický e-book vám ukáže, jak se vyhnout nejčastějším chybám a připravit se na důchod bez zbytečného stresu.\n Stáhněte si ho zdarma a buďte připraveni – protože na klidný důchod se nečeká, ten se plánuje. "
-},
-{
-    heading: "📈 Aktuality z kapitálového trhu ",
-    value: "Buďte o krok napřed – bez složitého hledání.",
-    href: "/paywall",
-    text: "Získejte každý měsíc přehledné a srozumitelné informace přímo do své e-mailové schránky.\n Co hýbe trhy, kde se otevírají příležitosti a na co si dát pozor?\n Měsíční aktuality vám ušetří čas a udrží vás v obraze.\n Stačí kliknout – a začít číst. "
-},
-
-]
-
 export const Socials: SocialNetwork[] = [
     
 {
@@ -74,23 +58,35 @@ export const Socials: SocialNetwork[] = [
     value: "Podívat se na nejnovější příspěvky",
     href: "https://www.instagram.com/financehb.cz/",
     text: "Získejte přísun informací pomocí reelsů a postů na instagramu. Nezapomeňte odebírat a sdílet!",
+    type: "img",
+    mediaSrc: "https://www.instagram.com/financehb.cz/reel/DIhRHP1tv5r/",
+    src: "/images/feed/igFeed.jpeg",
 },
 {
     heading: "Youtube",
     value: "Přihlásit k odběru",
     href: "https://www.youtube.com/channel/UCkp9gcnCVfZ3L-cPggo4uMw",
-    text: "Chcete dostávat aktuální informace ze světa ekonomiky, investic a kapitálových trhů? Přihlaste se k odběru našeho YouTube kanálu.,"
+    text: "Chcete dostávat aktuální informace ze světa ekonomiky, investic a kapitálových trhů? Přihlaste se k odběru našeho YouTube kanálu.",
+    type: "iframe",
+    mediaSrc: "https://www.youtube.com/watch?v=Na34V4jE_iY",
+    src: "https://www.youtube.com/embed/Na34V4jE_iY?si=KsbW1-Ot3Hwfq_6a",
 },
 {
     heading: "Facebook",
     value: "Podívat se na nejnovější příspěvky",
     href: "https://www.facebook.com/financehb.cz/",
-    text: "Získejte přísun informací pomocí reelsů a postů na instagramu. Nezapomeňte odebírat a sdílet!"
+    text: "Získejte přísun informací pomocí reelsů a postů na instagramu. Nezapomeňte odebírat a sdílet!",
+    type: "img",
+    mediaSrc: "https://www.facebook.com/photo.php?fbid=1069393931876969&set=pb.100064191151910.-2207520000&type=3",
+    src: "/images/feed/fbFeed.png",
 },
 {
     heading: "LinkedIn",
     value: "Přihlásit k odběru",
     href: "https://cz.linkedin.com/in/petrkrajcigr",
-    text: "Chcete dostávat aktuální informace ze světa ekonomiky, investic a kapitálových trhů? Přihlaste se k odběru našeho YouTube kanálu.,"
+    text: "Chcete dostávat aktuální informace ze světa ekonomiky, investic a kapitálových trhů? Přihlaste se k odběru našeho YouTube kanálu.",
+    type: "img",
+    mediaSrc: "https://www.linkedin.com/posts/petrkrajcigr_finance-financnigramotnost-investice-activity-7322979281104498690-XJ7s?utm_source=share&utm_medium=member_desktop&rcm=ACoAADmDMp0BgYEK3d6qSb9Sr5_MKxLPXVBKd7I",
+    src: "/images/feed/InFeed.png",
 },
 ]

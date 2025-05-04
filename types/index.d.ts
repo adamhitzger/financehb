@@ -117,7 +117,10 @@ export interface SocialNetwork {
     value: string;
     href: string;
     text: string;
-    icon?: React.ReactNode 
+    icon?: React.ReactNode;
+    type: "img" | "iframe";
+    mediaSrc: string;
+    src: string;
 }
 
 
