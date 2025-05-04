@@ -5,6 +5,7 @@ import { HomeArticles } from "@/components/articles";
 import Header from "@/components/header";
 import About from "@/components/about";
 import MainPage from "@/components/mainPage";
+
 export default async function Home() {
   const articlesPromise: Articles[] = await sanityFetch<Articles[]>({ query: HOME_ARTICLES_QUERY });
   const feedPromise: Socialfeed[] = await sanityFetch<Socialfeed[]>({query: SOCIAL_FEED});
