@@ -129,7 +129,7 @@ if(!raynet.ok){
             }
             const insert_sub = await turso.execute({
                 sql: `INSERT INTO subscriptions (user_id, 
-                stripe_subscriptions_id,
+                stripe_subscription_id,
                 period_start,
                 period_end,
                 status,
@@ -161,7 +161,7 @@ const total = invoice.amount_due / 100;
                         else console.log("iDoklad error")
                     const update_sub = await turso.execute({
                         sql: `UPDATE subscriptions SET user_id = ?, 
-                        stripe_subscriptions_id = ?,
+                        stripe_subscription_id = ?,
                         period_start =?,
                         period_end=?,
                         status=?,
@@ -176,7 +176,7 @@ const total = invoice.amount_due / 100;
                     
                 }else if(session.status === "canceled"){
                     const {rowsAffected} = await turso.execute({
-                        sql:"DELETE FROM subscriptions WHERE stripe_subscriptions_id = ?",
+                        sql:"DELETE FROM subscriptions WHERE stripe_subscription_id = ?",
                         args: [session.id]
                     })
                     if(rowsAffected){
@@ -197,7 +197,7 @@ const total = invoice.amount_due / 100;
                     (event.data.object as Stripe.Subscription).id
                 );     
                 const {rowsAffected} = await turso.execute({
-                    sql:"DELETE FROM subscriptions WHERE stripe_subscriptions_id = ?",
+                    sql:"DELETE FROM subscriptions WHERE stripe_subscription_id = ?",
                     args: [session.id]
                 })
                 if(rowsAffected){
@@ -226,7 +226,7 @@ const total = invoice.amount_due / 100;
                   }
                   const update_sub = await turso.execute({
                     sql: `UPDATE subscriptions SET user_id = ?, 
-                    stripe_subscriptions_id = ?,
+                    stripe_subscription_id = ?,
                     period_start =?,
                     period_end=?,
                     status=?,

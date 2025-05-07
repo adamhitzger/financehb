@@ -6,6 +6,7 @@ import { Articles, Subscriptions } from '@/types';
 import Subscription from '@/components/PaywallComp';
 import { getCurrentUser } from '@/database/currentUser';
 import { turso } from '@/database/client';
+
 export default async function ArticlesPage(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
     const userPromise = await getCurrentUser({withFullUser: true})
     const {rows} = await turso.execute({
@@ -13,8 +14,7 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
         args: [userPromise?.id as number]
     })
     const PAGE_SIZE = 4;
-    console.log(process.env)
-const searchParams = await props.searchParams
+    const searchParams = await props.searchParams
     const currentPage = parseInt(searchParams.page || '1');
     const size = currentPage > 1 ? PAGE_SIZE + 1 : PAGE_SIZE;
     const start = (currentPage - 1) * size;

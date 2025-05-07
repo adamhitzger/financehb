@@ -30,7 +30,7 @@ async function _getCurrentUser({
 
 async function getUserFromDB(id: number): Promise<FullUser | null | undefined>{
     const rawUser = await turso.execute({
-        sql: "SELECT id, first_name, last_name,email, raynet_id, is_mail_sub FROM users WHERE id = ?",
+        sql: "SELECT id, first_name, last_name,email, raynet_id,stripe_id, is_mail_sub FROM users WHERE id = ?",
         args: [id]
     })
     const user = rawUser?.rows[0];
@@ -41,7 +41,7 @@ async function getUserFromDB(id: number): Promise<FullUser | null | undefined>{
             last_name: String(user.last_name),
             email: String(user.email),
             raynet_id: user?.raynet_id ? Number(user.raynet_id): null,
-            stripe_id: user?.raynet_id ? String(user.raynet_id): null,
+            stripe_id: user?.raynet_id ? String(user.stripe_id): null,
             is_mail_sub: Boolean(user.is_mail_sub)
         };
     }

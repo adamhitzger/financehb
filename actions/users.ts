@@ -992,7 +992,7 @@ export async function createPayment(formData: FormData){
       sql: "SELECT stripe_id FROM users WHERE id = ?",
       args: [user.id]
     })
-    if (getStripeId.rows[0].stripe_id) {
+    if (!getStripeId.rows[0].stripe_id) {
       console.log(`Error fetching profile`);
     }
 
@@ -1038,6 +1038,6 @@ export async function createPayment(formData: FormData){
 });
     console.log("Stripeid:", customerStripeId);
     
-  return redirect(session.url as string);
+  redirect(session.url as string);
 }
 
