@@ -43,7 +43,7 @@ Chtějí jistotu, že jejich peníze pracují efektivně, bezpečně a s výhled
 Protože vědět, co se děje, se vyplatí. I když zatím nemáte vlastní ostrov. <br/>
 (A když mi dáte vědět, co by vás zajímalo příště, rád to do příštích aktualit přidám – informací mám dost, jen ty vaše otázky mi zatím chybí.) </p>
             </section>
-            {rows[0].status !== "active" && myUser  ? 
+            {rows[0]?.status !== "active" && myUser  ? 
             <section className='w-full flex flex-col py-8 px-4 text-secondary text-center space-y-5'>
                     <Subscription subs={subs} user={myUser}/>
             </section>: <section className='w-full flex flex-col p-8 space-y-8'>
