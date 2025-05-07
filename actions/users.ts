@@ -993,7 +993,7 @@ export async function createPayment(formData: FormData){
       args: [user.id]
     })
     if (getStripeId.rows[0].stripe_id) {
-      throw new Error(`Error fetching profile`);
+      console.log(`Error fetching profile`);
     }
 
     customerStripeId = getStripeId.rows[0].stripe_id;
