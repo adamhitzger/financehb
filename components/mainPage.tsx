@@ -37,7 +37,7 @@ export default function MainPage({feed}:{feed: Socialfeed[]}){
                 </div>
                 <Link target="_blank" href={"/e-book"} className="text-md">{"Chci se dozvědět víde o e-booku"}</Link>
               </div>
-              <p className="text-md">Ať už jste na začátku kariéry, v jejím plném tempu nebo se pomalu připravujete na zasloužený odpočinek – nikdy není brzy (ani pozdě) začít budovat svou finanční budoucnost.<br/><br/> Tento praktický e-book vám ukáže, jak se vyhnout nejčastějším chybám a připravit se na důchod bez zbytečného stresu.<br/> Stáhněte si ho zdarma a buďte připraveni – protože na klidný důchod se nečeká, ten se plánuje. "</p>
+              <p className="text-md">Ať už jste na začátku kariéry, v jejím plném tempu nebo se pomalu připravujete na zasloužený odpočinek – nikdy není brzy (ani pozdě) začít budovat svou finanční budoucnost.<br/><br/> Tento praktický e-book vám ukáže, jak se vyhnout nejčastějším chybám a připravit se na důchod bez zbytečného stresu.<br/> Stáhněte si ho zdarma a buďte připraveni – protože na klidný důchod se nečeká, ten se plánuje.</p>
             </div>
 
             <div className="bg-primary-foreground rounded-xl p-3 hover:shadow-lg hover:shadow-secondary-foreground transition ease-in-out delay-100 duration-200">
@@ -49,7 +49,7 @@ export default function MainPage({feed}:{feed: Socialfeed[]}){
                 </div>
                 <Link target="_blank" href={"/paywall"} className="text-md">{"Chci získávat pravidelný přísun informací"}</Link>
               </div>
-              <p className="text-md">Získejte každý měsíc přehledné a srozumitelné informace přímo do své e-mailové schránky.Co hýbe trhy, kde se otevírají příležitosti a na co si dát pozor?<br/><br/> Měsíční aktuality vám ušetří čas a udrží vás v obraze.<br/> Stačí kliknout – a začít číst. "</p>
+              <p className="text-md">Získejte každý měsíc přehledné a srozumitelné informace přímo do své e-mailové schránky.Co hýbe trhy, kde se otevírají příležitosti a na co si dát pozor?<br/><br/> Měsíční aktuality vám ušetří čas a udrží vás v obraze.<br/> Stačí kliknout – a začít číst.</p>
             </div>
         </motion.div>
         <h2 className={`font-ibarra font-bold tracking-wide text-secondary-foreground text-3xl lg:text-5xl`}>Sledujte mě</h2>

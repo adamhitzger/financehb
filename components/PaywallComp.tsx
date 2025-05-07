@@ -6,7 +6,8 @@ import { useRef } from "react"
 import { useInView, motion } from "framer-motion"
 import { Button } from "./ui/button"
 import Link from "next/link"
-export default function Subscription({subs, user}:{subs: Subscriptions[], user: DBUser}){
+import { FullUser } from "@/types"
+export default function Subscription({subs, user}:{subs: Subscriptions[], user: FullUser}){
     const ref=useRef(null)
     const isInView = useInView(ref)
     return(

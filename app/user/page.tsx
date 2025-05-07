@@ -1,6 +1,3 @@
-import { getUser } from '@/auth/server';
-
-import { createSupabaseClient } from '@/auth/server';
 import UserComp from '@/components/userComp';
 import { getCurrentUser } from '@/database/currentUser';
 import { turso } from '@/database/client';

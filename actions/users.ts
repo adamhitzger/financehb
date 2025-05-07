@@ -1,6 +1,5 @@
 "use server";
 
-import { createSupabaseClient,} from "../auth/server";
 import { getErrorMessage, stripe } from "../lib/utils";
 import { redirect } from "next/navigation";
 import { GetRaynetResponse } from "@/types";
@@ -16,6 +15,7 @@ import { cookies } from "next/headers";
 import { comparePasswords } from "@/database/password";
 import { getCurrentUser } from "@/database/currentUser";
 import { revalidatePath } from "next/cache";
+import { ErrorMessage } from "sanity";
 
 //hotovo
 //iDoklad
@@ -538,14 +538,23 @@ async function generateVerifyUpdatePassHTML(code: string) {
 export async function deleteAction(raynet_id:number | null, userId: number) {
   try{
     const userId = await getCurrentUser({withFullUser: true})
-        console.log(userId?.id)
+    if(!userId?.id){
+      return{
+        errorMessage: "Nelze najít ID účtu"
+      }
+    }
+        console.log(userId.id)
         await removeUserFromSession(await cookies());
     
-        await turso.execute({
+        const {rowsAffected} = await turso.execute({
             sql: "DELETE FROM users WHERE id = ?",
             args: [Number(userId?.id)]
         })
-    
+        if(rowsAffected===0){
+          return{
+            errorMessage: "Nelze vymazat účet"
+          }
+        }
   }catch(error){
     return { errorMessage: getErrorMessage(error) };
   }

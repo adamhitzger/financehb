@@ -42,7 +42,7 @@ export default function Header() {
                     exit={{ opacity: 0, y: -250 }} 
                     transition={{ duration: 0.5, delay: 0.8 }}
                     className={`text-right text-base sm:text-lg`}>
-                        <p>Více než 28 let provázím své klienty světem financí — pomáhám jim budovat finanční nezávislost, chránit majetek, zabezpečit příjmy a správně investovat." Na mé stránce najdete <Link href={"/clanky"} target="_blank" className="underline text-secondary-foreground ">články</Link> a makroekonomické analýzy, nové investiční příležistosti jako je <Link href={"/clanky/vse-co-potrebujete-vedet-o-dipu"} target="_blank" className="underline text-secondary-foreground ">DIP</Link>.  
+                        <p>Více než 28 let provázím své klienty světem financí — pomáhám jim budovat finanční nezávislost, chránit majetek, zabezpečit příjmy a správně investovat. Na mé stránce najdete <Link href={"/clanky"} target="_blank" className="underline text-secondary-foreground ">články</Link> a makroekonomické analýzy, nové investiční příležistosti jako je <Link href={"/clanky/vse-co-potrebujete-vedet-o-dipu"} target="_blank" className="underline text-secondary-foreground ">DIP</Link>.  
                         Přihlaste se k odběru <Link href={"/#newsletter"} target="_blank" className="underline text-secondary-foreground ">newslettru</Link> at Vám nic neuteče! Pro více informací si zakupte <Link href={"/paywall"} target="_blank" className="underline text-secondary-foreground ">měsíční aktuality.</Link>  Nezapomňte si stáhnout <Link href={"/e-book"} target="_blank" className="underline text-secondary-foreground ">e-book.</Link>  </p>
 
                     </motion.div>

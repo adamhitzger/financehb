@@ -32,12 +32,10 @@ export function Delete({ id, raynet_id }: { id: number , raynet_id:number | null
     const router = useRouter()
     const handleClicDeleteButton = async () => {
         startTransition(async () => {
-            const { errorMessage } = await deleteAction(raynet_id,id);
-            if (errorMessage) {
-                toast.error(errorMessage);
-            } else {
-                toast.success("Účet byl smazán");
-            }
+            await deleteAction(raynet_id,id);
+            
+            toast.success("Účet byl smazán");
+        
             router.push("/");
         });
     };

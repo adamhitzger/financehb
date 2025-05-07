@@ -5,7 +5,6 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
 import { ibarra } from "./font";
-import { getUser } from "@/auth/server";
 import CookiesBanner from "@/components/modals/cookiesAllow";
 import { sanityFetch } from "@/sanity/lib/client"
 import { EBOOK_QUERY } from "@/sanity/lib/queries"
