@@ -8,6 +8,7 @@ import { useTransition, useState } from "react";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 import {motion} from "framer-motion"
+
 export function UpdatePass() {
     const router = useRouter();
     const searchParams = useSearchParams()
@@ -17,6 +18,7 @@ export function UpdatePass() {
     const [form, setForm] = useState({
         email: "",
         password: "",
+        code: params
     });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -25,8 +27,8 @@ export function UpdatePass() {
 
     const handleUpdate = (formData: FormData) => {
         startTransition(async () => {
-            await updateForgotUser(formData, params);
-
+            const {errorMessage} =await updateForgotUser(formData, params);
+            console.log(errorMessage)
             toast.success("Probíhá změna údajů")
             router.push('/paywall')
 
@@ -46,7 +48,8 @@ export function UpdatePass() {
                 
                 className="space-y-4" action={handleUpdate}>
                     <Input name="email" placeholder="Zadejte email" type="text" required disabled={isPending} onChange={handleChange} defaultValue={form.email} />
-                    <Input name="password" type="password" placeholder="Zadejte heslo" required disabled={isPending} onChange={handleChange} defaultValue={form.password} />
+                    <Input name="password" type="password" placeholder="Zadejte nové heslo" required disabled={isPending} onChange={handleChange} defaultValue={form.password} />
+                    <input type="hidden" name="code" value={form.code}/>
                     <Button
                         variant={"secondary"}
                         disabled={isPending} type="submit"

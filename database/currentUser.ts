@@ -28,20 +28,21 @@ async function _getCurrentUser({
 
   export const getCurrentUser = cache(_getCurrentUser)
 
-async function getUserFromDB(id: number): Promise<FullUser | null>{
+async function getUserFromDB(id: number): Promise<FullUser | null | undefined>{
     const rawUser = await turso.execute({
-        sql: "SELECT id, name, email, role, tel, two_fa FROM users WHERE id = ?",
+        sql: "SELECT id, first_name, last_name,email, raynet_id, is_mail_sub FROM users WHERE id = ?",
         args: [id]
     })
     const user = rawUser?.rows[0];
     if(user && user?.id){
         return {
             id: Number(user.id),
-            name: String(user.name),
+            first_name: String(user.first_name),
+            last_name: String(user.last_name),
             email: String(user.email),
-            role: String(user.role),
-            tel: user?.tel ? String(user.tel): null,
-            two_fa: user?.two_fa ? String(user.two_fa): null,
+            raynet_id: user?.raynet_id ? Number(user.raynet_id): null,
+            stripe_id: user?.raynet_id ? String(user.raynet_id): null,
+            is_mail_sub: Boolean(user.is_mail_sub)
         };
     }
    return null

@@ -1,5 +1,6 @@
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import React from "react";
+
 export type RaynetResponse = {
 success: string;
 totalCount: number;
@@ -10,11 +11,12 @@ data: {
 
 export type FullUser = {
     id: number;
-    name: string;
-    role: string;
+    first_name: string;
+    last_name: string;
     email: string;
-    tel?: string | null;
-    two_fa?: string | null;
+    stripe_id: string | null;
+    raynet_id: number | null;
+    is_mail_sub: boolean
 }
 
 export interface ActionResponse<T> {

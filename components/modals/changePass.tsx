@@ -8,7 +8,7 @@ import { useTransition, useState } from "react";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 
-export function ChangePass() {
+export function ChangePass({id}: {id:number}) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [form, setForm] = useState({
@@ -39,6 +39,7 @@ export function ChangePass() {
                     <h3 className="text-2xl font-bold text-gray-900">Změnit hesla</h3>
                     <form className="space-y-4" action={handleUpdate}>
                         <Input name="password" type="text" disabled={isPending} onChange={handleChange} defaultValue={form.pass} />
+                            <input name="id" type="hidden" value={id}/>
                         <div className="flex justify-center space-x-2  w-full">
                             <Button
                                 variant={"secondary"}

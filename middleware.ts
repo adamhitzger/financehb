@@ -1,65 +1,36 @@
-import { createServerClient } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from "next/server"
+import {
+  getUserFromSession,
+  updateUserSessionExpiration,
+} from "./database/session"
+const privateRoutes = [,"/paywall:slug", "/user"];
 
 export async function middleware(request: NextRequest) {
-    let response = NextResponse.next({
-        request,
-      })
-      const path = new URL(request.url).pathname;
+  const response = (await middlewareAuth(request)) ?? NextResponse.next()
+  
+  await updateUserSessionExpiration({
+    set: (key, value, options) => {
+      response.cookies.set({ ...options, name: key, value })
+    },
+    get: key => request.cookies.get(key),
+  })
 
-      const protectedRoutes = [,"/paywall:slug", "/user"];
-      const authRoutes = ["/log-in", "/sign-in", "/update-pass"];
-    
-      const isProtectedRoute = protectedRoutes.some(route =>
-        route === path
-      );
-      const isAuthRoute = authRoutes.includes(path);
-    
-      if (isProtectedRoute || isAuthRoute) {
-        const user = await getUser(response,request );
-    
-        if (isProtectedRoute && !user) {
-          return NextResponse.redirect(new URL("/log-in", request.url));
-        }
-    
-        
-      }
+  return response
+}
 
-    
-      return response;
+async function middlewareAuth(request: NextRequest) {
+  if (privateRoutes.includes(request.nextUrl.pathname)) {
+    const user = await getUserFromSession(request.cookies)
+    if (user == null) {
+      return NextResponse.redirect(new URL("/sign-in", request.url))
+    }
+  }
+
 }
 
 export const config = {
   matcher: [
-    
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
   ],
 }
-
-async function getUser(response: NextResponse,request: NextRequest) {
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll() {
-            return request.cookies.getAll()
-          },
-          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
-            response = NextResponse.next({
-              request,
-            })
-            cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options)
-            )
-          },
-        },
-      }
-    )
-
-    const {
-        data: { user },
-      } = await supabase.auth.getUser();
-    return user;
-  }

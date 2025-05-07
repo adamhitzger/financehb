@@ -27,7 +27,7 @@ export function SignOut() {
     )
 }
 
-export function Delete({ id, raynet_id }: { id: string , raynet_id:number | null}) {
+export function Delete({ id, raynet_id }: { id: number , raynet_id:number | null}) {
     const [isPending, startTransition] = useTransition();
     const router = useRouter()
     const handleClicDeleteButton = async () => {

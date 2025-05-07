@@ -22,7 +22,7 @@ export default function SubInfoForm({stripeId}: {stripeId: string}) {
     )
 }
 
-export function SignOutFromNews({raynetId, dbId}: {raynetId: number, dbId: string}) {
+export function SignOutFromNews({raynetId, dbId}: {raynetId: number, dbId: number}) {
     const [isPending, startTransition] = useTransition();
     
     const signOutMail= (formData: FormData) => {
@@ -34,10 +34,10 @@ export function SignOutFromNews({raynetId, dbId}: {raynetId: number, dbId: strin
     }
     
     return (
-        <form action={signOutMail}>
+        <form action={signOutMail} className='col-span-2'>
                                 <input type="hidden" name="raynetId" value={raynetId} required/>
                                 <input type="hidden" name="dbId" value={dbId} required/>
-                                <Button variant={"destructive"} size={"lg"} disabled={isPending}>{isPending ? <Loader2 className='animate-spin'/> : <>Přestat odebírat emaily</>}</Button>
+                                <Button variant={"destructive"} size={"lg"} className='w-full' disabled={isPending}>{isPending ? <Loader2 className='animate-spin'/> : <>Přestat odebírat emaily</>}</Button>
                             </form>
     )
 }

@@ -25,7 +25,6 @@ export type Cookies = {
   }
 
   function setCookie(sessionId: string, cookies: Pick<Cookies, "set">) {
-    console.log("Setting session cookie for: ", sessionId)
     cookies.set(COOKIE_SESSION_KEY, sessionId, {
       secure: true,
       httpOnly: true,

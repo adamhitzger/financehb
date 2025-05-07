@@ -2,14 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { Input } from "../ui/input";
-import { useGetUser } from "@/auth/client";
 import { Button } from "../ui/button";
 import { logIn, updateUser } from "@/actions/users";
 import { useTransition, useState } from "react";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 
-export function ChangeDetails({ id, name, surname, email }: { id: string | undefined, name: string | undefined, surname: string | undefined, email: string | undefined, }) {
+export function ChangeDetails({ id, name, surname, email }: { id?: number, name: string | undefined, surname: string | undefined, email: string | undefined, }) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [form, setForm] = useState({

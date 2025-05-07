@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { BentoGrid, BentoGridItem  } from "./ui/bento-grid";
 
 export default function Gallery(){
     const items = [

@@ -1,14 +1,13 @@
-import { createSupabaseClient } from "@/auth/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/utils";
 import { headers } from "next/headers";
-import { RaynetResponse } from "@/types";
+import { FullUser, RaynetResponse } from "@/types";
 import { createInvoice } from "@/actions/users";
 import { createTransport } from "nodemailer";
+import { turso } from "@/database/client";
 export async function POST(req: Request){
     const body = await req.text();
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
-    const client = await createSupabaseClient("deleteAccount");
     const headerList = await headers();
     const signature = headerList.get("Stripe-Signature") as string;
     let event: Stripe.Event;
@@ -33,9 +32,24 @@ export async function POST(req: Request){
     
     let session = event.data.object as Stripe.Checkout.Session
     const stripeId = session.customer as string
-    const user = await client.from("profiles").select().eq("stripeId", stripeId).single();
-    if(user.error) console.log(user.error);
-    if(user.data) console.log(user.data);
+    const getUserByStripeId = await turso.execute({
+        sql: "SELECT * FROM users WHERE stripe_id = ?",
+        args: [stripeId]
+    })
+    if(!getUserByStripeId.rows[0].id) {
+        console.log("Problem with stripe_id in Webhook: ",)
+    }
+    const untypedUser = getUserByStripeId.rows[0]
+
+    const user: FullUser = {
+        id: Number(untypedUser.id),
+        first_name: String(untypedUser.first_name),
+        last_name: String(untypedUser.last_name),
+        email: String(untypedUser.email),
+        raynet_id: Number(untypedUser.raynet_id) ?? null,
+        is_mail_sub: Boolean(untypedUser.is_mail_sub),
+        stripe_id: String(untypedUser.stripe_id)
+    }
     switch(event.type){
         case "checkout.session.completed":
             try{
@@ -48,7 +62,7 @@ export async function POST(req: Request){
               }
               const invoice = await stripe.invoices.retrieve(subscription.latest_invoice as string);
 const total = invoice.amount_due / 100;
-        if(user.data.raynet_id === null){ 
+        if(user.raynet_id === null){ 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
     headers: {
@@ -57,9 +71,9 @@ const total = invoice.amount_due / 100;
         "X-Instance-Name": "financehb",
     },
     body: JSON.stringify({
-        name: user.data.first_name + " " + user.data.last_name,
-        firstName: user.data.fist_name,
-        lastName: user.data.last_name,
+        name: user.first_name + " " + user.last_name,
+        firstName: user.first_name,
+        lastName: user.last_name,
         rating: "A",
         state: "A_POTENTIAL",
         role: "A_SUBSCRIBER",
@@ -76,7 +90,7 @@ const total = invoice.amount_due / 100;
                     lng: 0
                 },
             contactInfo: {
-                email: user.data.email,
+                email: user.email,
                 email2: "",
                 fax: "",
                 otherContact: "",
@@ -97,33 +111,36 @@ await transporter.sendMail({
     from: process.env.FROM_EMAIL,
     to: process.env.FROM_EMAIL,
     subject: "Nové přihlášení - Měsíční akt z KPT placené",
-    text: `Celé jméno: ${user.data.fist_name + " " + user.data.last_name}, Email: ${user.data.email}`
+    text: `Celé jméno: ${user.first_name + " " + user.last_name}, Email: ${user.email}`
    })
 if(!raynet.ok){
   throw new Error(`Request failed with status: ${raynet.status}`);
 }
   const raynet_id = await raynet.json() as RaynetResponse;
   console.log(raynet_id.data.id)
-  
-            const insert_r_id = await client.from("profiles").update({
-                raynet_id: raynet_id.data.id
-            }).eq("id", user.data.id)
-            if(insert_r_id.error) console.error("Error when updating raynet id: ", insert_r_id.error);
-            if(insert_r_id.data) console.log(insert_r_id.data);
-
+            const insert_r_id = await turso.execute({
+                sql: "UPDATE users SET raynet_id = ? WHERE id = ?",
+                args: [raynet_id.data.id, user.id]
+            })
+            if(insert_r_id.rowsAffected === 0) {
+                console.log("Problem with inserting Raynet Id in Webhook")
+                return new Response('Error while inserting raynet_id', { status: 500 });
             }
-            
-            const {data, error} = await client.from("subscriptions").insert({
-                    user_id: user.data.id as string,
-                    stripe_subscriptions_id: subscription.id as string,
-                    periodStart: subscription.current_period_start,
-                    periodEnd: subscription.current_period_end,
-                    status: subscription.status as string,
-                    plan_id: subscription.items.data[0].plan.id as string,
-                    interval: String(subscription.items.data[0].plan.interval),
-                })
-            if(error) console.log("Vkládaní nového předplatného se nepodřilo: ",error);
-            if(data) console.log(data);  
+            }
+            const insert_sub = await turso.execute({
+                sql: `INSERT INTO subscriptions (user_id, 
+                stripe_subscriptions_id,
+                period_start,
+                period_end,
+                status,
+                interval,
+                plan_id) VALUES(?,?,?,?,?,?,?)`,
+                args: [user.id,subscription.id as string,subscription.current_period_start as number,subscription.current_period_end as number,subscription.status,subscription.items.data[0].plan.interval as string,subscription.items.data[0].plan.id as string]
+            })
+            if(insert_sub.rowsAffected === 0){
+                console.log("Problem while inserting subscription")
+                return new Response('Error while inserting subscription', { status: 500 });
+            }
         } catch (err) {
             console.error('Unexpected error:', err);
             return new Response('Unexpected error', { status: 500 });
@@ -139,21 +156,33 @@ if(!raynet.ok){
                 const invoice = await stripe.invoices.retrieve(session.latest_invoice as string);
 const total = invoice.amount_due / 100;
                 if(session.status === "active"){
-                    const idoklad = await createInvoice(total, user.data.first_name,user.data.last_name ,session.discount?.coupon.percent_off);
+                    const idoklad = await createInvoice(total, user.first_name,user.last_name ,session.discount?.coupon.percent_off);
                     if(idoklad.data) console.log("iDoklad ok")
                         else console.log("iDoklad error")
-                    const {data, error} = await client.from("subscriptions").update({
-                        stripe_subscriptions_id: session.id as string,
-                        periodStart: session.current_period_start,
-                        periodEnd: session.current_period_end,
-                        status: session.status,
-                        plan_id: session.items.data[0].plan.id as string,
-                        interval: String(session.items.data[0].plan.interval),
-                    }).eq("stripe_subscriptions_id", session.id)
-                    if(error) console.log(error.message);
-                    if(data) console.log(data);
+                    const update_sub = await turso.execute({
+                        sql: `UPDATE subscriptions SET user_id = ?, 
+                        stripe_subscriptions_id = ?,
+                        period_start =?,
+                        period_end=?,
+                        status=?,
+                        interval=?,
+                        plan_id =?`,
+                        args: [user.id,session.id as string,session.current_period_start as number,session.current_period_end as number,session.status,session.items.data[0].plan.interval as string,session.items.data[0].plan.id as string]
+                    })
+                    if(update_sub.rowsAffected === 0){
+                        console.log("Problem while inserting subscription")
+                        return new Response('Error while updating subscription', { status: 500 });
+                    }
+                    
                 }else if(session.status === "canceled"){
-                    const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", session.id)
+                    const {rowsAffected} = await turso.execute({
+                        sql:"DELETE FROM subscriptions WHERE stripe_subscriptions_id = ?",
+                        args: [session.id]
+                    })
+                    if(rowsAffected){
+                        console.log("Problem while deleting subscription")
+                        return new Response('Error while deleting subscription', { status: 500 });
+                    }
                 }
 
                 
@@ -167,10 +196,14 @@ const total = invoice.amount_due / 100;
                 const session = await stripe.subscriptions.retrieve(
                     (event.data.object as Stripe.Subscription).id
                 );     
-                const {data, error} = await client.from("subscriptions").delete().eq("stripe_subscriptions_id", session.id);
-                      
-                if(error) console.log(error.message);
-                if(data) console.log(data);
+                const {rowsAffected} = await turso.execute({
+                    sql:"DELETE FROM subscriptions WHERE stripe_subscriptions_id = ?",
+                    args: [session.id]
+                })
+                if(rowsAffected){
+                    console.log("Problem while deleting subscription")
+                    return new Response('Error while deleting subscription', { status: 500 });
+                }
             } catch (err) {
                 console.error('Unexpected error:', err);
                 return new Response('Unexpected error', { status: 500 });
@@ -191,16 +224,20 @@ const total = invoice.amount_due / 100;
                     console.error("Subscription ID is missing in the session object.");
                     return new Response("Subscription ID not found", { status: 400 });
                   }
-                const {data, error} = await client.from("subscriptions").update({
-                    stripe_subscriptions_id: subscription.id as string,
-                    periodStart: subscription.current_period_start,
-                    periodEnd: subscription.current_period_end,
-                    status: subscription.status,
-                    plan_id: subscription.items.data[0].plan.id as string,
-                    interval: String(subscription.items.data[0].plan.interval),
-                }).eq("stripe_subscriptions_id", subscription.id)
-                if(error) console.log(error.message);
-                if(data) console.log(data);
+                  const update_sub = await turso.execute({
+                    sql: `UPDATE subscriptions SET user_id = ?, 
+                    stripe_subscriptions_id = ?,
+                    period_start =?,
+                    period_end=?,
+                    status=?,
+                    interval=?,
+                    plan_id =?`,
+                    args: [user.id,subscription.id as string,subscription.current_period_start as number,subscription.current_period_end as number,subscription.status,subscription.items.data[0].plan.interval as string,subscription.items.data[0].plan.id as string]
+                })
+                if(update_sub.rowsAffected === 0){
+                    console.log("Problem while inserting subscription")
+                    return new Response('Error while updating subscription', { status: 500 });
+                }
                  }catch(error){
                 console.error("Error - invoice.payment_succeded: ", error);
   return new Response("Failed to process subscription", { status: 500 });

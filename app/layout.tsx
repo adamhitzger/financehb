@@ -11,6 +11,7 @@ import { sanityFetch } from "@/sanity/lib/client"
 import { EBOOK_QUERY } from "@/sanity/lib/queries"
 import { Ebook } from "@/types"
 import EbookModal from "@/components/modals/ebookModal";
+import { getCurrentUser } from "@/database/currentUser";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -55,7 +56,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const userPromise = await getUser();
+  const userPromise = await getCurrentUser({withFullUser: true})
   const ebookPromise = await sanityFetch<Ebook>({ query: EBOOK_QUERY });
   const [user, ebook] = await Promise.all([
     userPromise,

@@ -1,59 +1,34 @@
 import * as z from "zod"
 
 export const signSchema = z.object({
-    name: z.string().min(3, {message: "Name must be at least 3 characters long"}).trim().optional(),
+    first_name: z.string().min(3, {message: "Name must be at least 3 characters long"}).trim().optional(),
+    last_name: z.string().min(3, {message: "Name must be at least 3 characters long"}).trim().optional(),
     email: z.string().email({message: "You entered wrong email format!"}).trim(),
     password: z.string()
                 .min(10, {message: "Password mustbe at least 10 characters long!"})
-                .regex(/[a-zA-Z]/, {message: "Password must contain at least one letter"},)
-                .regex(/[0-9]/, {message: "Password must contain at least one number"})
-                .regex(/[^a-zA-Z0-9]/, {message: "Password must contain at least special character"})
                 .trim(),
     code: z.string().min(6, {message:"Too long"}).min(6, {message:"Too short"}).trim().optional()
 })
 
 export const changeDetailsSchema = z.object({
     id: z.number(),
-    name: z.string().min(3, {message: "Name must be at least 3 characters long"}).trim().optional(),
+    first_name: z.string().min(3, {message: "Name must be at least 3 characters long"}).trim().optional(),
+    last_name: z.string().min(3, {message: "Name must be at least 3 characters long"}).trim().optional(),
     email: z.string().email({message: "You entered wrong email format!"}).trim(),
 })
 
 export const updatePass = z.object({
     email: z.string().email({message: "You entered wrong email format!"}).trim(),
-    newPass: z.string()
+    password: z.string()
     .min(10, {message: "Password mustbe at least 10 characters long!"})
-    .regex(/[a-zA-Z]/, {message: "Password must contain at least one letter"},)
-    .regex(/[0-9]/, {message: "Password must contain at least one number"})
-    .regex(/[^a-zA-Z0-9]/, {message: "Password must contain at least special character"})
-    .trim(),
-    confPass: z.string()
-    .min(10, {message: "Password mustbe at least 10 characters long!"})
-    .regex(/[a-zA-Z]/, {message: "Password must contain at least one letter"},)
-    .regex(/[0-9]/, {message: "Password must contain at least one number"})
-    .regex(/[^a-zA-Z0-9]/, {message: "Password must contain at least special character"})
     .trim(),
     code: z.string().min(6, {message:"Too long"}).min(6, {message:"Too short"}).trim().optional()
 })
 
 export const changePass = z.object({
     id: z.number(),
-    oldPass: z.string()
+    password: z.string()
     .min(10, {message: "Password mustbe at least 10 characters long!"})
-    .regex(/[a-zA-Z]/, {message: "Password must contain at least one letter"},)
-    .regex(/[0-9]/, {message: "Password must contain at least one number"})
-    .regex(/[^a-zA-Z0-9]/, {message: "Password must contain at least special character"})
-    .trim(),
-    newPass: z.string()
-    .min(10, {message: "Password mustbe at least 10 characters long!"})
-    .regex(/[a-zA-Z]/, {message: "Password must contain at least one letter"},)
-    .regex(/[0-9]/, {message: "Password must contain at least one number"})
-    .regex(/[^a-zA-Z0-9]/, {message: "Password must contain at least special character"})
-    .trim(),
-    confirmPass: z.string()
-    .min(10, {message: "Password mustbe at least 10 characters long!"})
-    .regex(/[a-zA-Z]/, {message: "Password must contain at least one letter"},)
-    .regex(/[0-9]/, {message: "Password must contain at least one number"})
-    .regex(/[^a-zA-Z0-9]/, {message: "Password must contain at least special character"})
     .trim()
 })
 export const otp = z.object({
