@@ -51,7 +51,7 @@ export default function Contact() {
         })
     }
     return (
-        <div ref={div} className="flex flex-col gap-4 lg:flex-row">
+        <div ref={div} id='contact' className="flex flex-col gap-4 lg:flex-row">
             <motion.form
             initial={{opacity:0, x: -600}}
             animate={isInView?{opacity: 1, x:0}: {}}

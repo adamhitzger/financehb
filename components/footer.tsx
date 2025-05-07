@@ -35,7 +35,7 @@ export default function Footer() {
                         <div className='flex flex-row text-lg border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><MapPin className='mr-2'/> Adresa:</div>
                         <span>Financehb.cz s.r.o, Dolní 132,</span>
                         <span>580 02, Havlíčkův Brod</span>
-                        <Link href={"/#map"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground flex flex-row '>Ukázat na mapě <ArrowRight className='ml-5' /></Link>
+                        <Link href={"/sluzby#contact"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground flex flex-row '>Ukázat na mapě <ArrowRight className='ml-5' /></Link>
                     </div>
                     <div className='text-base flex flex-col space-y-1'>
                         <div className='flex flex-row  text-lg border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><Building className='mr-2'/> Brno:</div> Vinařská 460/3, Brno
