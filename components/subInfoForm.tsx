@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { Button } from './ui/button';
 import React, { useState, useTransition } from 'react'
 import { createCustomerPortal, signOutFromMails } from '@/actions/users';
-import { Loader2, MoveUpRight } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 export default function SubInfoForm({stripeId}: {stripeId: string}) {
     const [isPending, startTransition] = useTransition();
     

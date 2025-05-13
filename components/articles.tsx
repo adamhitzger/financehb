@@ -15,7 +15,7 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
     const isInView= useInView(sec, {margin: "0px 0px 0px 0px", amount:0})
     if (articles.length === 0) return <div className="text-2xl font-medium">Nebyly nalezeny žádné články</div>
     else return (
-        <div ref={sec} className="grid grid-cols-1 w-full">
+        <div ref={sec} className="grid grid-cols-1 sm:grid-cols-3 w-full">
             {articles &&
                 articles.map((a: Sanity, idx: number) => (
                     <motion.article 
