@@ -74,9 +74,7 @@ export default function About() {
             exit={{ opacity: 0, x: 250 }}
             transition={{ duration: 0.5, delay: 0.5}} ref={ref} className={`w-full  sm:w-1/2 flex justify-center items-center`}>
               <Suspense fallback={<div className="w-full h-96 bg-primary-foreground"></div>}>
-            <video controls poster={"/images/thumbnail.jpg"} playsInline={true} className="block w-full h-96">
-            <source src="/video.mp4" type="video/mp4"/>
-           </video>
+            <iframe className="w-full min-h-56" src="https://www.youtube.com/embed/mCzOmuAoKnE?si=X4fHFLvvB0WAdRti" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"></iframe>
            </Suspense>
            </motion.div>
            <div 
