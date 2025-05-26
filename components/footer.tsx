@@ -32,19 +32,19 @@ export default function Footer() {
             <footer className='flex flex-col bg-secondary text-primary p-8 text-lg space-y-5'>
                 <div className='grid grid-cols-2 gap-4 md:grid-cols-5 md:grid-rows-1 w-full justify-items-stretch md:justify-items-center font-light'>
                     <div className='text-base flex flex-col space-y-1'>
-                        <div className='flex flex-row text-lg border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><MapPin className='mr-2'/> Adresa:</div>
+                        <div className='flex flex-row text-base border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><MapPin className='mr-2'/> Adresa:</div>
                         <span>Financehb.cz s.r.o, Dolní 132,</span>
                         <span>580 02, Havlíčkův Brod</span>
                         <Link href={"/sluzby#contact"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground flex flex-row '>Ukázat na mapě <ArrowRight className='ml-5' /></Link>
                     </div>
                     <div className='text-base flex flex-col space-y-1'>
-                        <div className='flex flex-row  text-lg border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><Building className='mr-2'/> Brno:</div> Vinařská 460/3, Brno
-                        <div className='pt-2 flex flex-row text-lg border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><Building className='mr-2'/>Praha:</div> Nová Waltrovka METALICA, <br/>Radlická 365/154, Praha 5
+                        <div className='flex flex-row  text-base border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><Building className='mr-2'/> Brno:</div> Vinařská 460/3, Brno
+                        <div className='pt-2 flex flex-row text-base border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><Building className='mr-2'/>Praha:</div> Nová Waltrovka METALICA, <br/>Radlická 365/154, Praha 5
                         <span>Efekta-IZ, s.r.o., <br/>člen skupiny DRFG a.s. </span>
                     </div>
 
                     <div className='text-base flex flex-col space-y-1'>
-                        <div className='flex flex-center text-lg border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><CalendarClock className='mr-2'/> Pracovní hodiny</div>
+                        <div className='flex flex-center text-base border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><CalendarClock className='mr-2'/> Pracovní hodiny</div>
                         <span>Asistentka v kanceláři:</span>
                         <div className='flex flex-row space-x-3'>
                             <div className='flex flex-col w-fit'>
@@ -56,7 +56,7 @@ export default function Footer() {
 
                     </div>
                     <div className='text-base flex flex-col space-y-1'>
-                        <div className='flex flex-row text-lg border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><PhoneIncoming className='mr-2'/> Kontakt</div>
+                        <div className='flex flex-row text-base border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><PhoneIncoming className='mr-2'/> Kontakt</div>
                         <Link href={"tel:+420777820080"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 777 820 080</Link>
                         <div className='pt-2 flex flex-center border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><Landmark className='mr-2'/> Investiční služby:</div>
                         <Link href={"tel:+420222161188"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 222 161 188</Link>
@@ -65,7 +65,7 @@ export default function Footer() {
                     </div>
                     
                     <div className='text-base flex flex-col  space-y-1'>
-                        <div className='flex flex-row text-lg border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><LinkIcon className='mr-2'/>Odkazy</div>
+                        <div className='flex flex-row text-base border-b-2 border-b-secondary-foreground font-medium w-fit pr-3'><LinkIcon className='mr-2'/>Odkazy</div>
                         <Link target={"_blank"} href={"https://dobryporadce.cz/poradci/petr-krajcigr-efa"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>Dobrý poradce</Link>
                         <Link target={"_blank"} href={"https://www.drfg.cz/"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>www.drfg.cz</Link>
                         <Link target={"_blank"} href={"https://pkfinance.cz/"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>www.pkfinance.cz/</Link>

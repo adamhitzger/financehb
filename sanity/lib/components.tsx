@@ -28,7 +28,7 @@ export const components: Partial<PortableTextComponents> = {
         link: ({ children, value }) => {
             const ytb: boolean = value.href.startsWith("https://www.youtube.com/embed/");
             if (ytb) return <iframe src={value?.href} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="mx-auto w-full lg:w-1/2 h-96"></iframe>
-            else return <Link href={value?.href} className="underline text-secondary-foreground">{children}</Link>
+            else return <Link target="_blank" href={value?.href} className="underline text-secondary-foreground">{children}</Link>
         }
     },
     types: {
