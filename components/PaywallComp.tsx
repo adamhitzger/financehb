@@ -25,6 +25,7 @@ export default function Subscription({subs, user}:{subs: Subscriptions[], user: 
         <div className='flex flex-col text-center w-fit text-secondary'>
             <span className='text-3xl font-medium'>{sub.price} Kč</span>
             <span className='text-lg '>{sub.season}</span>
+            {sub.funnyText && <span className='text-lg '>{sub.funnyText}</span>}
         </div>
                         
         <div className='w-fit'>

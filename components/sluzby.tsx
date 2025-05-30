@@ -291,7 +291,7 @@ const services = [
     className=" font-ibarra md:text-left font-bold tracking-wide  text-2xl lg:text-4xl">🔒 Dlouhodobá důvěra, profesionální péče o váš majetek </h3>
     <p 
     
-    className="text-base lg:text-xl font-light text-justify md:text-left text-black">Díky mým dlouholetým zkušenostem klienti ví, že se na mě mohou spolehnout – i když sami nemají čas vše sledovat. Chtějí mít kontrolu nad svým majetkem, ale zároveň partnera, který sleduje změny, hlídá detaily a přichází s řešeními. Proto využívají placené poradenství, které jim poskytuje jistotu, klid a VIP přístup ke správě financí. 
+    className="text-base  font-light text-justify md:text-left text-black">Díky mým dlouholetým zkušenostem klienti ví, že se na mě mohou spolehnout – i když sami nemají čas vše sledovat. Chtějí mít kontrolu nad svým majetkem, ale zároveň partnera, který sleduje změny, hlídá detaily a přichází s řešeními. Proto využívají placené poradenství, které jim poskytuje jistotu, klid a VIP přístup ke správě financí. 
 
     Ať už spravujete majetek do 1 milionu korun, nebo jste manažer či ředitel firmy s portfoliem v řádech milionů – mám pro vás řešení. </p>
     <h3 

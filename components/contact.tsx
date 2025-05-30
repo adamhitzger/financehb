@@ -94,24 +94,15 @@ export default function Contact() {
                     <Button type="submit" variant={"default"} size={'lg'} className='mx-auto font-light '>{isPending ? <Loader2 className='animate-spin' /> : <>Odeslat < MoveUpRight /></>}</Button>
                     </div>
             </motion.form>
-            <motion.div
+            <motion.iframe
             initial={{opacity:0, x: 600}}
             animate={isInView?{opacity: 1, x:0}: {}}
             exit={{opacity: 0, x: 600}}
             transition={{duration: 1}}
-            className='lg:w-1/2 w-full rounded-lg shadow-lg shadow-secondary-foreground h-96 lg:h-auto' id='map'>
-                <Map
-                    mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN!}
-                    initialViewState={{
-                        longitude: lng,
-                        latitude: lat,
-                        zoom: zoom,
-                    }}
-                    mapStyle="mapbox://styles/mapbox/streets-v12"
-                >
-                    <Marker longitude={lng} latitude={lat} anchor='bottom' color="red" />
-                </Map>
-            </motion.div>
+            className='lg:w-1/2 w-full rounded-lg shadow-lg shadow-secondary-foreground h-96 lg:h-auto' id='map'
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d282.6037869799849!2d15.579329499918805!3d49.605022209000055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470d0095a8402ca3%3A0xad29b246690b3620!2sFinancehb.cz%20s.r.o.-%20Petr%20Krajcigr!5e0!3m2!1scs!2scz!4v1748615691333!5m2!1scs!2scz" width="600" height="450"  loading="lazy" referrerPolicy="no-referrer-when-downgrade">
+            
+            </motion.iframe>
         </div>
     )
 }

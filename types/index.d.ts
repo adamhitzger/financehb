@@ -80,10 +80,10 @@ export interface Reviews {
 
 export interface Subscriptions {
     price: number;
-    yrlPrice: number;
     season: string;
     stripePriceId: string
     yrlStripePriceId: string;
+    funnyText: string
 }
 
 export interface Articles {

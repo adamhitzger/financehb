@@ -84,5 +84,6 @@ export const EBOOK_QUERY = groq`*[_type == 'ebook'][0]{
 export const SUBSCRIPTIONS_QUERY = groq`*[_type == 'subscriptions'] | order(price asc){
     price,
     season,
-    stripePriceId
+    stripePriceId,
+    funnyText
 }`;

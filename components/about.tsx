@@ -88,7 +88,7 @@ export default function About() {
                    
                    <div  className={`text-left text-base md:text-lg`}>
                    <p>Více než 28 let provázím své klienty světem financí — pomáhám jim budovat finanční nezávislost, chránit majetek, zabezpečit příjmy a správně investovat. Na mé stránce najdete <Link href={"/clanky"} target="_blank" className="underline text-secondary-foreground ">články</Link> a makroekonomické analýzy, nové investiční příležistosti jako je <Link href={"/clanky/vse-co-potrebujete-o-dipu-vedet"} target="_blank" className="underline text-secondary-foreground ">DIP</Link>.  
-                       Pro více informací si zakupte <Link href={"/paywall"} target="_blank" className="underline text-secondary-foreground ">měsíční aktuality.</Link>  Nezapomňte si stáhnout <Link href={"/e-book"} target="_blank" className="underline text-secondary-foreground ">e-book.</Link>  </p>
+                       Pro více informací z kapitálových trhů si navštivte <Link href={"/paywall"} target="_blank" className="underline text-secondary-foreground ">měsíční aktuality.</Link>  Nezapomňte si stáhnout <Link href={"/e-book"} target="_blank" className="underline text-secondary-foreground ">e-book.</Link>  </p>
 
                    </div>
                    

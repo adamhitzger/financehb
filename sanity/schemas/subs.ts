@@ -13,16 +13,17 @@ export const subsType = defineType({
             type: "number",
             validation: (rule) => rule.required(),
         }),
-        defineField({
-            name: "yrlPrice",
-            title: "Cena předplatného rocne",
-            type: "number",
-        }),
+       
         defineField({
             name: "season",
             title: "Název a doba předplatného",
             type: "string",
             validation: (rule) => rule.required(),
+        }),
+        defineField({
+            name: "funnyText",
+            title: "Vtipný text",
+            type: "string",
         }),
         defineField({
             name: "stripePriceId",

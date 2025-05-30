@@ -16,10 +16,6 @@ export default async function LogInPage(props: { searchParams: Promise<{ [key: s
                     <span className='text-lg'>Zapomeněli jste heslo?</span>
                     <Link className='text-lg underline underline-offset-2' href={"/log-in?forgot=true"}>Obnovte si heslo</Link>
                 </div>
-                <div className='w-full flex flex-col text-center'>
-                    <span className='text-lg'>Nemáte jěště účet?</span>
-                    <Link className='text-lg underline underline-offset-2' href={"/sign-in"}>Zaregistrujte se</Link>
-                </div>
                 {forgotPass && <ForgotPass />}
             </section>
 

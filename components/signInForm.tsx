@@ -39,7 +39,8 @@ export default function SignInForm() {
         exit={{opacity:0, y:-250}}
         transition={{duration: 0.6}}
         className="w-full lg:w-1/2 flex p-4 flex-col space-y-7 bg-secondary rounded-2xl" action={handleSignUp}>
-            <div> <h2 className="  font-bold tracking-wide text-3xl font-ibarra lg:text-5xl text-primary my-2 text-underline">Zaregistrujte se</h2></div>
+            <div > <h2 className="  font-bold tracking-wide text-3xl font-ibarra lg:text-5xl text-primary my-2 text-underline">Zaregistrujte se</h2>
+            </div>
             <div className="flex flex-col w-full space-y-4">
                 <Input name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required disabled={isPending} />
                 <Button disabled={isPending} type="submit" size={'lg'} className='mx-auto bg-destructive text-lg text-primary font-light underline underline-offset-2 shadow-md  shadow-primary-foreground'>

@@ -103,7 +103,7 @@ const total = invoice.amount_due / 100;
                 },
             }
             ],
-        tags: ["Mesicni akt z KPT"],
+        tags: ["Mesicni akt z KPT placene"],
     }),
     
 });
