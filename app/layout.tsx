@@ -11,7 +11,6 @@ import { EBOOK_QUERY } from "@/sanity/lib/queries"
 import { Ebook } from "@/types"
 import EbookModal from "@/components/modals/ebookModal";
 import { getCurrentUser } from "@/database/currentUser";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -71,6 +70,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.className} ${ibarra.variable} overflow-x-hidden`}>
+ 
       <EbookModal ebook={ebook}/>
       <CookiesBanner/>
         <Navbar user={user}/>

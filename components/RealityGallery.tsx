@@ -5,7 +5,7 @@ import Image from 'next/image'
 export function Gallery({ gallery }: { gallery: string[] }) {
     const [selectedId, setSelectedId] = useState<string>("");
     return (
-        <div className="  grid grid-cols-2 grid-rows-6 md:grid-cols-4 md:grid-rows-3 py-5 md:px-5 md:py-0 w-full md:w-1/2 gap-2">
+        <div className="  grid grid-cols-2  md:grid-cols-4 md:grid-rows-3 py-5 md:px-5 md:py-0 w-full md:w-1/2 gap-2">
             {gallery && gallery.map((gallery, idx: number) => (
                 <div key={idx}
                     className="relative w-full "

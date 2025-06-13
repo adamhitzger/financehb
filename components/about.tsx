@@ -2,17 +2,19 @@
 
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { HousePlus, MoveUpRight, ThumbsUp, Users, Wallet } from "lucide-react";
+import { HousePlus, MoveUpRight, ThumbsUp, Users, Wallet, MessageCircle } from "lucide-react";
 import { useMotionValue,animate, motion, useTransform, useInView } from "framer-motion";
 import React, { useRef, useEffect } from "react";
 import { Suspense } from "react";
+import ChatPopup from "./chat-popup";
+import { useState } from "react";
 
 function Counter({icon,text, to, endText}:{icon: React.ReactNode,text:string, to: number, endText:string}){
     const count = useMotionValue(0)
     const rounded = useTransform(() => Math.round(count.get()))
     const ref= useRef<HTMLDivElement>(null)
     const divInView = useInView(ref, {once: true})
-    
+   
     useEffect(() => {
       if(divInView){
       const controls = animate(count, [0,to], { type: "tween",duration: 5 })
@@ -36,6 +38,7 @@ export default function About() {
     const praxe = new Date().getFullYear() - 1997;
     const ref = useRef(null)
   const isInView = useInView(ref, {once: false})
+   const [isChatOpen, setIsChatOpen] = useState(false)
     const statistics = [
         {
           node: <Wallet strokeWidth={1.5} className=" w-12 h-12 text-secondary-foreground mx-auto" />,
@@ -116,6 +119,17 @@ export default function About() {
                         ))}
                     </div>
                     </div>
+                     <motion.button
+        onClick={() => setIsChatOpen(true)}
+        className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-secondary text-primary border-2 border-secondary-foreground flex items-center justify-center shadow-lg hover:bg-secondary-foreground transition-all duration-200"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <MessageCircle className="h-6 w-6" />
+      </motion.button>
+
+      {/* Chat Popup */}
+      <ChatPopup isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} /> 
         </section>
     );
 }

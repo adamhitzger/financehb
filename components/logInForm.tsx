@@ -43,7 +43,7 @@ export default function LogInForm() {
         transition={{duration: 0.6}}
         >
             <div className="w-full flex flex-col"> <h2 className="  font-bold tracking-wide text-3xl font-ibarra lg:text-5xl text-primary my-2">Přihlaste se</h2>
-            <Link href={"/sign-in"} className="  font-medium text-xl font-ibarra lg:text-2xl text-primary ">nebo se <span className="decoration-wavy decoration-2 underline">zaregistrujte</span> pokud jste noví</Link>
+            <Link href={"/sign-in"} className="  font-medium text-xl font-ibarra lg:text-2xl text-primary ">nebo se <span className="decoration-2 underline-offset-4 underline">zaregistrujte</span> pokud jste noví</Link>
             </div>
             
             <div className="flex flex-col w-full space-y-4">

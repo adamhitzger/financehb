@@ -8,10 +8,13 @@ export const SOCIAL_FEED = groq`*[_type == 'socialFeed']{
     "img": image.asset->url,
     overview
 }`;
-export const REALITIES_QUERY = groq`*[_type == 'reality' && status == 'Na prodej'][0...5] | order(_createdAt desc) {
+export const REALITIES_QUERY = groq`*[_type == 'reality'][0...5] | order(_createdAt desc) {
     name,
     'slug': slug.current,
-    overview,
+    street,
+    street_number,
+   city,
+   postcode,
     price,
     "imageUrl": image.asset->url
   }`;

@@ -32,6 +32,16 @@ export default function Footer() {
             <footer className='flex flex-col bg-secondary text-primary p-8 text-lg space-y-5 font-extralight'>
                 <div className='grid grid-cols-2 gap-4 md:grid-cols-5 md:grid-rows-1 w-full justify-items-stretch md:justify-items-center font-extralight text'>
                     <div className='text-sm flex flex-col space-y-1'>
+                        <div className='flex flex-row text-base  font-medium w-fit pr-3'><PhoneIncoming className='mr-2 text-secondary-foreground'/><span className='text-secondary-foreground'>Kontakt</span> </div>
+                        <Link href={"tel:+420777820080"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 777 820 080</Link>
+                        <Link href={"tel:+420775999069"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 775 999 069</Link>
+                        <Link href={"tel:+420720080820"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 720 080 820</Link>
+                        <div className='pt-2 flex flex-center  font-medium w-fit pr-3'><Landmark className='mr-2 text-secondary-foreground'/> <span className='text-secondary-foreground'>Investiční služby:</span></div>
+                        <Link href={"tel:+420222161188"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 222 161 188</Link>
+                        <Link href={"mailto:info@financehb.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>info@financehb.cz</Link>
+                        <Link href={"mailto:petr@efekta-iz.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>petr@efekta-iz.cz</Link>
+                    </div>
+                    <div className='text-sm flex flex-col space-y-1'>
                         <div className='flex flex-row text-base  font-medium w-fit pr-3 text-secondary-foreground'><MapPin className='mr-2 text-secondary-foreground'/> Adresa:</div>
                         <span>Financehb.cz s.r.o, Dolní 132,</span>
                         <span>580 02, Havlíčkův Brod</span>
@@ -45,7 +55,9 @@ export default function Footer() {
 
                     <div className='text-sm flex flex-col space-y-1'>
                         <div className='flex flex-center text-base text-secondary-foreground font-medium w-fit pr-3'><CalendarClock className='mr-2 text-secondary-foreground' /> Pracovní hodiny</div>
-                        <span>Asistentka v kanceláři:</span>
+                        <span>Kancelář v Havlíčkově Brodě:</span>
+                        <Link href={"tel:+420775999069"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 775 999 069</Link>
+                        <Link href={"tel:+420720080820"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 720 080 820</Link>
                         <div className='flex flex-row space-x-3'>
                             <div className='flex flex-col w-fit'>
                                 <span>PO - ST: 8:00 - 16:00</span>
@@ -55,14 +67,7 @@ export default function Footer() {
                         </div>
 
                     </div>
-                    <div className='text-sm flex flex-col space-y-1'>
-                        <div className='flex flex-row text-base  font-medium w-fit pr-3'><PhoneIncoming className='mr-2 text-secondary-foreground'/><span className='text-secondary-foreground'>Kontakt</span> </div>
-                        <Link href={"tel:+420777820080"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 777 820 080</Link>
-                        <div className='pt-2 flex flex-center  font-medium w-fit pr-3'><Landmark className='mr-2 text-secondary-foreground'/> <span className='text-secondary-foreground'>Investiční služby:</span></div>
-                        <Link href={"tel:+420222161188"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>+420 222 161 188</Link>
-                        <Link href={"mailto:petr@efekta-iz.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>petr@efekta-iz.cz</Link>
-                        <Link href={"mailto:info@financehb.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-foreground'>info@financehb.cz</Link>
-                    </div>
+                    
                     
                     <div className='text-sm flex flex-col  space-y-1'>
                         <div className='flex flex-row text-base  font-medium w-fit pr-3'><LinkIcon className='mr-2 text-secondary-foreground'/><span className='text-secondary-foreground'>Odkazy</span> </div>

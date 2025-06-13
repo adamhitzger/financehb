@@ -6,7 +6,7 @@ export default function Photos({ gallery }: { gallery: string[] }) {
     const [selectedId, setSelectedId] = useState<string>("");
     console.log(selectedId)
     return (
-        <section className="grid grid-cols-2 md:grid-cols-8 gap-2 w-full h-auto z-0 pb-10 px-5 md:px-20">
+        <section className="grid grid-cols-2 md:grid-cols-8 gap-2 w-full z-0 pb-10 px-5 md:px-20">
             {gallery.map((g, idx: number) => (
                 <div key={idx} className={`w-full ${selectedId === String(idx) ? "scale-110" : "scale-100"}`}
                     onClick={() => setSelectedId(String(idx))}
