@@ -381,7 +381,7 @@ const services = [
         </p>
       </header>
 
-      <main className="grid gap-8">
+      <main className="grid xl:grid-cols-2 gap-8">
         {services.map((service, index) => (
           <section id={service.link} key={index} className="bg-primary-foreground p-5 rounded-lg  flex w-full flex-col space-y-4  hover:shadow-lg hover:shadow-secondary-foreground transition ease-in-out delay-100 duration-200">
             <h2 className="text-xl font-semibold mb-3">{service.title}</h2>

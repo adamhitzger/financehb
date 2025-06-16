@@ -121,7 +121,7 @@ export default function About() {
                     </div>
                      <motion.button
         onClick={() => setIsChatOpen(true)}
-        className=" hidden fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-secondary text-primary border-2 border-secondary-foreground  items-center justify-center shadow-lg hover:bg-secondary-foreground transition-all duration-200"
+        className="hidden fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-secondary text-primary border-2 border-secondary-foreground  items-center justify-center shadow-lg hover:bg-secondary-foreground transition-all duration-200"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
