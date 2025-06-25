@@ -14,7 +14,7 @@ export default function RealityComponent({ reality }: { reality: Reality }) {
     gallery2 = reality.galleryUrls.slice(13);
 }
     return (
-        <main className="flex flex-col p-5 md:p-10 w-full min-h-screen z-0">
+        <main className="flex flex-col p-5 w-full min-h-screen z-0">
             <section className="flex flex-col items-start space-y-2 my-8 mx-auto w-full ">
                 {reality.name && <h1 className="text-5xl mx-auto font-semibold text-gray-800 font-ibarra">{reality.name}</h1>}
                 <div className="flex flex-row space-x-2 mx-auto">
@@ -35,7 +35,7 @@ export default function RealityComponent({ reality }: { reality: Reality }) {
             {reality.details ? <PortableText value={reality.details} components={components}/>: null}
             </section>
             <section className=" flex flex-wrap md:flex-nowrap my-5 ">
-                <div className="  relative  w-full md:w-1/2" >
+                <div className=" relative  w-full md:w-1/2" >
                     {reality.imageUrl && (
                         <Image
                             src={reality.imageUrl}
@@ -51,7 +51,7 @@ export default function RealityComponent({ reality }: { reality: Reality }) {
             {gallery2 ? <Photos gallery={gallery2} />: null}
             
             <section className="flex p-10 md:p-20 text-justify md:text-center text-base lg:text-lg font-light ">
-                <p>Veškeré zveřejněné údaje obsažené v tomto inzerátu mají pouze informativní charakter a nejsou nabídkou ve smyslu § 1731 nebo § 1732 občanského zákoníku, ani se nejedná o veřejný příslib dle § 1733 občanského zákoníku. Z této nabídky tak nikomu nevzniká nárok na uzavření smlouvy. Společnost Hrdina Group s.r.o zprostředkovává údaje (informace) nabyté v dobré víře od vlastníka nemovité věci a z tohoto důvodu nenese odpovědnost za jejich úplnost, správnost a přesnost. Současně není oprávněna uzavírat jménem vlastníka nemovité věci jakékoliv smlouvy spojené s prodejem nemovitosti. </p>
+                <p>Veškeré zveřejněné údaje obsažené v tomto inzerátu mají pouze informativní charakter a nejsou nabídkou ve smyslu § 1731 nebo § 1732 občanského zákoníku, ani se nejedná o veřejný příslib dle § 1733 občanského zákoníku. Z této nabídky tak nikomu nevzniká nárok na uzavření smlouvy. Společnost Financehb.cz Group s.r.o zprostředkovává údaje (informace) nabyté v dobré víře od vlastníka nemovité věci a z tohoto důvodu nenese odpovědnost za jejich úplnost, správnost a přesnost. Současně není oprávněna uzavírat jménem vlastníka nemovité věci jakékoliv smlouvy spojené s prodejem nemovitosti. </p>
             </section>
 
         </main>

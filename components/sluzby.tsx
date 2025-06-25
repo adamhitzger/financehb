@@ -10,7 +10,7 @@ import Slider from "./slider";
 import { useRef } from "react";
 import {motion, useInView} from "framer-motion"
 import Link from "next/link";
-export default function Sluzby({reviews}: {reviews: Reviews[]}) {
+export default function Sluzby() {
   const sec = useRef(null)
   const sec2 = useRef(null)
   const text = useRef(null)
@@ -390,13 +390,7 @@ const services = [
         ))}
       </main>
     </div>
-         <section className="flex flex-col w-full p-5 lg:p-16 space-y-8 bg-secondary" >
-            <h2 className="text-secondary-foreground font-ibarra font-bold tracking-wide  text-3xl lg:text-5xl">Reference</h2>
-            <p className="text-base lg:text-xl font-light text-justify md:text-left text-primary">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>
-            <div className="w-full mx-auto">
-              <Slider slides={reviews} />
-            </div>
-          </section>
+         
           <CalendlyPop />
           <section className="flex flex-col w-full p-8 space-y-8 bg-primary-foreground" id="contact">
             <h2 className="text-secondary-foreground font-ibarra font-bold tracking-wide  text-3xl lg:text-5xl">Kontaktujte mě</h2>
@@ -404,5 +398,17 @@ const services = [
             <Contact />
             </section>
     </>
+  )
+}
+
+export function ReviewsComp({reviews}: {reviews: Reviews[]}){
+  return(
+    <section className="flex flex-col w-full p-5 lg:p-16 space-y-8 bg-secondary" >
+            <h2 className="text-secondary-foreground font-ibarra font-bold tracking-wide  text-3xl lg:text-5xl">Reference</h2>
+            <p className="text-base lg:text-xl font-light text-justify md:text-left text-primary">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>
+            <div className="w-full mx-auto">
+              <Slider slides={reviews} />
+            </div>
+          </section>
   )
 }

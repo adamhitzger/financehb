@@ -14,8 +14,8 @@ export default function Photos({ gallery }: { gallery: string[] }) {
                     <Image
                         src={g}
                         alt={`Gallery Image ${idx + 1}`}
-                        width={200}
-                        height={200}
+                        width={300}
+                        height={300}
                         className="rounded-lg shadow-lg w-full h-full object-contain"
                     />
                 </div>
