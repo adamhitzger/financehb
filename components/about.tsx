@@ -6,8 +6,9 @@ import { HousePlus, MoveUpRight, ThumbsUp, Users, Wallet, MessageCircle } from "
 import { useMotionValue,animate, motion, useTransform, useInView } from "framer-motion";
 import React, { useRef, useEffect } from "react";
 import { Suspense } from "react";
-import ChatPopup from "./chat-popup";
+import "react-social-icons/whatsapp"
 import { useState } from "react";
+import { SocialIcon } from "react-social-icons/component";
 
 function Counter({icon,text, to, endText}:{icon: React.ReactNode,text:string, to: number, endText:string}){
     const count = useMotionValue(0)
@@ -84,15 +85,12 @@ export default function About() {
             
             className="w-full sm:w-1/2 flex justify-center flex-col font-light">
                <div  className="flex flex-col w-full space-y-8  ">
-                   
                        <h2  className={`text-3xl lg:text-5xl  text-left font-ibarra`}>
                        DOVEDU VÁS K FINANČNÍ <span className="underline text-secondary-foreground">NEZÁVISLOSTI</span>
                        </h2>
-                   
                    <div  className={`text-left text-base md:text-lg`}>
                    <p>Více než 28 let provázím své klienty světem financí — pomáhám jim budovat finanční nezávislost, chránit majetek, zabezpečit příjmy a správně investovat. Na mé stránce najdete <Link href={"/clanky"} target="_blank" className="underline text-secondary-foreground ">články</Link> a makroekonomické analýzy, nové investiční příležistosti jako je <Link href={"/clanky/vse-co-potrebujete-o-dipu-vedet"} target="_blank" className="underline text-secondary-foreground ">DIP</Link>.  
                        Pro více informací z kapitálových trhů si navštivte <Link href={"/paywall"} target="_blank" className="underline text-secondary-foreground ">měsíční aktuality.</Link>  Nezapomňte si stáhnout <Link href={"/e-book"} target="_blank" className="underline text-secondary-foreground ">e-book.</Link>  </p>
-
                    </div>
                    
                    <Link href={"/sluzby#calendly"} target="_blank">
@@ -119,17 +117,13 @@ export default function About() {
                         ))}
                     </div>
                     </div>
-                     <motion.button
-        onClick={() => setIsChatOpen(true)}
-        className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-secondary text-primary border-2 border-secondary-foreground  items-center justify-center flex flex-row shadow-lg hover:bg-secondary-foreground transition-all duration-200"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+                     <button
+        className="fixed bottom-6 right-6 z-40 rounded-full  text-primary items-center justify-center flex flex-row shadow-lg"
       >
-        <MessageCircle className="h-6 w-6" />
-      </motion.button>
+        <SocialIcon url={"https://wa.me/+420777820080?text=Dobrý%20den%2C%20jmenuji%20se"} target='_blank' network={"whatsapp"} />
+      </button>
 
       {/* Chat Popup */}
-      <ChatPopup isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} /> 
         </section>
     );
 }

@@ -70,11 +70,9 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.className} ${ibarra.variable} overflow-x-hidden`}>
- 
       <EbookModal ebook={ebook}/>
       <CookiesBanner/>
         <Navbar user={user}/>
-       
         {children}
         <Footer />
         <Toaster

@@ -9,7 +9,6 @@ export function Gallery({ gallery }: { gallery: string[] }) {
             {gallery && gallery.map((gallery, idx: number) => (
                 <div key={idx}
                     className="relative w-full"
-                 
                 >
                     <Image
                         src={gallery}
@@ -20,8 +19,6 @@ export function Gallery({ gallery }: { gallery: string[] }) {
                     />
                 </div>
             ))}
-
-            
         </div>
     )
 }
