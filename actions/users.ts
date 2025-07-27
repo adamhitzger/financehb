@@ -625,10 +625,10 @@ return{
     }
       const raynet_id = await raynet.json() as GetRaynetResponse;
       console.log(raynet_id)
-      console.log(raynet_id.data[0].id)
+      console.log(raynet_id.data[0])
       const insertUser = await turso.execute({
         sql: "INSERT INTO users (first_name ,last_name,email, password, salt, raynet_id, is_mail_sub) VALUES (?,?,?,?,?,?,?) RETURNING ID",
-        args: [data.first_name as string,data.last_name as string,data.email, hashedPassword, salt, raynet_id.data[0].id, true]
+        args: [data.first_name as string,data.last_name as string,data.email, hashedPassword, salt, raynet_id.data[0]?.id > 0 ? raynet_id.data[0].id : 0, true]
     })
       if(!insertUser.rows[0]?.id) {
                   return {
