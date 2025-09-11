@@ -25,7 +25,7 @@ export default function Realities({ realities }: { realities: Reality[] }) {
                    
                     {r.city && <span className="text-lg text-gray-600">{r.city},</span>}
                     {r.postcode && <span className="text-lg text-gray-600">{r.postcode}</span>}
-                    {r.price && <span className="text-lg text-gray-600">Cena: {r.price} Kč</span>}
+                    {r.price !== "0" ? <span className="text-lg text-gray-600">Cena: {r.price} Kč</span>: <span className="text-lg text-gray-600">Cena: Na domluvě</span>}
                    
                 </div>
                         </div>

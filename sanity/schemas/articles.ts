@@ -48,8 +48,11 @@ export const articleType = defineType({
         }),
         defineField({
             name: "emailText",
-            type: "string",
+            type: "array",
             title: "Text pro emailovou šablonu",
+            of: [
+                {type: "block"}
+            ]
         }),
         defineField({
             name: "overview",
@@ -86,7 +89,6 @@ export const articleType = defineType({
                     }
                 }
             ],
-            validation: (rule) => rule.required(),
         }),
         defineField({
             name: "paid_text",

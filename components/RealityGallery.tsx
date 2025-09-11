@@ -1,25 +1,29 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 import Image from 'next/image'
+import Autoplay from 'embla-carousel-autoplay';
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "./ui/carousel";
 
 export function Gallery({ gallery }: { gallery: string[] }) {
-   
+   console.log(gallery);
+       const plugin = useRef(
+           Autoplay({ delay: 4000, stopOnInteraction: true })
+       );
     return (
-        <div className="grid grid-cols-2  md:grid-cols-3 md:grid-rows-2 xl:grid-rows-1 py-5 md:px-5 md:py-0 w-full md:w-1/2 gap-2">
-            {gallery && gallery.map((gallery, idx: number) => (
-                <div key={idx}
-                    className="relative w-full"
-                >
-                    <Image
-                        src={gallery}
-                        alt={`Gallery Image ${idx + 1}`}
-                        width={1024}
-                        height={1024}
-                        className="rounded-lg shadow-lg w-full h-auto md:h-32 object-cover"
-                    />
-                </div>
-            ))}
-        </div>
+        <Carousel
+                   plugins={[plugin.current]}
+                   className="w-full rounded-xl text-base"
+               >
+                   <CarouselContent>
+                       {gallery.map((slide, key) => (
+                           <CarouselItem className="w-full m-auto " key={key}>
+                             <Image src={slide} alt={'Finance HB'} width={1024} height={512}/>
+                           </CarouselItem>
+                       ))}
+                   </CarouselContent>
+                   <CarouselPrevious className="absolute top-1/2 -translate-y-1/2 left-4 z-10 size-10 text-white bg-secondary-foreground border-0" />
+                   <CarouselNext className="absolute top-1/2 -translate-y-1/2 size-10 right-4 z-10 text-white hover:text-primary bg-secondary-foreground border-0" />
+               </Carousel>
     )
 }
 

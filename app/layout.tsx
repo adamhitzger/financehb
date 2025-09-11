@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -11,7 +11,12 @@ import { EBOOK_QUERY } from "@/sanity/lib/queries"
 import { Ebook } from "@/types"
 import EbookModal from "@/components/modals/ebookModal";
 import { getCurrentUser } from "@/database/currentUser";
+
 const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  weight: ["400", "700","900"],
+  subsets: ["latin"]
+})
 
 export const metadata: Metadata = {
   icons: {

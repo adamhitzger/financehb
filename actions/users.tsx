@@ -3,7 +3,7 @@
 import { getErrorMessage, stripe } from "../lib/utils";
 import { redirect } from "next/navigation";
 import { GetRaynetResponse } from "@/types";
-import { SanityDocument } from "next-sanity";
+import { PortableText, SanityDocument } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
 import {createTransport } from "nodemailer"
 const axios = require("axios")
@@ -15,7 +15,6 @@ import { cookies } from "next/headers";
 import { comparePasswords } from "@/database/password";
 import { getCurrentUser } from "@/database/currentUser";
 import { revalidatePath } from "next/cache";
-import { ErrorMessage } from "sanity";
 
 //hotovo
 //iDoklad
@@ -450,11 +449,7 @@ export async function generateEmailTemplate(documentData: SanityDocument, email:
             <img src="${imageUrl}" alt="${name}" class="article-image">
             
             <div class="article-emailText">
-              ${
-                typeof emailText === "string"
-                  ? emailText
-                  : "Přečtěte si náš nejnovější článek o aktuálním dění na kapitálových trzích."
-              }
+              ${<PortableText value={emailText}/>}
             </div>
             
             <p style="margin-top: 20px;">
