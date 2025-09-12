@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "./ui/carousel";
 
-export function Gallery({ gallery }: { gallery: string[] }) {
+export default function Gallery({ gallery }: { gallery: string[] }) {
    console.log(gallery);
        const plugin = useRef(
            Autoplay({ delay: 4000, stopOnInteraction: true })
@@ -16,7 +16,7 @@ export function Gallery({ gallery }: { gallery: string[] }) {
                >
                    <CarouselContent>
                        {gallery.map((slide, key) => (
-                           <CarouselItem className="w-full m-auto " key={key}>
+                           <CarouselItem className="w-full m-auto md:basis-1/2 xl:basis-1/3 3xl:basis-1/4" key={key}>
                              <Image src={slide} alt={'Finance HB'} width={1024} height={512}/>
                            </CarouselItem>
                        ))}
@@ -26,5 +26,3 @@ export function Gallery({ gallery }: { gallery: string[] }) {
                </Carousel>
     )
 }
-
-export default Gallery
