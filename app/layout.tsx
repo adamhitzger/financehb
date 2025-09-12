@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -13,10 +13,7 @@ import EbookModal from "@/components/modals/ebookModal";
 import { getCurrentUser } from "@/database/currentUser";
 
 const inter = Inter({ subsets: ["latin"] });
-const poppins = Poppins({
-  weight: ["400", "700","900"],
-  subsets: ["latin"]
-})
+
 
 export const metadata: Metadata = {
   icons: {

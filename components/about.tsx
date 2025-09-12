@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { HousePlus, MoveUpRight, ThumbsUp, Users, Wallet, MessageCircle } from "lucide-react";
+import { HousePlus, MoveUpRight, ThumbsUp, Users, Wallet } from "lucide-react";
 import { useMotionValue,animate, motion, useTransform, useInView } from "framer-motion";
 import React, { useRef, useEffect } from "react";
 import { Suspense } from "react";
@@ -39,7 +39,7 @@ export default function About() {
     const praxe = new Date().getFullYear() - 1997;
     const ref = useRef(null)
   const isInView = useInView(ref, {once: false})
-   const [isChatOpen, setIsChatOpen] = useState(false)
+   
     const statistics = [
         {
           node: <Wallet strokeWidth={1.5} className=" w-12 h-12 text-secondary-foreground mx-auto" />,

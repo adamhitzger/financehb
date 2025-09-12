@@ -169,18 +169,14 @@ async function generateVerifySignUpHTML(code: string){
                     <tr>
                         <td style="padding: 40px 30px;">
                             <h2 style="margin: 0 0 20px 0; font-size: 20px; color: #0A1a49;">Děkuji že jste se registroval!</h2>
-                            <p style="margin: 0 0 12px 0; font-size: 16px; line-height: 24px; color: #0A1a49;">
-                                We're excited to have you on board. Your account has been successfully created, and you're now ready to get started.
-                            </p>
+                            
                             <p style="margin: 0 0 12px 0; font-size: 16px; line-height: 24px; color: #0A1a49;">
                                 K dokončení registrace prosím klikněte na tlačítko níže, které Vás ověří a přesměruje zpět na stránku
                             </p>
                             <p style="text-align: center;">
                                 <a href="https://financehb.cz/full-up?code=${code}" style="display: inline-block; padding: 12px 20px; background-color: #C2B067; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold;">Potvrdit registraci</a>
                             </p>
-                            <p style="margin: 20px 0 12px 0; font-size: 16px; line-height: 24px; color: #0A1a49;">
-                                If you have any questions or need assistance, please don't hesitate to contact our support team.
-                            </p>
+                            
                             <p style="margin: 0; font-size: 16px; line-height: 24px; color: #0A1a49;">
                                 S pozdravem,<br>
                                 Petr Krajicgr
