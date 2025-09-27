@@ -17,8 +17,7 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
     if (articles.length === 0) return <div className="text-2xl font-medium">Nebyly nalezeny žádné články</div>
     else return (
         <div ref={sec} className="grid grid-rows-1 sm:grid-cols-1 w-full">
-            {articles &&
-                articles.map((a: Sanity, idx: number) => (
+            {articles && articles.map((a: Sanity, idx: number) => (
                     <motion.article 
                     key={idx} 
                     className={`w-full flex ${idx % 2 === 0 ? "flex-row" : "flex-row-reverse"} border-t-2 border-t-secondary`}

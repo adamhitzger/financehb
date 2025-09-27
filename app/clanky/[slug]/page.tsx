@@ -63,7 +63,7 @@ export default async function ArticlePage(props: { params: Promise<{ slug: strin
         <main className="flex min-h-screen flex-col space-y-3 p-8">
             <h2 className="mt-10 font-ibarra text-left tracking-wide text-secondary font-semibold text-3xl">{article.name}</h2>
             <article className={`w-full flex flex-row border-t-2 border-t-secondary-foreground`}>
-                <div className="w-full  sm:w-1/2 bg-cover h-96 bg-no-repeat backdrop-opacity-10 backdrop-invert z-10  before:content-[''] before:absolute before:inset-0 before:block before:bg-gray-600 sm:before:bg-transparent  before:opacity-75 before:z-[-5] bg-center" style={{ backgroundImage: `url(${article.picture})` }}>
+                <div className="w-full  sm:w-1/2 bg-contain h-96 bg-no-repeat backdrop-opacity-10 backdrop-invert z-10  before:content-[''] before:absolute before:inset-0 before:block before:bg-white sm:before:bg-transparent before:opacity-75  before:z-[-5] bg-center" style={{ backgroundImage: `url(${article.picture})` }}>
                     <div className={`z-50  top-5 right-5 w-full p-5 flex flex-col space-y-2 text-white  text-right text-lg sm:hidden`}>
                         <PortableText value={article.overview} components={components} />
                     </div>
