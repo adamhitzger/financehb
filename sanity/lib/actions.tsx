@@ -79,6 +79,26 @@ export default function sendMails({ draft, published, onComplete }: DocumentActi
                     <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
                     <span>Zkouška</span>
                   </label>
+
+                   <label className="flex items-center space-x-2">
+                    <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
+                    <span>Zkouška</span>
+                  </label>
+
+                   <label className="flex items-center space-x-2">
+                    <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
+                    <span>Zkouška</span>
+                  </label>
+
+                   <label className="flex items-center space-x-2">
+                    <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
+                    <span>Zkouška</span>
+                  </label>
+
+                   <label className="flex items-center space-x-2">
+                    <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
+                    <span>Zkouška</span>
+                  </label>
                 </div>
   
                 <div className="flex justify-end space-x-2 pt-4">

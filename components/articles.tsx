@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { useInView, motion } from "framer-motion";
+import { toPlainText } from "next-sanity";
 
 export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "clanky" | "paywall"}) {
     console.log(articles);
@@ -29,15 +30,14 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
                         <div className="w-full  sm:w-1/3 bg-cover h-auto bg-no-repeat backdrop-opacity-10 backdrop-invert z-10  before:content-[''] before:absolute before:inset-0 before:block before:bg-secondary-foreground/70 sm:before:bg-transparent  before:opacity-75 before:z-[-5] bg-center" style={{ backgroundImage: `url(${a.picture})` }}>
                             <div className={`z-50  top-5 right-5 w-full p-5 flex flex-col space-y-2 ${idx % 2 === 0 ? "text-right" : "text-left"} sm:hidden`}>
                                 <h3 className="text-xl">{new Date(a.datum).toISOString().split("T")[0]} / {a.name}</h3>
-                                <PortableText value={a.overview} components={components} />
+                                <p>{toPlainText(a.overview).slice(0,100) + "..."}</p>
                                 <Link href={`/${page}/${a.slug}`}><Button size={"sm"} className="bg-secondary" variant={"default"}>Celý článek <MoveUpRight /></Button></Link>
-
                             </div>
-
                         </div>
+                    
                         <div className={`hidden w-2/3 sm:flex flex-col justify-between ${idx % 2 === 0 ? " border-l-2 border-l-secondary-foreground text-right" : "border-r-2 border-r-secondary-foregborder-l-secondary-foreground text-left"}  p-5 font-light space-y-2 lg:p-10`}>
                             <h3 className="text-xl">{new Date(a.datum).toISOString().split("T")[0]} / {a.name}</h3>
-                            <PortableText value={a.overview} components={components} />
+                             <p>{toPlainText(a.overview).slice(0,130) + "..."}</p>
                             <Link href={`/${page}/${a.slug}`}><Button variant="default"  className="text-lg">Celý článek <MoveUpRight /></Button></Link>
                         </div>
 
