@@ -208,7 +208,7 @@ export const handleSendMails = async (formData: FormData, documentData: SanityDo
       subject: "Nové přihlášení - Měsíční aktuality z KPT",
      }
      
-  const raynetAPIUrl = `https://app.raynet.cz/api/v2/company/?tags[LIKE]=${tags.map(t => t)}&rating=A`
+  const raynetAPIUrl = `https://app.raynet.cz/api/v2/company/?tags[LIKE]=${tags.map(t => t+",")}`
   const headers = {
       "Content-Type": "application/json",
       "Authorization": "Basic " + Buffer.from(process.env.RAYNET_EMAIL +":"+process.env.RAYNET_API_KEY).toString("base64"),
@@ -260,7 +260,7 @@ export async function signOutFromMailsUnregistered(formData: FormData): Promise<
       Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
       "X-Instance-Name": "financehb",
   }
-  const body = { rating: "B"}
+  const body = { rating: "D"}
     const mail = formData.get("email") as string;
     const getSignOut = await axios.get(`https://app.raynet.cz/api/v2/company/?primaryAddress-contactInfo.email=${mail}`, {headers})
     
@@ -826,7 +826,7 @@ export async function signOutFromMails(formData: FormData): Promise<{success: bo
       Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
       "X-Instance-Name": "financehb",
   }
-  const body = { rating: "B"}
+  const body = { rating: "D"}
     const rId = Number(formData.get("raynetId"));
     const id = formData.get("dbId") as string;
     const signOut = await axios.post(`https://app.raynet.cz/api/v2/company/${rId}`,body, {headers})
