@@ -67,7 +67,7 @@ export default function sendMails({ draft, published, onComplete }: DocumentActi
                   </label>
   
                   <label className="flex items-center space-x-2">
-                    <input type="checkbox" name="tags" value="Mesicni akt z KPT" className="h-4 w-4" />
+                    <input type="checkbox" name="tags" value="Mesicni akt z KPT placene" className="h-4 w-4" />
                     <span>Měsíční aktuality z KPT</span>
                   </label>
   
@@ -76,26 +76,6 @@ export default function sendMails({ draft, published, onComplete }: DocumentActi
                     <span>Měsíční aktuality z KPT VZOR zdarma</span>
                   </label>
                   <label className="flex items-center space-x-2">
-                    <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
-                    <span>Zkouška</span>
-                  </label>
-
-                   <label className="flex items-center space-x-2">
-                    <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
-                    <span>Zkouška</span>
-                  </label>
-
-                   <label className="flex items-center space-x-2">
-                    <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
-                    <span>Zkouška</span>
-                  </label>
-
-                   <label className="flex items-center space-x-2">
-                    <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
-                    <span>Zkouška</span>
-                  </label>
-
-                   <label className="flex items-center space-x-2">
                     <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
                     <span>Zkouška</span>
                   </label>
