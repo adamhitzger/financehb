@@ -4,15 +4,19 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
-import { ibarra } from "./font";
 import CookiesBanner from "@/components/modals/cookiesAllow";
 import { sanityFetch } from "@/sanity/lib/client"
 import { EBOOK_QUERY } from "@/sanity/lib/queries"
 import { Ebook } from "@/types"
 import EbookModal from "@/components/modals/ebookModal";
 import { getCurrentUser } from "@/database/currentUser";
+import {  Poppins } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+     subsets: ["latin"] , 
+     variable: "--font-poppins",
+     weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
+});
 
 
 export const metadata: Metadata = {
@@ -71,7 +75,7 @@ export default async function RootLayout({
           key="canonical"
         />
       </head>
-      <body className={`${inter.className} ${ibarra.variable} overflow-x-hidden`}>
+      <body className={`${poppins.variable} font-poppins  overflow-x-hidden`}>
       <EbookModal ebook={ebook}/>
       <CookiesBanner/>
         <Navbar user={user}/>

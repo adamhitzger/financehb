@@ -2,18 +2,18 @@
 
 import { Reviews } from "@/types";
 import { useRef } from "react";
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "./ui/carousel";
+import { Carousel, CarouselContent, CarouselItem} from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay"
 import { PortableText } from "next-sanity";
 import { components } from "@/sanity/lib/components";
 
 function Slide({ name, date, text }: { text: any, name: string; date: string }) {
     return (
-        <section className={`w-full p-8 md:p-14 bg-primary-foreground shadow-lg text-right rounded-lg  text-xl md:text-2xl font-extralight`} >
-            <div className="w-full text-left px-3">
+        <section className={`border text-base mx-auto bg-white p-2 md:p-14  text-right rounded-lg basis-1 md:text-lg font-extralight`} >
+            <div className="w-full  text-left px-3">
                 {text ? <PortableText value={text} components={components} /> : null}<br />
             </div>
-            {date && name ? <span >{`${name}, ${new Date(date).toISOString().split("T")[0]}`}</span> : null}<br />
+            {date && name ? <span >{`${name}, ${new Date(date).toLocaleDateString("cs-CZ")}`}</span> : null}<br />
         </section>
     );
 }
@@ -34,15 +34,13 @@ export default function Slider({ slides }: Slides) {
             onMouseLeave={plugin.current.reset}
             className="w-full rounded-xl text-base"
         >
-            <CarouselContent>
+            <CarouselContent > 
                 {slides.map((slide, key) => (
-                    <CarouselItem className="w-full" key={key}>
+                    <CarouselItem key={key}>
                         <Slide name={slide.name} date={slide.datum} text={slide.text} />
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute top-1/2 -translate-y-1/2 left-4 z-10 text-white bg-secondary-foreground border-0" />
-            <CarouselNext className="absolute top-1/2 -translate-y-1/2 right-4 z-10 text-white hover:text-primary bg-secondary-foreground border-0" />
-        </Carousel>
+             </Carousel>
     )
 }

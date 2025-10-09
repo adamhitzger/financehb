@@ -11,7 +11,7 @@ import Image from 'next/image'
 export default function Navbar({user}: {user : FullUser | null| undefined}) {
        console.log(user)
     return (
-        <nav className='pr-6 w-full flex text-primary items-center justify-between flex-row bg-secondary border-b-secondary-foreground border-b'>
+        <nav className='pr-6 w-full flex text-primary items-center justify-between flex-row bg-secondary'>
             <Link href={"/"} className='self-start'>
                 <Image  src={"/logo.png"} alt='Logo Financehb.cz' width={220} height={1028}/>
             </Link>

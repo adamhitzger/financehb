@@ -2,11 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  * {
-    @apply border-black ;
-  }
-  body {
-    @apply bg-white;
-  }
-}

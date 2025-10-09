@@ -3,7 +3,6 @@ import { DocumentActionProps } from "sanity";
 import { useState } from "react";
 import { handleSendMails } from "@/actions/users";
 
-
 export default function sendMails({ draft, published, onComplete }: DocumentActionProps) {
     const [open, setOpen] = useState(false)
     const [sending, setSending] = useState(false)

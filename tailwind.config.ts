@@ -20,7 +20,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        ibarra: ['var(--font-ibarra-real-nova)'],
+        poppins: ['var(--font-poppins)'],
       },
       boxShadow: {
         'md': '3px 3px 3px rgba(0, 0, 0, 0.3)',
@@ -34,7 +34,8 @@ const config = {
         },
         secondary: {
           DEFAULT: "#0A1a49",
-          foreground: "#C2B067"
+          foreground: "#C2B067",
+          background: "#FFB473"
         },
         destructive: {
           DEFAULT: "#db1548",

@@ -52,8 +52,15 @@ export function HomeArticles({ articles }: { articles: Sanity[]}) {
     const isInView = useInView(sec, {margin: "0px 0px 0px 0px", amount:0})
     if (articles.length === 0) return <div className="text-2xl font-medium">Nebyly nalezeny žádné články</div>
     else return (
-        <section className="flex flex-col w-full p-8 space-y-8">
-        <h2 className=" font-ibarra font-bold tracking-wide text-secondary text-3xl lg:text-5xl">Články</h2>
+        <div className="flex flex-col">
+         <div className="w-full h-10 bg-secondary/25 ">
+<div className="w-full h-10 bg-secondary [clip-path:polygon(100%_0,100%_100%,0_100%)]">
+
+        </div>
+        </div>
+        
+        <section className="flex flex-col w-full p-8 space-y-8 bg-secondary text-white">
+        <h2 className="text-right font-bold tracking-wide  text-5xl">Články</h2>
         
         
         <div ref={sec} className="grid md:grid-cols-3 w-full gap-4">
@@ -61,29 +68,30 @@ export function HomeArticles({ articles }: { articles: Sanity[]}) {
                 articles.map((a: Sanity, idx: number) => (
                     <motion.article 
                     key={idx} 
-                    className="w-full space-y-3 flex flex-col text-base lg:text-lg"
+                    className="w-full space-y-3 flex  flex-col  bg-white/10 rounded-2xl text-base lg:text-lg"
                     initial={{opacity:0, x: -250}}
                     animate={isInView?{opacity: 1, x:0}: {}}
                     exit={{opacity: 0, x: -250}}
                     transition={{duration: 0.8*(idx+1)}}
                     >
                         <Image src={a.picture} alt={a.overview} width={600} height={200}/>
-                        <hr className="border border-secondary-foreground bg-secondary-foreground"/>
+                        <div className="w-full space-y-4 font-light flex text-[1.05rem] flex-col px-2">
                         <span className="text-left text-xl">
                             {a.datum} / {a.name}
                         </span>
                     
                             <PortableText value={a.overview} components={components}/>
-
-                        <Link href={`/clanky/${a.slug}`} className="mx-auto">
-                            <Button variant={"default"} size={"sm"} className="mx-auto">
-                            Celý článek <MoveUpRight />
+</div>
+                        <Link href={`/clanky/${a.slug}`} className="mx-auto h-full flex flex-col justify-end pb-3 self-end">
+                            <Button variant={"default"}  className="mx-auto">
+                            Celý článek
                             </Button>
                         </Link>
                     </motion.article>
                 ))}
         </div>
-        <Link href={"/clanky"} className=" mx-auto"><Button size={"sm"} className="justify-between underline underline-offset-4 bg-secondary text-primary text-base mx-auto">Starší články <MoveUpRight /></Button></Link>
+        <Link href={"/clanky"} className=" mx-auto"><Button size={"sm"} className="justify-between mx-auto">Starší články</Button></Link>
       </section>
+      </div>
     )
 }
