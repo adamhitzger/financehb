@@ -55,14 +55,20 @@ export async function POST(req: Request){
         case "checkout.session.completed":
             try{
             const subscription = await stripe.subscriptions.retrieve(
-                session.subscription as string
+                session.subscription as string,
             );
+           session.total_details?.amount_discount
             if (!session.subscription) {
                 console.error("Subscription ID is missing in the session object.");
                 return new Response("Subscription ID not found", { status: 400 });
               }
               const invoice = await stripe.invoices.retrieve(subscription.latest_invoice as string);
-const total = invoice.amount_due / 100;
+              const discount = session.total_details?.amount_discount ?? 0
+const total = invoice.amount_due + (discount /100);
+const discountPer = discount/ (total /100)
+//const idoklad = await createInvoice(total, user.first_name,user.last_name ,discountPer);
+             //     if(idoklad.data) console.log("iDoklad ok")
+         //    else console.log("iDoklad error")
         if(user.raynet_id === null){ 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",
@@ -154,12 +160,8 @@ if(!raynet.ok){
                 const session = await stripe.subscriptions.retrieve(
                     (event.data.object as Stripe.Subscription).id
                 );
-                const invoice = await stripe.invoices.retrieve(session.latest_invoice as string);
-const total = invoice.amount_due / 100;
                 if(session.status === "active"){
-                    const idoklad = await createInvoice(total, user.first_name,user.last_name ,session.discount?.coupon.percent_off);
-                    if(idoklad.data) console.log("iDoklad ok")
-                        else console.log("iDoklad error")
+                
                     const update_sub = await turso.execute({
                         sql: `UPDATE subscriptions SET user_id = ?, 
                         stripe_subscription_id = ?,

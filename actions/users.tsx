@@ -75,7 +75,7 @@ const headers = {
     const invoices = await axios.get(invoiceUrl, {headers})
     console.log("Invoices response:", invoices.data.Data.Items.length+1);
     const body = {
-      CurrencyId: 2,//
+      CurrencyId: 2,
       DateOfIssue: now,
       DateOfMaturity: now,
       DateOfPayment: now,
