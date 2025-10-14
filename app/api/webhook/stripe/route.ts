@@ -36,8 +36,9 @@ export async function POST(req: Request){
         sql: "SELECT * FROM users WHERE stripe_id = ?",
         args: [stripeId]
     })
-    if(!getUserByStripeId.rows[0].id) {
-        console.log("Problem with stripe_id in Webhook: ",)
+    if(getUserByStripeId.rows.length === 0) {
+        console.log("Problem with stripe_id in Webhook: ", stripeId)
+         return new Response("User not found", { status: 404 });
     }
     const untypedUser = getUserByStripeId.rows[0]
 
@@ -209,9 +210,6 @@ const total = invoice.amount_due / 100;
                 return new Response('Unexpected error', { status: 500 });
             }
                 break;
-            default:
-            console.warn(`Unhandled event type: ${event.type}`);
-            break;
             case "invoice.payment_succeeded":
               try{
                 const subscription = await stripe.subscriptions.retrieve(
@@ -242,6 +240,9 @@ const total = invoice.amount_due / 100;
                 console.error("Error - invoice.payment_succeded: ", error);
   return new Response("Failed to process subscription", { status: 500 });
               }
+            break;
+              default:
+            console.warn(`Unhandled event type: ${event.type}`);
             break;
     }
     return new Response(null, { status: 200 });

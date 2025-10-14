@@ -983,7 +983,7 @@ export async function createPayment(formData: FormData){
       sql: "SELECT stripe_id FROM users WHERE id = ?",
       args: [user.id]
     })
-    if (!getStripeId.rows[0].stripe_id) {
+    if (getStripeId.rows.length === 0) {
       console.log(`Error fetching profile`);
     }
 
@@ -1014,7 +1014,9 @@ export async function createPayment(formData: FormData){
       billing_address_collection: "auto",
       payment_method_types: ["card"],
       allow_promotion_codes: true,
-      line_items: [{ price: stripeId, quantity: 1 }],
+      line_items: [{ price: "price_1RKhszJdYME5Hxt919MVlM25",
+        //stripeId, 
+        quantity: 1 }],
       customer_update: {
         address: "auto",
         name: "auto",

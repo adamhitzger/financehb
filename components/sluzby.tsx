@@ -393,7 +393,7 @@ const services = [
          
           <CalendlyPop />
           <section className="flex flex-col w-full p-8 space-y-8 bg-primary-foreground" id="contact">
-            <h2 className="text-secondary-foreground font-ibarra font-bold tracking-wide  text-3xl lg:text-5xl">Kontaktujte mě</h2>
+            <h2 className="underline decoration-secondary-background underline-offset-4 font-ibarra font-bold tracking-wide  text-4xl lg:text-5xl">Kontaktujte mě</h2>
             <p className="text-base lg:text-xl font-light text-left">Zanechte mi na sebe kontakt a já se Vám obratem ozvu. Nebo si vyberte termín schůzky z <a href="#calendly" className="underline underline-offset-2">kalendáře</a>.</p>
             <Contact />
             </section>

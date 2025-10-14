@@ -36,20 +36,25 @@ export default function LogInForm() {
     }
     return (
         <motion.form 
-        className="w-full lg:w-1/2 flex flex-col p-3 space-y-7 bg-secondary rounded-2xl" action={handleLogIn}
+        className="w-full lg:w-1/2 flex flex-col p-8 space-y-7 border-2 rounded-2xl" action={handleLogIn}
         initial={{opacity:0, y:-250}}
         animate={{opacity:1, y:0}}
         exit={{opacity:0, y:-250}}
         transition={{duration: 0.6}}
         >
-            <div className="w-full flex flex-col"> <h2 className="  font-bold tracking-wide text-3xl font-ibarra lg:text-5xl text-primary my-2">Přihlaste se</h2>
-            <Link href={"/sign-in"} className="  font-medium text-xl font-ibarra lg:text-2xl text-primary ">nebo se <span className="decoration-2 underline-offset-4 underline">zaregistrujte</span> pokud jste noví</Link>
-            </div>
+             <h2 className="font-bold tracking-wide text-3xl font-ibarra text-center  my-2">Přihlaste se</h2>
+    <Link href={"/sign-in"} className="font-medium tracking-wide text-xl font-ibarra text-center underline decoration-secondary-background underline-offset-4">nebo se zaregistrujte</Link>
+    
             
-            <div className="flex flex-col w-full space-y-4">
+            <div className="flex flex-col w-full space-y-7">
                 <Input name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required disabled={isPending} />
-                <Input name="password" type="password" placeholder="Zadejte heslo" value={form.password} onChange={handleChange} required disabled={isPending} />
-                <Button disabled={isPending} type="submit" size={'lg'} className='mx-auto bg-destructive text-xl text-primary font-light underline underline-offset-2 shadow-md  shadow-primary-foreground'>
+                <div className="w-full flex flex-col space-y-2">
+            <Input name="password" type="password" placeholder="Zadejte heslo" value={form.password} onChange={handleChange} required disabled={isPending} />
+                   
+                    <Link className='text-base font-light text-gray-500 text-right' href={"/log-in?forgot=true"}>Zapomeněli jste heslo?</Link>
+               
+                   </div>
+                <Button disabled={isPending} type="submit" size={'lg'} className='mx-auto'>
                     {isPending ? <Loader2 className={"animate-spin"} /> : "Přihlásit se"}
                 </Button>
             </div>

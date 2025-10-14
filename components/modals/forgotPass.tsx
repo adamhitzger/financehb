@@ -42,7 +42,6 @@ export function ForgotPass() {
                         <Input name="email" placeholder="Zadejte email" type="text" required disabled={isPending} onChange={handleChange} defaultValue={form.email} />
                         <div className="flex justify-center space-x-2  w-full">
                             <Button
-                                variant={"secondary"}
                                 disabled={isPending} type="submit"
                                 size={"lg"}
                             >

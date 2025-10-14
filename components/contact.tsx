@@ -57,7 +57,7 @@ export default function Contact() {
             animate={isInView?{opacity: 1, x:0}: {}}
             exit={{opacity: 0, x: -600}}
             transition={{duration: 0.4}}
-            className="bg-primary p-4 lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 rounded-lg shadow-xl shadow-secondary-foreground px-5 w-full gap-3 " action={handleSendEmail}>
+            className="bg-primary p-4 lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 rounded-lg px-5 w-full gap-3 " action={handleSendEmail}>
                 <div className='flex flex-col w-full space-y-2'>
                     <Label>Celé jméno</Label>
                     <Input name="name" type="text" placeholder="Zadejte celé jméno" value={form.name} onChange={handleChange} required disabled={isPending} />
@@ -99,7 +99,7 @@ export default function Contact() {
             animate={isInView?{opacity: 1, x:0}: {}}
             exit={{opacity: 0, x: 600}}
             transition={{duration: 1}}
-            className='lg:w-1/2 w-full rounded-lg shadow-lg shadow-secondary-foreground h-96 lg:h-auto' id='map'
+            className='lg:w-1/2 w-full rounded-lg h-96 lg:h-auto' id='map'
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d282.6037869799849!2d15.579329499918805!3d49.605022209000055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470d0095a8402ca3%3A0xad29b246690b3620!2sFinancehb.cz%20s.r.o.-%20Petr%20Krajcigr!5e0!3m2!1scs!2scz!4v1748615691333!5m2!1scs!2scz" width="600" height="450"  loading="lazy" referrerPolicy="no-referrer-when-downgrade">
             
             </motion.iframe>

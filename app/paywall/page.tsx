@@ -35,11 +35,11 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
     return (
         <main className="flex flex-col items-center justify-between space-y-4">
             <section className="flex flex-col w-full p-8 space-y-8">
-                <h2 className=" font-ibarra font-bold tracking-wide text-secondary-foreground text-3xl lg:text-5xl">Měsíční aktuality</h2>
-                <p className="text-base lg:text-xl font-light text-center md:text-left">Naši investoři bývají úspěšní podnikatelé, vrcholoví manažeři nebo specialisté s majetkem v řádech desítek až stovek milionů korun. <br/>
+                <h2 className=" font-ibarra tracking-wide font-bold underline underline-offset-4 decoration-secondary-background  text-4xl lg:text-5xl">Měsíční aktuality</h2>
+                <p className="text-base lg:text-lg font-light text-center md:text-left">Naši investoři bývají úspěšní podnikatelé, vrcholoví manažeři nebo specialisté s majetkem v řádech desítek až stovek milionů korun. <br/>
 Chtějí jistotu, že jejich peníze pracují efektivně, bezpečně a s výhledem na další generace. Ale jestli zrovna nejste dolarový milionář, nevadí – i pro vás máme místo. Právě proto si zde můžete vyzvednout naše finanční &quot;Měsíční aktuality&quot; a držet si informační náskok. 
 Protože vědět, co se děje, se vyplatí. I když zatím nemáte vlastní ostrov. <br/>
-(A když mi dáte vědět, co by vás zajímalo příště, rád to do příštích aktualit přidám – informací mám dost, jen ty vaše otázky mi zatím chybí.) Stáhněte si <Link href={"https://cdn.sanity.io/files/p8t70jfu/production/77a18df451e07e9a45a1af0d9aa09bfed71ada29.pdf"} className='font-bold text-secondary-foreground underline'>zdarma</Link> na zkoušku!</p>
+(A když mi dáte vědět, co by vás zajímalo příště, rád to do příštích aktualit přidám – informací mám dost, jen ty vaše otázky mi zatím chybí.) Stáhněte si <Link href={"https://cdn.sanity.io/files/p8t70jfu/production/77a18df451e07e9a45a1af0d9aa09bfed71ada29.pdf"} className='font-bold underline underline-offset-4 decoration-secondary-background'>zdarma</Link> na zkoušku!</p>
             </section>
             {rows[0]?.status !== "active" ? 
             <section className='w-full flex flex-col py-8 px-4 text-secondary text-center space-y-5'>

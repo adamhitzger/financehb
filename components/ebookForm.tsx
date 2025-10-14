@@ -42,20 +42,20 @@ export default function EbookForm({ ebook }: { ebook: Ebook }) {
         <main className="flex min-h-screen flex-col items-center justify-between space-y-4">
             <section className="flex flex-col w-full p-8 space-y-20">
                 <motion.h2
-                 className="font-ibarra  font-bold tracking-wide text-secondary-foreground text-3xl lg:text-5xl"
+                 className="font-ibarra  font-medium tracking-wide  text-3xl lg:text-5xl"
                  initial={{opacity: 0, y:-250}}
                  animate={{opacity: 1, y:0}}
                  exit={{opacity: 0, y:-250}}
                  transition={{duration:0.7}}
-                 >Stáhněte si e-book</motion.h2>
+                 >Stáhněte si <span className='font-bold underline underline-offset-4 decoration-secondary-background'>e-book</span></motion.h2>
                 <div className=" w-full flex flex-col-reverse  md:flex-row items-center justify-between">
                     <motion.div
                     initial={{opacity: 0, x:-250}}
                     animate={{opacity: 1, x:0}}
                     exit={{opacity: 0, x:-250}}
                     transition={{duration:0.7}}
-                    className="w-full text-base md:w-1/2 rounded-xl my-10 md:my-0 flex flex-col justify-between shadow-xl bg-primary-foreground p-8 space-y-12  font-light">
-                        {ebook.heading ? <span className="text-xl font-medium">{ebook.heading}</span> : null}
+                    className="w-full text-base md:w-1/2 rounded-xl my-10 md:my-0 flex flex-col justify-between shadow-lg border-2 p-8 space-y-12  font-light">
+                        {ebook.heading ? <span className="text-xl font-medium underline underline-offset-4 decoration-secondary-background">{ebook.heading}</span> : null}
                         {ebook.text ? <PortableText value={ebook.text} components={components} /> : null}
                     </motion.div>
                     <motion.div 
@@ -73,21 +73,21 @@ export default function EbookForm({ ebook }: { ebook: Ebook }) {
 <div className="flex flex-col space-y-2">
                 <div className="w-full md:w-4/5 flex flex-col space-y-2 p-5 bg-secondary rounded-xl text-primary mx-auto">
                     <div className="w-full flex flex-col space-y-2 text-left lg:text-center">
-                        <p className="font-light text-xl">Rádi byste se dozvěděli, jak si nejlépe zajistit svojí budoucnost? Vyplňte formulář a stáhněte si E-BOOK ZDARMA!</p>
+                        <p className="font-light text-xl">Rádi byste se dozvěděli, jak si <span className='font-bold text-secondary-background'>nejlépe zajistit</span> svojí budoucnost? Vyplňte formulář a stáhněte si <span className='text-secondary-background font-bold'>E-BOOK ZDARMA!</span></p>
                     </div>
         <form 
         
         className="w-full grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 gap-4  text-black " action={handleSendEmail}>
-            <Input name="name" type="text" disabled={isPending} placeholder="Zadejte jméno" value={form.name} onChange={handleChange} required />
-            <Input type="text" name="surname" disabled={isPending} placeholder="Zadejte přijmení" value={form.surname} onChange={handleChange} required />
-            <Input name="email" type="email" disabled={isPending} placeholder="Zadejte email" value={form.email} onChange={handleChange} required />
-            <input type='text' name='msg' value={form.file} onChange={handleChange} className='hidden' />
-            <Button type="submit" size={'lg'} variant={"default"} className='mx-auto font-light  shadow-lg  shadow-primary-foreground'>
-                {isPending ? <Loader2 className='animate-spin' /> : <>Odeslat < MoveUpRight /></>}
+            <Input name="name" type="text" disabled={isPending} placeholder="Zadejte jméno" className='bg-white/20 placeholder:text-white' value={form.name} onChange={handleChange} required />
+            <Input type="text" name="surname" disabled={isPending} placeholder="Zadejte přijmení" className='bg-white/20 placeholder:text-white' value={form.surname} onChange={handleChange} required />
+            <Input name="email" type="email" disabled={isPending} placeholder="Zadejte email" className='bg-white/20 placeholder:text-white' value={form.email} onChange={handleChange} required />
+            <input type='text' name='msg' value={form.file} onChange={handleChange}  className='hidden' />
+            <Button type="submit"  variant={"default"} className='mx-auto'>
+                {isPending ? <Loader2 className='animate-spin' /> : <>Odeslat </>}
             </Button>
         </form>
         </div>
-                <span className="font-light text-lg text-center">Přihlášením k odběru souhlasíte se zpracováním osobních údajů. Více informací <Link href='/ochrana-osobnich-udaju' className="underline text-secondary-foreground" target="_blank">ZDE </Link> </span>
+                <span className="font-light text-lg text-center">Přihlášením k odběru souhlasíte se zpracováním osobních údajů. Více informací <Link href='/ochrana-osobnich-udaju' className="underline font-semibold decoration-secondary-background" target="_blank">ZDE </Link> </span>
                 
                 </div>
             </section>

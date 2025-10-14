@@ -1,34 +1,13 @@
+"use client"
 import React from 'react'
-import { SocialIcon } from 'react-social-icons/component'
-import 'react-social-icons/facebook'
-import 'react-social-icons/instagram'
-import 'react-social-icons/youtube'
-import 'react-social-icons/linkedin'
 import Link from 'next/link'
-import { ArrowRight, Building, CalendarClock, Landmark, MapPin, PhoneIncoming, Link as LinkIcon } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 export default function Footer() {
     const year: number = new Date().getFullYear();
-    const icons = [
-        {
-            icon: "instagram",
-            link: "https://www.instagram.com/financehb.cz/"
-        },
-        {
-            icon: "facebook",
-            link: "https://www.facebook.com/financehb.cz"
-        },
-        {
-            icon: "youtube",
-            link: "https://www.youtube.com/channel/UCkp9gcnCVfZ3L-cPggo4uMw"
-        },
-        {
-            icon: "linkedin",
-            link: "https://www.linkedin.com/in/petrkrajcigr/"
-        }
-    ]
+    const pathname = usePathname()
     return (
-        <div className='w-full bg-primary-foreground'>
+        <div className={`w-full ${pathname === "/" || pathname === "/sluzby" ? "bg-primary-foreground ": "bg-white"}`}>
             <footer className='flex flex-col items-center bg-secondary text-primary p-8 text-lg space-y-5 font-extralight [clip-path:polygon(0_0,100%_70px,100%_100%,0_100%)]'>
                <div className='max-w-5xl flex flex-col space-y-5'>
 
