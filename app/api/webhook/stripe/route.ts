@@ -9,7 +9,7 @@ export async function POST(req: Request){
     const body = await req.text();
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
     const headerList = await headers();
-    const signature = headerList.get("Stripe-Signature") as string;
+    const signature = headerList.get("stripe-signature") as string;
     let event: Stripe.Event;
     const transporter = createTransport({
            service: "gmail",
@@ -22,7 +22,7 @@ export async function POST(req: Request){
     try {
         event = stripe.webhooks.constructEvent(
             body,
-            signature,
+            signature as string,
             process.env.STRIPE_WEBHOOK_SECRET!
         );
     } catch (error: unknown) {
@@ -153,7 +153,7 @@ if(!raynet.ok){
             return new Response('Unexpected error', { status: 500 });
         }
             break;
-        case "customer.subscription.updated":
+       case "customer.subscription.updated":
             
          
             try{
@@ -163,14 +163,15 @@ if(!raynet.ok){
                 if(session.status === "active"){
                 
                     const update_sub = await turso.execute({
-                        sql: `UPDATE subscriptions SET user_id = ?, 
+                        sql: `UPDATE subscriptions SET 
                         stripe_subscription_id = ?,
                         period_start =?,
                         period_end=?,
                         status=?,
                         interval=?,
-                        plan_id =?`,
-                        args: [user.id,session.id as string,session.current_period_start as number,session.current_period_end as number,session.status,session.items.data[0].plan.interval as string,session.items.data[0].plan.id as string]
+                        plan_id =?
+                        WHERE user_id = ?`,
+                        args: [session.id as string,session.current_period_start as number,session.current_period_end as number,session.status,session.items.data[0].plan.interval as string,session.items.data[0].plan.id as string, user.id]
                     })
                     if(update_sub.rowsAffected === 0){
                         console.log("Problem while inserting subscription")
@@ -212,37 +213,6 @@ if(!raynet.ok){
                 return new Response('Unexpected error', { status: 500 });
             }
                 break;
-            case "invoice.payment_succeeded":
-              try{
-                const subscription = await stripe.subscriptions.retrieve(
-                    session.subscription as string
-                );
-                const invoice = await stripe.invoices.retrieve(subscription.latest_invoice as string);
-const total = invoice.amount_due / 100;
-    const discount = subscription.discount?.coupon.percent_off ?? 0
-                if (!session.subscription) {
-                    console.error("Subscription ID is missing in the session object.");
-                    return new Response("Subscription ID not found", { status: 400 });
-                  }
-                  const update_sub = await turso.execute({
-                    sql: `UPDATE subscriptions SET user_id = ?, 
-                    stripe_subscription_id = ?,
-                    period_start =?,
-                    period_end=?,
-                    status=?,
-                    interval=?,
-                    plan_id =?`,
-                    args: [user.id,subscription.id as string,subscription.current_period_start as number,subscription.current_period_end as number,subscription.status,subscription.items.data[0].plan.interval as string,subscription.items.data[0].plan.id as string]
-                })
-                if(update_sub.rowsAffected === 0){
-                    console.log("Problem while inserting subscription")
-                    return new Response('Error while updating subscription', { status: 500 });
-                }
-                 }catch(error){
-                console.error("Error - invoice.payment_succeded: ", error);
-  return new Response("Failed to process subscription", { status: 500 });
-              }
-            break;
               default:
             console.warn(`Unhandled event type: ${event.type}`);
             break;
