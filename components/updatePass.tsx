@@ -41,9 +41,9 @@ export function UpdatePass() {
         initial={{opacity:0, y:-250}}
                 animate={{opacity:1, y:0}}
                 exit={{opacity:0, y:-250}}
-                transition={{duration: 0.6}} className="p-4 border w-96 shadow-lg rounded-md bg-white">
+                transition={{duration: 0.6}} className="p-8 border-2 w-96 shadow-lg rounded-md bg-white">
             <div className="text-center space-y-2">
-                <h3 className="text-2xl font-bold text-gray-900 ">Uložit nové heslo</h3>
+                <h3 className="text-3xl font-bold text-gray-900 ">Uložit nové heslo</h3>
                 <form 
                 
                 className="space-y-4" action={handleUpdate}>
@@ -51,7 +51,7 @@ export function UpdatePass() {
                     <Input name="password" type="password" placeholder="Zadejte nové heslo" required disabled={isPending} onChange={handleChange} defaultValue={form.password} />
                     <input type="hidden" name="code" value={form.code}/>
                     <Button
-                        variant={"secondary"}
+                        
                         disabled={isPending} type="submit"
                         size={"lg"}
                     >

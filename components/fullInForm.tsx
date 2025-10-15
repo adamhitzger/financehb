@@ -9,6 +9,7 @@ import { signUp } from "@/actions/users";
 import { Loader2 } from "lucide-react";
 import {motion} from "framer-motion"
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 export default function FullInForm() {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
@@ -45,15 +46,18 @@ export default function FullInForm() {
         animate={{opacity:1, y:0}}
         exit={{opacity:0, y:-250}}
         transition={{duration: 0.6}}
-        className="w-full lg:w-1/2 flex p-4 flex-col space-y-7 bg-secondary rounded-2xl" action={handleSignUp}>
-            <div> <h2 className="  font-bold tracking-wide text-3xl font-ibarra lg:text-5xl text-primary my-2 text-underline">Zaregistrujte se</h2></div>
-            <div className="flex flex-col w-full space-y-4">
+        className="w-full lg:w-1/2 flex p-8 border-2 flex-col space-y-7  rounded-2xl" action={handleSignUp}>
+            <div className="flex flex-col items-center gap-8"> <h2 className="  font-bold tracking-wide text-3xl font-ibarra text-center ">Zaregistrujte se</h2>
+            <Link href={"/log-in"} className="font-medium tracking-wide text-xl font-ibarra text-center underline decoration-secondary-background underline-offset-4">nebo se přihlaste</Link>
+    
+            </div>
+            <div className="flex flex-col w-full space-y-8">
                 <Input name="name" type="text" placeholder="Zadejte jméno" value={form.name} onChange={handleChange} required disabled={isPending} />
                 <Input name="surname" type="text" placeholder="Zadejte přijmení" value={form.surname} onChange={handleChange} required disabled={isPending} />
                 <Input name="email" type="email" placeholder="Zadejte email" value={form.email} onChange={handleChange} required disabled={isPending} />
                 <Input name="password" type="password" placeholder="Zadejte heslo" value={form.password} onChange={handleChange} required disabled={isPending} />
                 <input type="hidden" name="code" value={params} required disabled={isPending}/>
-                <Button disabled={isPending} type="submit" size={'lg'} className='mx-auto bg-destructive text-lg text-primary font-light underline underline-offset-2 shadow-md  shadow-primary-foreground'>
+                <Button disabled={isPending} type="submit" size={'lg'} className='mx-auto '>
                     {isPending ? <Loader2 className={"animate-spin"} /> : "Vytvořit účet"}
                 </Button>
             </div>

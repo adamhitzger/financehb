@@ -1,6 +1,5 @@
 "use client"
 import FullInForm from '@/components/fullInForm'
-import Link from 'next/link'
 import React, { Suspense } from 'react'
 
 export default function FullUpPage() {
@@ -11,10 +10,6 @@ export default function FullUpPage() {
                 <Suspense>
                 <FullInForm />
                 </Suspense>
-                <div className='w-full flex flex-col text-center'>
-                    <span className='text-lg'>Máte již účet?</span>
-                    <Link className='text-lg underline underline-offset-2' href={"/log-in"}>Přihlaste se</Link>
-                </div>
             </section>
         </main>
     )

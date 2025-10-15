@@ -1014,8 +1014,7 @@ export async function createPayment(formData: FormData){
       billing_address_collection: "auto",
       payment_method_types: ["card"],
       allow_promotion_codes: true,
-      line_items: [{ price: "price_1RKhszJdYME5Hxt919MVlM25",
-        //stripeId, 
+      line_items: [{ price: stripeId, 
         quantity: 1 }],
       customer_update: {
         address: "auto",

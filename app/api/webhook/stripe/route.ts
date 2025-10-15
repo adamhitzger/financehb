@@ -66,9 +66,9 @@ export async function POST(req: Request){
               const discount = session.total_details?.amount_discount ?? 0
 const total = invoice.amount_due + (discount /100);
 const discountPer = discount/ (total /100)
-//const idoklad = await createInvoice(total, user.first_name,user.last_name ,discountPer);
-             //     if(idoklad.data) console.log("iDoklad ok")
-         //    else console.log("iDoklad error")
+const idoklad = await createInvoice(total, user.first_name,user.last_name ,discountPer);
+                 if(idoklad.data) console.log("iDoklad ok")
+           else console.log("iDoklad error")
         if(user.raynet_id === null){ 
   const raynet = await fetch(raynetAPIUrl, {
     method: "PUT",

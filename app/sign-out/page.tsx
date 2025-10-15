@@ -23,11 +23,11 @@ export default function SignOutmail(){
         <main className="min-h-screen flex p-8">
         <form 
         action={signOutMail}
-        className="m-auto w-96 grid grid-cols-1 gap-4  text-black " >
-            <h1 className="text-xl font-bold">Odhlašte se z odběru novinek</h1>
+        className="m-auto w-96 grid grid-cols-1 border-2 rounded-2xl p-8  gap-4  text-black " >
+            <h1 className="text-3xl text-center font-bold">Odhlašte se z odběru novinek</h1>
            <Input name="email" type="email" disabled={isPending} placeholder="Zadejte email" defaultValue={mail as string} required />
             <Button type="submit" size={'lg'} variant={"default"} className='mx-auto font-light  shadow-lg  shadow-primary-foreground'>
-                {isPending ? <Loader2 className='animate-spin' /> : <>Odhlásit se < MoveUpRight /></>}
+                {isPending ? <Loader2 className='animate-spin' /> : <>Odhlásit se </>}
             </Button>
         </form>
         </main>

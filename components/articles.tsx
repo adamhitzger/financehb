@@ -20,17 +20,17 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
             {articles && articles.map((a: Sanity, idx: number) => (
                     <motion.article 
                     key={idx} 
-                    className={`w-full flex flex-row `}
+                    className={`w-full flex flex-col sm:flex-row `}
                     initial={{opacity:0, x: -250}}
                     animate={isInView?{opacity: 1, x:0}: {}}
                     exit={{opacity: 0, x: -250}}
                     transition={{duration: 0.8*(idx+1)}}
                     >
-                        <div className="w-full  sm:w-1/3 bg-cover h-auto bg-no-repeat rounded-lg backdrop-opacity-10 backdrop-invert z-10  before:content-[''] before:absolute before:inset-0 before:block before:bg-secondary-foreground/70 sm:before:bg-transparent  before:opacity-75 before:z-[-5] bg-center" style={{ backgroundImage: `url(${a.picture})` }}>
+                        <div className="w-full min-h-60 sm:w-1/3 bg-cover h-auto bg-no-repeat rounded-lg backdrop-opacity-10 backdrop-invert z-10  before:content-[''] before:absolute before:inset-0 before:block  before:bg-transparent  before:opacity-75 before:z-[-5] bg-center" style={{ backgroundImage: `url(${a.picture})` }}>
                             
                         </div>
                     
-                        <div className={`hidden w-2/3 sm:flex flex-col justify-between   p-5 font-light space-y-2 lg:p-10`}>
+                        <div className={` w-full sm:w-2/3 flex flex-col justify-between   p-5 font-light space-y-2 lg:p-10`}>
                             <h3 className="text-secondary font-semibold text-lg">{a.name}</h3>
                              <p className="text-sm">{toPlainText(a.overview).slice(0,200) + "..."}</p>
                              <span>{new Date(a.datum).toLocaleDateString("cs-CZ")}</span>
