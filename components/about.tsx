@@ -35,7 +35,7 @@ export default function About() {
          
           heading: 1,
           endText: "mld. Kč",
-          text: "Zpravuji na kap. trzích firmám a obcím"
+          text: "Spravuji na kap. trzích firmám a obcím"
         },
         {
          
@@ -53,7 +53,7 @@ export default function About() {
        
           heading: praxe ,
           endText: `let`,
-          text: "Praxí a zkušeností za mnou"
+          text: "Praxe a zkušeností za mnou"
         },
       ];
     return (

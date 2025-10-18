@@ -34,7 +34,7 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
                             <h3 className="text-secondary font-semibold text-lg">{a.name}</h3>
                              <p className="text-sm">{toPlainText(a.overview).slice(0,200) + "..."}</p>
                              <span>{new Date(a.datum).toLocaleDateString("cs-CZ")}</span>
-                            <Link href={`/${page}/${a.slug}`}><Button variant="default"  className="text-lg">Celý článek <MoveUpRight /></Button></Link>
+                            <Link href={`/${page}/${a.slug}`}><Button variant="default"  className="text-lg">Celý článek</Button></Link>
                         </div>
 
                     </motion.article>

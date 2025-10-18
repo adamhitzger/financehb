@@ -3,7 +3,7 @@ import {
   getUserFromSession,
   updateUserSessionExpiration,
 } from "./database/session"
-const privateRoutes = [,"/paywall:slug", "/user"];
+const privateRoutes = [,"/paywall", "/user"];
 
 export async function middleware(request: NextRequest) {
   const response = (await middlewareAuth(request)) ?? NextResponse.next()
@@ -19,7 +19,8 @@ export async function middleware(request: NextRequest) {
 }
 
 async function middlewareAuth(request: NextRequest) {
-  if (privateRoutes.includes(request.nextUrl.pathname)) {
+  const path = request.nextUrl.pathname;
+  if (path === "/user" || (path.startsWith("/paywall/") && path !== "/paywall")) {
     const user = await getUserFromSession(request.cookies)
     if (user == null) {
       return NextResponse.redirect(new URL("/sign-in", request.url))

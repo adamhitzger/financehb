@@ -24,7 +24,7 @@ export default function Navbar({user}: {user : FullUser | null| undefined}) {
                 ))}
             </div>
             {user && user.first_name && user.last_name ? (
-                <Link href={"/user"} className='underline underline-offset-2 text-2xl hidden lg:flex'>{`${user.first_name ?? ""} ${user.last_name ?? ""}`}</Link>
+                <Link href={"/user"} className=' text-2xl hidden lg:flex'>{`${user.first_name ?? ""} ${user.last_name ?? ""}`}</Link>
             ) : (
                 <Link href={"/log-in"}><Button variant={"default"} className='font-medium text-lg hidden lg:inline-flex'>Přihlásit se</Button></Link>
             )}
@@ -41,7 +41,7 @@ export default function Navbar({user}: {user : FullUser | null| undefined}) {
                                 </div>
                             ))}
                             {user && user.first_name && user.last_name ? (
-                                <Link href={"/user"} className='underline underline-offset-2 text-xl'>{`${user.first_name ?? ""} ${user.last_name ?? ""}`}</Link>
+                                <Link href={"/user"} className=' text-xl'>{`Přihlášen: ${user.first_name ?? ""} ${user.last_name ?? ""}`}</Link>
                             ) : (
                                 <Link href={"/log-in"}><Button variant={"default"} size={"lg"} className='font-medium text-lg'>Přihlásit se</Button></Link>
                             )}

@@ -248,7 +248,7 @@ const services = [
       ref={s.ref}
       key={i}
           className={`bg-${s.bg} p-8 lg:p-16  text-${s.color}`}>
-          <div className={`flex flex-wrap sm:flex-nowrap sm:${s.flex} w-full border-secondary-foreground border-2 rounded-xl p-3`}>
+          <div className={`flex flex-wrap sm:flex-nowrap sm:${s.flex} w-full border-secondary-background border-2 rounded-xl p-3`}>
           <div className="w-full sm:w-1/2 flex flex-col  px-5 justify-center font-light">
               <motion.div 
               initial={{opacity:0, x: -600}}
@@ -265,9 +265,8 @@ const services = [
                   </div>
                   <Link href={s.btnLink} className="mx-auto">
                                 <Button size={"lg"}
-                                className="no-underline font-light bg-secondary-foreground w-full    text-base"
                                 >
-                                    {s.btnText} <MoveUpRight className="text-secondary"/>
+                                    {s.btnText}
                         </Button>
                     </Link>
               </motion.div>
@@ -286,16 +285,16 @@ const services = [
   ))}
     <div ref={text} className="bg-primary min-h-screen flex flex-col justify-center p-4 space-y-5" id="cenik">
     <h2 
-    className="text-secondary-foreground font-ibarra md:text-left font-bold tracking-wide  text-3xl lg:text-5xl">Placené poradenství</h2>
+    className="underline underline-offset-4 decoration-secondary-background font-ibarra md:text-left font-bold tracking-wide  text-4xl ">Placené poradenství</h2>
     <h3 
-    className=" font-ibarra md:text-left font-bold tracking-wide  text-2xl lg:text-4xl">🔒 Dlouhodobá důvěra, profesionální péče o váš majetek </h3>
+    className=" font-ibarra md:text-left font-bold tracking-wide  text-xl">🔒 Dlouhodobá důvěra, profesionální péče o váš majetek </h3>
     <p 
     
     className="text-base  font-light text-justify md:text-left text-black">Díky mým dlouholetým zkušenostem klienti ví, že se na mě mohou spolehnout – i když sami nemají čas vše sledovat. Chtějí mít kontrolu nad svým majetkem, ale zároveň partnera, který sleduje změny, hlídá detaily a přichází s řešeními. Proto využívají placené poradenství, které jim poskytuje jistotu, klid a VIP přístup ke správě financí. 
 
     Ať už spravujete majetek do 1 milionu korun, nebo jste manažer či ředitel firmy s portfoliem v řádech milionů – mám pro vás řešení. </p>
     <h3 
-    className=" font-ibarra md:text-left font-bold tracking-wide  text-2xl lg:text-4xl">🧩 Co získáte díky placenému poradenství? </h3>
+    className=" font-ibarra md:text-left font-bold tracking-wide  text-xl">🧩 Co získáte díky placenému poradenství? </h3>
     <ul className="list-disc mx-5 space-y-1">
       <li><span className="font-bold">Pravidelnou péči a kontrolu nad majetkem </span>– minimálně jednou ročně projdeme aktuální hodnotu a úpravy plánu </li>
       <li><span className="font-bold">Aktualizaci finančního plánu a konzultace zdarma</span></li> 
@@ -312,7 +311,7 @@ const services = [
       
     </ul>
     <h3 
-    className=" font-ibarra md:text-left font-bold tracking-wide  text-2xl lg:text-4xl">🧭 Vyberte si ze 3 variant poradenství:  </h3>
+    className=" font-ibarra md:text-left font-bold tracking-wide  text-xl">🧭 Vyberte si ze 3 variant poradenství:  </h3>
     <ul className="list-decimal mx-5 space-y-1">
       <li><span className="font-bold">Základní balíček</span> – ideální pro aktivní jednotlivce i rodiny </li>
       <li><span className="font-bold">Rozšířený servis </span>– pro náročnější klienty s vyšším objemem financí </li> 
@@ -362,7 +361,7 @@ const services = [
               {[feature.basic, feature.pro, feature.enterprise].map((included, i) => (
                 <div key={i} className="flex justify-center items-center">
                   {included ? (
-                    <Check className="text-secondary-foreground h-6 w-6" />
+                    <Check className="text-secondary-background h-6 w-6" />
                   ) : (
                     <X className="text-primary-foreground h-6 w-6" />
                   )}
@@ -383,8 +382,8 @@ const services = [
 
       <main className="grid xl:grid-cols-2 gap-8">
         {services.map((service, index) => (
-          <section id={service.link} key={index} className="bg-primary-foreground p-5 rounded-lg  flex w-full flex-col space-y-4  hover:shadow-lg hover:shadow-secondary-foreground transition ease-in-out delay-100 duration-200">
-            <h2 className="text-xl font-semibold mb-3">{service.title}</h2>
+          <section id={service.link} key={index} className="bg-primary-foreground p-5 rounded-lg  flex w-full flex-col space-y-4  hover:shadow-lg hover:shadow-secondary-background transition ease-in-out delay-100 duration-200">
+            <h2 className="text-xl font-semibold mb-3 underline underline-offset-4 decoration-secondary-background">{service.title}</h2>
             <p className="text-muted-foreground">{service.description}</p>
           </section>
         ))}

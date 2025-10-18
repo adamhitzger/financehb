@@ -38,7 +38,7 @@ const config = {
           background: "#FFB473"
         },
         destructive: {
-          DEFAULT: "#db1548",
+          DEFAULT: "#FF7373",
           foreground:  "#db1548",
         },
       },

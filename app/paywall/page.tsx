@@ -35,7 +35,7 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
     return (
         <main className="flex flex-col items-center justify-between space-y-4">
             <section className="flex flex-col w-full p-8 space-y-8">
-                <h2 className=" font-ibarra tracking-wide font-bold underline underline-offset-4 decoration-secondary-background  text-4xl lg:text-5xl">Měsíční aktuality</h2>
+                <h2 className=" font-ibarra tracking-wide font-bold   text-4xl lg:text-5xl">Měsíční aktuality z <span className='underline underline-offset-4 decoration-secondary-background '>kapitálového trhu</span></h2>
                 <p className="text-base lg:text-lg font-light text-center md:text-left">Naši investoři bývají úspěšní podnikatelé, vrcholoví manažeři nebo specialisté s majetkem v řádech desítek až stovek milionů korun. <br/>
 Chtějí jistotu, že jejich peníze pracují efektivně, bezpečně a s výhledem na další generace. Ale jestli zrovna nejste dolarový milionář, nevadí – i pro vás máme místo. Právě proto si zde můžete vyzvednout naše finanční &quot;Měsíční aktuality&quot; a držet si informační náskok. 
 Protože vědět, co se děje, se vyplatí. I když zatím nemáte vlastní ostrov. <br/>

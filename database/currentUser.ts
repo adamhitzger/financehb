@@ -34,6 +34,7 @@ async function getUserFromDB(id: number): Promise<FullUser | null | undefined>{
         args: [id]
     })
     const user = rawUser?.rows[0];
+    
     if(user && user?.id){
         return {
             id: Number(user.id),
@@ -41,7 +42,7 @@ async function getUserFromDB(id: number): Promise<FullUser | null | undefined>{
             last_name: String(user.last_name),
             email: String(user.email),
             raynet_id: user?.raynet_id ? Number(user.raynet_id): null,
-            stripe_id: user?.raynet_id ? String(user.stripe_id): null,
+            stripe_id: user?.stripe_id ? String(user.stripe_id): null,
             is_mail_sub: Boolean(user.is_mail_sub)
         };
     }

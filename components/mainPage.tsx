@@ -149,25 +149,29 @@ export function SocialMedia(){
   return(
      <section  className="flex bg-primary-foreground flex-col w-full p-5 lg:p-16 space-y-8" >
         <div className="h-10"/>
-        <h2 className={` text-center font-semibold tracking-wide  text-3xl lg:text-5xl`}>Sledujte <span className="font-bold underline underline-offset-4 decoration-secondary-background">mě</span></h2>
+        <h2 className={` text-center font-semibold tracking-wide  text-4xl`}>Sledujte <span className="font-bold underline underline-offset-4 decoration-secondary-background">mě</span></h2>
         <div
         ref={ref2}
         className="w-full grid grid-rows-4 gap-2 ">
           {Socials.map((s: SocialNetwork, id) => (
             <div key={id} className={` flex ${id % 2 ===0 ? "flex-row":"flex-row-reverse"} rounded-xl p-3  transition ease-in-out delay-100 duration-200 h-fit`}>
-              <div className="w-full flex flex-row bg-white p-3 rounded-2xl sm:w-1/2 hover:shadow-lg hover:shadow-secondary-foreground" >
-            <div className="w-1/2">
-            <div className="w-full flex items-center flex-row space-x-4">
- <SocialIcon style={{height:36, width: 36}} url={s.href} network={s.heading.toLowerCase()}/>
+             
+              <div className="w-full flex flex-col bg-white p-3 rounded-2xl md:w-1/2 hover:shadow-lg hover:shadow-secondary-background" >
+            <div className="w-full flex flex-row  md:hidden gap-4 items-center">
+<SocialIcon url={s.href} network={s.heading.toLowerCase()}/>
+          <h3 className={`text-secondary-background text-2xl font-medium font-ibarra`}>{s.heading}</h3>
+     
+            </div>
+            <div className="flex flex-row w-full">
+            <div className="w-1/2 flex flex-col justify-center">
+            <div className="w-full md:flex flex-row  hidden gap-4 items-center">
+<SocialIcon url={s.href} network={s.heading.toLowerCase()}/>
           <h3 className={`text-secondary-background text-2xl font-medium font-ibarra`}>{s.heading}</h3>
      
             </div>
               
               <div className="flex flex-col m-3">
-              <div className="flex flex-row space-x-1.5 my-2 items-center">
-                
-                
-              </div>
+              
               <p className="sm:text-lg font-light">{s.text.slice(0,100)}</p>
               </div>
              
@@ -175,6 +179,7 @@ export function SocialMedia(){
                <Link className="h-fit w-1/2 my-auto" href={s.mediaSrc} target="_blank">
               {s.type === "img" ? <Image src={s.src} alt={s.heading + " Finance HB"} width={400} height={250}/>: <iframe src={s.src} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="mx-auto w-full"></iframe>}
               </Link>
+              </div>
             </div>
              <div className="w-full hidden sm:flex sm:w-1/2 h-auto"></div>
             </div>

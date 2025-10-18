@@ -19,7 +19,7 @@ export default async function UserPage() {
       console.log(data);
     }
     console.log(user?.raynet_id)
-
+    console.log(data?.status)
     return (    
         <UserComp user={user} status={data?.status as string}/>
     )
