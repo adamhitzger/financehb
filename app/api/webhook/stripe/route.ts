@@ -9,7 +9,7 @@ export async function POST(req: Request){
     const body = await req.text();
     const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
     const headerList = await headers();
-    const signature = headerList.get("stripe-signature") as string;
+    const signature = headerList.get("Stripe-Signature") as string;
     let event: Stripe.Event;
     const transporter = createTransport({
            service: "gmail",
