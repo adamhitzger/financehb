@@ -16,7 +16,6 @@ import { comparePasswords } from "@/database/password";
 import { getCurrentUser } from "@/database/currentUser";
 import { revalidatePath } from "next/cache";
 import {render} from "@react-email/render"
-import { renderToString } from "react-dom/server";
 //hotovo
 //iDoklad
 async function getAccessToken() {
@@ -227,7 +226,7 @@ export const handleSendMails = async (formData: FormData, documentData: SanityDo
                 continue
               }
               emails.push(email)
-              const htmlContent = await renderToString(<EmailTemplate documentData={documentData} email={email}/>)
+              const htmlContent = await render(<EmailTemplate documentData={documentData} email={email}/>)
 
       // Send the email
       const sendResult = await transporter.sendMail({
