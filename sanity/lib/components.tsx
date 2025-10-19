@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PortableTextComponents } from "next-sanity";
-import { urlForImage } from "./image";
 import { dataset, projectId } from "../env"
 export const components: Partial<PortableTextComponents> = {
     list: {

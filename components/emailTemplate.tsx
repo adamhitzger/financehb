@@ -1,6 +1,7 @@
 import { Html, Head, Body, Container, Section, Text, Img, Button, Hr } from "@react-email/components";
 import type { SanityDocument } from "next-sanity";
-import { toPlainText } from "next-sanity";
+import {toHTML} from "@portabletext/to-html"
+import { components } from "@/sanity/lib/components";
 interface EmailTemplateProps {
   documentData: SanityDocument;
   email: string;
@@ -51,7 +52,7 @@ export default function EmailTemplate({ documentData, email }: EmailTemplateProp
             {imageUrl && <Img src={imageUrl} alt={name} style={{ width: "100%", height: "auto", marginBottom: 20 }} />}
 
             {/* PortableText -> zde převedeno na prostý text nebo iterace */}
-            {toPlainText(emailText)}
+            {toHTML(emailText)}
 
             <Section style={{ marginTop: 20 }}>
               <Button style={{padding:12, backgroundColor: "#1a365d", color: "#fff", textDecoration: "none", marginRight: 10 }} href={articleUrl}>
