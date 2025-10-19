@@ -3,8 +3,8 @@
 import { getErrorMessage, stripe } from "../lib/utils";
 import { redirect } from "next/navigation";
 import { GetRaynetResponse } from "@/types";
-import { PortableText, SanityDocument } from "next-sanity";
-import { urlForImage } from "@/sanity/lib/image";
+import {  SanityDocument } from "next-sanity";
+import EmailTemplate from "@/components/emailTemplate";
 import {createTransport } from "nodemailer"
 const axios = require("axios")
 import { get_email, signSchema, changeDetailsSchema, updatePass, changePass} from "@/database/schema";
@@ -15,7 +15,7 @@ import { cookies } from "next/headers";
 import { comparePasswords } from "@/database/password";
 import { getCurrentUser } from "@/database/currentUser";
 import { revalidatePath } from "next/cache";
-
+import {render} from "@react-email/render"
 //hotovo
 //iDoklad
 async function getAccessToken() {
@@ -205,7 +205,7 @@ export const handleSendMails = async (formData: FormData, documentData: SanityDo
 
      const mailOptions: any = {
       from: process.env.FROM_EMAIL,
-      subject: "Nové přihlášení - Měsíční aktuality z KPT",
+      subject: "Měsíční aktuality z kapitálových trhů",
      }
      
   const raynetAPIUrl = `https://app.raynet.cz/api/v2/company/?tags[LIKE]=${tags.map(t => t+",")}`
@@ -226,7 +226,7 @@ export const handleSendMails = async (formData: FormData, documentData: SanityDo
                 continue
               }
               emails.push(email)
-              const htmlContent = await generateEmailTemplate(documentData, email)
+              const htmlContent = render(<EmailTemplate documentData={documentData} email={email}/>)
 
       // Send the email
       const sendResult = await transporter.sendMail({
@@ -299,198 +299,6 @@ export async function signOutFromMailsUnregistered(formData: FormData): Promise<
   }
 }
 
-export async function generateEmailTemplate(documentData: SanityDocument, email: string) {
-  // Extract article data
-  const { name, emailText, slug, image } = documentData
-  const articleUrl = `https://financehb.cz/paywall/${slug?.current || ""}`
-  const imageUrl = urlForImage(image)
-
-  // Format date
-  const formattedDate = new Date().toLocaleDateString("cs-CZ", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })
-
-  // Benefits of being a supporter
-  const benefits = [
-    "Exkluzivní přístup k prémiového obsahu",
-    "Detailní analýzy kapitálových trhů",
-    "Přednostní přístup k novým článkům",
-    "Možnost stahování doplňkových materiálů",
-    "Konzultace s našimi odborníky",
-  ]
-
-  // Convert the HTML string to a format that can be used in the email
-  return `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Novinky ze světa kapitálových trhů</title>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-          }
-          .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 20px;
-          }
-          .header {
-            text-align: center;
-            padding: 20px 0;
-          }
-          .logo {
-            max-width: 200px;
-            height: auto;
-          }
-          .content {
-            padding: 20px 0;
-          }
-          .article-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1a365d;
-            margin-bottom: 10px;
-          }
-          .article-date {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-          }
-          .article-image {
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-          }
-          .button {
-            display: inline-block;
-            background-color: #1a365d;
-            color: #ffffff;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            font-weight: bold;
-          }
-          .benefits {
-            background-color: #f0f4f8;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 4px;
-          }
-          .benefits-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-          }
-          .benefits-list {
-            padding-left: 20px;
-          }
-          .footer {
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-            font-size: 12px;
-            color: #666;
-          }
-          .legal {
-            font-size: 11px;
-            color: #999;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-          }
-          .contact-info {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #f5f5f5;
-            border-radius: 4px;
-            text-align: center;
-          }
-          .contact-info p {
-            margin: 5px 0;
-          }
-          .main-image {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            margin: 0 auto 20px;
-            display: block;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <img alt="Logo Financehb.cz" width="220" height="140" src="https:/financehb-ifkh.vercel.app/_next/image?url=%2Flogo.png&amp;w=640&amp;q=75">
-            <h1>Novinky ze světa kapitálových trhů</h1>
-          </div>
-          
-          <div class="content">
-            <p>Vážený čtenáři,</p>
-            <p>máme pro Vás nový článek z oblasti kapitálových trhů.</p>
-            
-            <div class="article-title">${name}</div>
-            <div class="article-date">${formattedDate}</div>
-            
-            <img src="${imageUrl}" alt="${name}" class="article-image">
-            
-            <div class="article-emailText">
-              ${<PortableText value={emailText}/>}
-            </div>
-            
-            <p style="margin-top: 20px;">
-              <a href="${articleUrl}" class="button">Přečíst článek</a>
-              <a href="https://financehb-ifkh.vercel.app/paywall" class="button">Aktivovat předplatné</a>
-            </p>
-            
-            <div class="benefits">
-              <div class="benefits-title">Proč se stát naším předplatitelem?</div>
-              <ul class="benefits-list">
-                ${benefits.map((benefit) => `<li>${benefit}</li>`).join("")}
-              </ul>
-            </div>
-            
-            <p>Děkujeme za Vaši podporu a přejeme příjemné čtení!</p>
-            <p>S pozdravem,<br>Petr Krajcigr</p>
-            
-            <img alt="petr Krajcigr, EFA" width="300" height="300" src="	https://financehb-ifkh.vercel.app/_next/image?url=%2Fimages%2Fgallery.jpg&w=1080&q=75">
-            <div class="contact-info">
-              <p><strong>Kontaktní informace:</strong></p>
-              <p>Tel: +420 222 161 188</p>
-              <p>Email: <a href="mailto:petr@efekta-iz.cz">petr@efekta-iz.cz</a></p>
-              <p>Email: <a href="mailto:info@financehb.cz">info@financehb.cz</a></p>
-            </div>
-          </div>
-          
-          <div class="footer">
-            <p>© ${new Date().getFullYear()} Financehb.cz s.r.o. Všechna práva vyhrazena.</p>
-            <p>Pokud si nepřejete dostávat tyto e-maily, můžete se <a href="https://financehb-ifkh.vercel.app/sign-out?mail=${email}">Odhlásit zde</a>.</p>
-          </div>
-          
-          <div class="legal">
-            <p>Finanční služby propagované a nabízené na tomto webu poskytuje společnost Financehb.cz s.r.o a zde uvedení poradci jako fyzické osoby: Petr Krajcigr, kteří jsou v oblasti:</p>
-            <hr style="border: 1px solid #eee; margin: 10px 0;">
-            <ul>
-              <li>pojištění registrovaní podle zákona č. 170/2018 Sb. jako vázaní zástupci samostatného zprostředkovatele pojištění,</li>
-              <li>doplňkového penzijního spoření podle zákona č. 256/2004 Sb. jako vázaní zástupci investičního zprostředkovatele,</li>
-              <li>spotřebitelských úvěrů podle zákona č. 257/2016 Sb. jako vázaní zástupci samostatného zprostředkovatele spotřebitelského úvěru, společnosti Chytrý Honza a.s. sídlem Radlická 365/154, Radlice, 158 00 Praha. Tuto skutečnost je možné ověřit v Seznamu regulovaných a registrovaných subjektů finančního trhu České národní banky na <a href="http://www.cnb.cz/cnb/jerrs">http://www.cnb.cz/cnb/jerrs</a>, kde také najdete aktuální podrobnosti o registraci a jejím rozsahu.</li>
-            </ul>
-          </div>
-        </div>
-      </body>
-    </html>
-  `
-}
 
 async function generateVerifyUpdatePassHTML(code: string) {
   return `<html>
