@@ -1,7 +1,6 @@
 import { Html, Head, Body, Container, Section, Text, Img, Button, Hr } from "@react-email/components";
 import type { SanityDocument } from "next-sanity";
 import {toHTML} from "@portabletext/to-html"
-import { components } from "@/sanity/lib/components";
 interface EmailTemplateProps {
   documentData: SanityDocument;
   email: string;
@@ -58,7 +57,7 @@ export default function EmailTemplate({ documentData, email }: EmailTemplateProp
               <Button style={{padding:12, backgroundColor: "#1a365d", color: "#fff", textDecoration: "none", marginRight: 10 }} href={articleUrl}>
                 Přečíst článek
               </Button>
-              <Button style={{padding:12, backgroundColor: "#1a365d", color: "#fff", textDecoration: "none" }} href="https://financehb-ifkh.vercel.app/paywall">
+              <Button style={{padding:12, backgroundColor: "#1a365d", color: "#fff", textDecoration: "none" }} href="https://financehb.cz/paywall">
                 Aktivovat předplatné
               </Button>
             </Section>
@@ -76,8 +75,7 @@ export default function EmailTemplate({ documentData, email }: EmailTemplateProp
           <Section>
             <Text>Děkujeme za Vaši podporu a přejeme příjemné čtení!</Text>
             <Text>S pozdravem,<br />Petr Krajcigr</Text>
-            <Img src="https://financehb-ifkh.vercel.app/_next/image?url=%2Fimages%2Fgallery.jpg&w=1080&q=75" alt="Petr Krajcigr" width={300} height={300} style={{ display: "block", margin: "0 auto 20px" }} />
-          </Section>
+         </Section>
 
           {/* Contact */}
           <Section style={{ padding: 15, backgroundColor: "#f5f5f5", borderRadius: 4, textAlign: "center" }}>
