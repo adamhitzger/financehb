@@ -226,7 +226,7 @@ export const handleSendMails = async (formData: FormData, documentData: SanityDo
                 continue
               }
               emails.push(email)
-              const htmlContent = render(<EmailTemplate documentData={documentData} email={email}/>)
+              const htmlContent = await render(<EmailTemplate documentData={documentData} email={email}/>)
 
       // Send the email
       const sendResult = await transporter.sendMail({
