@@ -79,14 +79,15 @@ export async function POST(req: Request) {
             subscription.latest_invoice as string
           );
 
-          const discount = session.total_details?.amount_discount ?? 0;
+             const discount = session.total_details?.amount_discount ?? 0;
           const total = invoice.amount_due + discount / 100;
           const discountPer = discount / (total / 100);
 
-          console.log(
+          console.warn("Discount:",discountPer)
+          if(discountPer <= 99.99){
+             console.log(
             `🧾 Creating invoice for ${user.email} | total: ${total} | discount: ${discountPer}%`
           );
-
           const idoklad = await createInvoice(
             total,
             user.first_name,
@@ -95,7 +96,8 @@ export async function POST(req: Request) {
           );
           if (idoklad.data) console.log("✅ iDoklad invoice created");
           else console.error("❌ iDoklad error", idoklad);
-          console.log("Raynet id:", user.raynet_id)
+          }
+          console.log("Raynet id:", user.raynet_id, ", typ:",typeof user.raynet_id)
           // 🧠 Raynet insert (jen pokud není ID)
           if (user.raynet_id === null || String(user.raynet_id) === "") {
             console.log("🟡 Raynet: Creating new company record...");
