@@ -159,7 +159,7 @@ export async function POST(req: Request) {
 
             const insert_r_id = await turso.execute({
               sql: "UPDATE users SET raynet_id = ? WHERE id = ?",
-              args: [raynet_id.data.id, user.id],
+              args: [String(raynet_id.data.id), user.id],
             });
 
             if (insert_r_id.rowsAffected === 0) {
