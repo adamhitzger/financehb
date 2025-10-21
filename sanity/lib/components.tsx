@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { PortableTextComponents } from "next-sanity";
 import { dataset, projectId } from "../env"
+import urlBuilder from "@sanity/image-url";
+import { urlForImage } from "./image";
 export const components: Partial<PortableTextComponents> = {
     list: {
         bullet: ({ children }) => <ul className="mt-xl">{children}</ul>,
@@ -32,11 +34,13 @@ export const components: Partial<PortableTextComponents> = {
     },
     types: {
         image: ({ value }: { value: any }) => (
-          <Image
-            src={value?.asset?._ref}
-            alt={value}
-            className="rounded-lg w-96 mx-auto"
-          />
+         <Image
+  src={urlForImage(value)}
+  alt={value.asset._ref}
+  width={200}
+  height={200}
+  className="rounded-lg w-96 mx-auto"
+/>
         ),
         file: ({ value }: { value: any }) => {
             const videoUrl = value.asset?._ref

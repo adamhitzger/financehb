@@ -50,8 +50,49 @@ export default function EmailTemplate({ documentData, email }: EmailTemplateProp
             <Text style={{ fontSize: 14, color: "#666", marginBottom: 20 }}>{formattedDate}</Text>
             {imageUrl && <Img src={imageUrl} alt={name} style={{ width: "100%", height: "auto", marginBottom: 20 }} />}
 
-            {/* PortableText -> zde převedeno na prostý text nebo iterace */}
-            {toHTML(emailText)}
+        <Section>
+  {emailText.map((block: any, index: number) => {
+    // běžný textový blok
+    if (block._type === "block") {
+      const style = block.style || "normal";
+
+      if (style === "h1") return <Text key={index} style={{ fontSize: 24, fontWeight: "bold", margin: "16px 0" }}>{block.children.map((child: any) => child.text).join('')}</Text>;
+      if (style === "h2") return <Text key={index} style={{ fontSize: 20, fontWeight: "bold", margin: "14px 0" }}>{block.children.map((child: any) => child.text).join('')}</Text>;
+      if (style === "h3") return <Text key={index} style={{ fontSize: 18, fontWeight: "bold", margin: "12px 0" }}>{block.children.map((child: any) => child.text).join('')}</Text>;
+      if (style === "blockquote") return <Text key={index} style={{ borderLeft: "4px solid #1a365d", paddingLeft: 10, color: "#555", margin: "12px 0" }}>{block.children.map((child: any) => child.text).join('')}</Text>;
+
+      // běžný odstavec
+      return <Text key={index} style={{ margin: "10px 0" }}>
+        {block.children.map((child: any) => {
+          let content = child.text;
+          // aplikace značek
+          if (child.marks?.includes("strong")) content = <span style={{ fontWeight: "bold" }}>{content}</span>;
+          if (child.marks?.includes("em")) content = <span style={{ fontStyle: "italic" }}>{content}</span>;
+          if (child.marks?.includes("u")) content = <span style={{ textDecoration: "underline" }}>{content}</span>;
+          if (child.marks?.includes("strike")) content = <span style={{ textDecoration: "line-through" }}>{content}</span>;
+          return content;
+        })}
+      </Text>;
+    }
+
+    // seznamy
+    if (block._type === "list") {
+      if (block.listItem === "bullet") {
+        return <ul key={index} style={{ paddingLeft: 20, margin: "10px 0" }}>
+          {block.children.map((li: any, i: number) => <li key={i}>{li.text}</li>)}
+        </ul>;
+      }
+      if (block.listItem === "number") {
+        return <ol key={index} style={{ paddingLeft: 20, margin: "10px 0" }}>
+          {block.children.map((li: any, i: number) => <li key={i}>{li.text}</li>)}
+        </ol>;
+      }
+    }
+
+    return null;
+  })}
+</Section>
+
 
             <Section style={{ marginTop: 20 }}>
               <Button style={{padding:12, backgroundColor: "#1a365d", color: "#fff", textDecoration: "none", marginRight: 10 }} href={articleUrl}>
