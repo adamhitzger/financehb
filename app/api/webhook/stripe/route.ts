@@ -57,7 +57,7 @@ export async function POST(req: Request) {
       first_name: String(untypedUser.first_name),
       last_name: String(untypedUser.last_name),
       email: String(untypedUser.email),
-      raynet_id: Number(untypedUser.raynet_id) ?? null,
+      raynet_id:untypedUser.raynet_id !== null ? Number(untypedUser.raynet_id) : null,
       is_mail_sub: Boolean(untypedUser.is_mail_sub),
       stripe_id: String(untypedUser.stripe_id),
     };
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
     switch (event.type) {
       case "checkout.session.completed":
         try {
-          console.log("🟢 checkout.session.completed event triggered");
+          console.log("🟢 checkout.session.completed event triggered, RaynetId:", user.raynet_id);
           const subscription = await stripe.subscriptions.retrieve(
             session.subscription as string
           );
@@ -81,7 +81,7 @@ export async function POST(req: Request) {
 
              const discount = session.total_details?.amount_discount ?? 0;
           const total = invoice.amount_due + discount / 100;
-          const discountPer = discount / (total / 100);
+          const discountPer = (discount / (total / 100))/100;
 
           console.warn("Discount:",discountPer)
           if(discountPer <= 99.99){
