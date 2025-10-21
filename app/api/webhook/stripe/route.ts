@@ -87,15 +87,15 @@ export async function POST(req: Request) {
             `🧾 Creating invoice for ${user.email} | total: ${total} | discount: ${discountPer}%`
           );
 
-          /*const idoklad = await createInvoice(
+          const idoklad = await createInvoice(
             total,
             user.first_name,
             user.last_name,
             discountPer
           );
           if (idoklad.data) console.log("✅ iDoklad invoice created");
-          else console.error("❌ iDoklad error", idoklad);*/
-
+          else console.error("❌ iDoklad error", idoklad);
+          console.log("Raynet id:", user.raynet_id)
           // 🧠 Raynet insert (jen pokud není ID)
           if (user.raynet_id === null || String(user.raynet_id) === "") {
             console.log("🟡 Raynet: Creating new company record...");
