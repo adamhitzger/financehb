@@ -23,7 +23,7 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
     const articlesPromise: Articles[] = await sanityFetch<Articles[]>({ query: ALL_ARTICLES_QUERY, params: { start, end } });
     const countPromise: number = await sanityFetch({ query: COUNT_ALL_ARTICLES });
     const subsPromise: Subscriptions[] = await sanityFetch<Subscriptions[]>({ query: SUBSCRIPTIONS_QUERY });
-    const [articles, count, subs, myUser] = await Promise.all([
+    const [articles, count, subs, myUser, myRows] = await Promise.all([
         articlesPromise,
         countPromise,
         subsPromise,
@@ -31,7 +31,7 @@ export default async function ArticlesPage(props: { searchParams: Promise<{ [key
         rows
     ]);
     const totalPages = Math.ceil(count / PAGE_SIZE);
-    console.log(subs)
+    console.log(myRows)
     return (
         <main className="flex flex-col items-center justify-between space-y-4">
             <section className="flex flex-col w-full p-8 space-y-8">
@@ -41,7 +41,7 @@ Chtějí jistotu, že jejich peníze pracují efektivně, bezpečně a s výhled
 Protože vědět, co se děje, se vyplatí. I když zatím nemáte vlastní ostrov. <br/>
 (A když mi dáte vědět, co by vás zajímalo příště, rád to do příštích aktualit přidám – informací mám dost, jen ty vaše otázky mi zatím chybí.) Stáhněte si <Link href={"https://cdn.sanity.io/files/p8t70jfu/production/77a18df451e07e9a45a1af0d9aa09bfed71ada29.pdf"} className='font-bold underline underline-offset-4 decoration-secondary-background'>zdarma</Link> na zkoušku!</p>
             </section>
-            {rows[0]?.status !== "active" ? 
+            {myRows[0]?.status !== "active" ? 
             <section className='w-full flex flex-col py-8 px-4 text-secondary text-center space-y-5'>
                     <Subscription subs={subs} user={myUser}/>
             </section>: <section className='w-full flex flex-col p-8 space-y-8'>
