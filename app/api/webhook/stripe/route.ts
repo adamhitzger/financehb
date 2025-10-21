@@ -87,17 +87,17 @@ export async function POST(req: Request) {
             `🧾 Creating invoice for ${user.email} | total: ${total} | discount: ${discountPer}%`
           );
 
-          /*const idoklad = await createInvoice(
+          const idoklad = await createInvoice(
             total,
             user.first_name,
             user.last_name,
             discountPer
           );
           if (idoklad.data) console.log("✅ iDoklad invoice created");
-          else console.error("❌ iDoklad error", idoklad);*/
+          else console.error("❌ iDoklad error", idoklad);/**/
 
           // 🧠 Raynet insert (jen pokud není ID)
-          if (user.raynet_id === null) {
+          if (user.raynet_id === null || String(user.raynet_id) === "") {
             console.log("🟡 Raynet: Creating new company record...");
             const raynet = await fetch(raynetAPIUrl, {
               method: "PUT",
@@ -184,7 +184,8 @@ export async function POST(req: Request) {
                 period_end,
                 status,
                 interval,
-                plan_id) VALUES(?,?,?,?,?,?,?)`,
+                plan_id
+                ) VALUES(?,?,?,?,?,?,?)`,
             args: [
               user.id,
               subscription.id as string,

@@ -89,7 +89,7 @@ export default function EmailTemplate({ documentData, email }: EmailTemplateProp
           <Section style={{ borderTop: "1px solid #eee", paddingTop: 20, fontSize: 12, color: "#666" }}>
             <Text>© {new Date().getFullYear()} Financehb.cz s.r.o. Všechna práva vyhrazena.</Text>
             <Text>
-              Pokud si nepřejete dostávat tyto e-maily, můžete se <a href={`https://financehb-ifkh.vercel.app/sign-out?mail=${email}`}>Odhlásit zde</a>.
+              Pokud si nepřejete dostávat tyto e-maily, můžete se <a href={`https://financehb.cz/sign-out?mail=${email}`}>Odhlásit zde</a>.
             </Text>
           </Section>
 
