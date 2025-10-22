@@ -122,8 +122,9 @@ export default function EmailTemplate({ documentData, email }: EmailTemplateProp
           <Section style={{ padding: 15, backgroundColor: "#f5f5f5", borderRadius: 4, textAlign: "center" }}>
             <Text><strong>Kontaktní informace:</strong></Text>
             <Text>Tel: +420 222 161 188</Text>
-            <Text>Email: <a href="mailto:petr@efekta-iz.cz">petr@efekta-iz.cz</a></Text>
             <Text>Email: <a href="mailto:info@financehb.cz">info@financehb.cz</a></Text>
+            <Text>Email: <a href="mailto:petr@efekta-iz.cz">petr@efekta-iz.cz</a></Text>
+            
           </Section>
 
           {/* Footer */}

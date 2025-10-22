@@ -15,19 +15,18 @@ export default function Footer() {
                 <div className='grid grid-cols-2 gap-4  md:grid-cols-4 md:grid-rows-1 w-full justify-items-stretch md:justify-items-center font-extralight text'>
                     <div className='text-sm flex flex-col space-y-1'>
                         <div className='flex flex-row text-lg font-medium w-fit pr-3'><span className=' text-3xl text-secondary-background'>Office</span> </div>
-                        <Link href={"tel:+420777820080"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>+420 777 820 080</Link>
-                        <Link href={"tel:+420775999069"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>+420 775 999 069</Link>
-                        <Link href={"tel:+420720080820"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>+420 720 080 820</Link>
-                        <Link href={"mailto:info@financehb.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>info@financehb.cz</Link>
-                        <Link href={"mailto:petr@efekta-iz.cz"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>petr@efekta-iz.cz</Link>
+                        <Link href={"tel:+420777820080"} className='underline underline-offset-2 decoration-secondary-background'>+420 777 820 080</Link>
+                        <Link href={"tel:+420775999069"} className='underline underline-offset-2 decoration-secondary-background'>+420 775 999 069</Link>
+                        <Link href={"tel:+420720080820"} className='underline underline-offset-2 decoration-secondary-background'>+420 720 080 820</Link>
+                        <Link href={"mailto:info@financehb.cz"} className='underline underline-offset-2 decoration-secondary-background'>info@financehb.cz</Link>
+                        <Link href={"mailto:petr@efekta-iz.cz"} className='underline underline-offset-2 decoration-secondary-background'>petr@efekta-iz.cz</Link>
                     
                         </div>
 
   <div className='text-sm flex flex-col space-y-1'>
                         <div className='flex flex-center text-secondary-background font-medium w-fit pr-3 text-3xl'> Pracovní hodiny</div>
-                        <span>Kancelář v Havlíčkově Brodě:</span>
-                        <Link href={"tel:+420775999069"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>+420 775 999 069</Link>
-                        <Link href={"tel:+420720080820"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>+420 720 080 820</Link>
+                        <Link href={"tel:+420775999069"} className='underline underline-offset-2 decoration-secondary-background'>+420 775 999 069</Link>
+                        <Link href={"tel:+420720080820"} className='underline underline-offset-2 decoration-secondary-background'>+420 720 080 820</Link>
                         <div className='flex flex-row space-x-3'>
                             <div className='flex flex-col w-fit'>
                                 <span>PO - ST: 8:00 - 16:00</span>
@@ -39,7 +38,7 @@ export default function Footer() {
                     </div>
 
                     <div className='text-sm flex flex-col space-y-1'>
-                        <div className='flex flex-col space-y-5 flex-center text-secondary-background font-medium w-fit pr-3 text-3xl'> Kanceláře</div>
+                        <div className='flex flex-col space-y-5 flex-center font-medium w-fit pr-3 text-3xl text-secondary-background'> Kanceláře</div>
                         <div className='flex flex-col'>
                               <span>Praha – Nová Waltrovka</span>
                         <span>Radlická 365/154,  Praha 5</span>
@@ -62,10 +61,11 @@ export default function Footer() {
                     
                     <div className='text-sm flex flex-col  space-y-1'>
                         <div className='flex flex-row text-lg  font-medium w-fit pr-3'><span className='text-secondary-background text-3xl'>Odkazy</span> </div>
-                        <Link target={"_blank"} href={"https://dobryporadce.cz/poradci/petr-krajcigr-efa"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>Dobrý poradce</Link>
-                        <Link target={"_blank"} href={"https://www.drfg.cz/"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>www.drfg.cz</Link>
-                        <Link target={"_blank"} href={"https://pkfinance.cz/"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>www.pkfinance.cz/</Link>
-                        <Link target={"_blank"} href={"/nemovitosti"} className='hover:underline hover:underline-offset-2 hover:text-secondary-background'>Nemovitosti</Link>
+                        <Link target={"_blank"} href={"https://efekta-iz.cz/"} className='underline underline-offset-2 decoration-secondary-background'>efekta-iz.cz</Link>
+                        <Link target={"_blank"} href={"https://dobryporadce.cz/poradci/petr-krajcigr-efa"} className='underline underline-offset-2 decoration-secondary-background'>Dobrý poradce</Link>
+                        <Link target={"_blank"} href={"https://www.drfg.cz/"} className='underline underline-offset-2 decoration-secondary-background'>www.drfg.cz</Link>
+                        <Link target={"_blank"} href={"https://pkfinance.cz/"} className='underline underline-offset-2 decoration-secondary-background'>www.pkfinance.cz/</Link>
+                        <Link target={"_blank"} href={"/nemovitosti"} className='underline underline-offset-2 decoration-secondary-background'>Nemovitosti</Link>
                         
                     </div>
                 </div>

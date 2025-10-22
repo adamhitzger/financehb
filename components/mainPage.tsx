@@ -91,7 +91,7 @@ export default  function MainPage(){
   className="py-5 border-l border-l-white flex w-full flex-row ">
         <hr className="h-0.5 w-20 mt-4"/>
            <div className="flex flex-col text-white">
-    <h3 className="text-xl font-bold">Zajištění  <span className="text-secondary-background">majetku</span> a <span className="text-secondary-background">odpovědností</span> pojištění aut </h3>
+    <h3 className="text-xl font-bold">Zajištění  <span className="text-secondary-background">majetku</span> a <span className="text-secondary-background">odpovědností</span> </h3>
             <p className="font-extralight text-base ">Potřebujete poradit se správou majetku? Spolehněte se na mě, protože nevynechám ani sebemenší detail. Nemáte rádi nemilá překvapení? Já také ne, proto nejen při plánování zajištění majetku postupuju s nejvyšší důsledností.</p>
            </div>
        
@@ -117,7 +117,7 @@ export default  function MainPage(){
                      <div className="w-full h-10"/>
     </section>
     <section className="w-full flex flex-col px-4 py-8 ">
-         <h2 className={`font-semibold tracking-wide text-4xl text-right`}>Nechte peníze pracovat <span className="text-5xl font-bold underline underline-offset-4 decoration-secondary-background">za Vás</span></h2>
+         <h2 className={`font-semibold tracking-wide text-5xl text-right`}>Nechte peníze pracovat <span className="text-5xl font-bold underline underline-offset-4 decoration-secondary-background">za Vás</span></h2>
          <h3 className="text-2xl text-secondary-background text-right">investorské aktuality a rady</h3>
          <div className="flex flex-col-reverse md:flex-row gap-5 my-8">
 <Link target="_blank" href={"/e-book"} className="text-md w-full md:w-1/2">
@@ -125,6 +125,9 @@ export default  function MainPage(){
               <h3 className={` text-2xl font-medium font-ibarra`}>📘 E-book zdarma: <span className="text-secondary-background">Jak úspěšně a efektivně spořit na penzi </span></h3>
     
               <p className="text-lg font-light">Ať už jste na začátku kariéry, v jejím plném tempu nebo se pomalu připravujete na zasloužený odpočinek – nikdy není brzy (ani pozdě) začít budovat svou finanční budoucnost.<br/><br/> Tento praktický <span className="font-medium underline underline-offset-4 decoration-secondary-background">e-book</span> vám ukáže, jak se vyhnout nejčastějším chybám a připravit se na důchod bez zbytečného stresu.<br/> Stáhněte si ho zdarma a buďte připraveni – protože na klidný důchod se nečeká, ten se plánuje.</p>
+               <Button >
+                                    Stáhněte si e-book
+                        </Button>
             </div>
             </Link>
             <Link target="_blank" href={"/paywall"} className="text-md w-full md:w-1/2 gap-5 flex flex-col justify-between">
@@ -134,7 +137,11 @@ export default  function MainPage(){
             <div className="border border-primary-foreground  rounded-xl space-y-5 p-8">
               <h3 className={`text-2xl font-medium font-ibarra`}>📈 <span className="text-secondary-background">Aktuality </span> z kapitálového trhu </h3>
               <p className="text-lg font-light">Získejte každý měsíc přehledné a srozumitelné informace přímo do své e-mailové schránky.Co hýbe trhy, kde se otevírají příležitosti a na co si dát pozor?<br/><br/> Měsíční aktuality vám ušetří čas a udrží vás v obraze.<br/> Stačí <span className="font-medium underline underline-offset-4 decoration-secondary-background">kliknout</span> – a <span className="font-medium underline underline-offset-4 decoration-secondary-background">začít číst</span>.</p>
+             <Button >
+                                    Chci získat info!
+                        </Button>
             </div>
+            
             </Link>
          </div>
       
@@ -149,7 +156,7 @@ export function SocialMedia(){
   return(
      <section  className="flex bg-primary-foreground flex-col w-full p-5 lg:p-16 space-y-8" >
         <div className="h-10"/>
-        <h2 className={` text-center font-semibold tracking-wide  text-4xl`}>Sledujte <span className="font-bold underline underline-offset-4 decoration-secondary-background">mě</span></h2>
+        <h2 className={` text-center font-semibold tracking-wide  text-5xl`}>Sledujte <span className="font-bold underline underline-offset-4 decoration-secondary-background">mě</span></h2>
         <div
         ref={ref2}
         className="w-full grid grid-rows-4 gap-2 ">
@@ -177,7 +184,7 @@ export function SocialMedia(){
              
               </div>
                <Link className="h-fit w-1/2 my-auto" href={s.mediaSrc} target="_blank">
-              {s.type === "img" ? <Image src={s.src} alt={s.heading + " Finance HB"} width={400} height={250}/>: <iframe src={s.src} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="mx-auto w-full"></iframe>}
+              {s.type === "img" ? <Image src={s.src} alt={s.heading + " Finance HB"} width={400} height={250}/>: <iframe src={s.src} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="mx-auto min-h-80 w-full"></iframe>}
               </Link>
               </div>
             </div>
