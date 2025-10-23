@@ -16,6 +16,7 @@ import { comparePasswords } from "@/database/password";
 import { getCurrentUser } from "@/database/currentUser";
 import { revalidatePath } from "next/cache";
 import {render} from "@react-email/render"
+import { AxiosError } from "axios";
 //hotovo
 //iDoklad
 async function getAccessToken() {
@@ -634,11 +635,11 @@ export async function signOutFromMails(formData: FormData): Promise<{success: bo
       Authorization: "Basic " + Buffer.from(process.env.RAYNET_EMAIL + ":" + process.env.RAYNET_API_KEY).toString("base64"),
       "X-Instance-Name": "financehb",
   }
-  const body = { rating: "D"}
+  const body = { rating: "C"}
     const rId = Number(formData.get("raynetId"));
     const id = formData.get("dbId") as string;
-    const signOut = await axios.post(`https://app.raynet.cz/api/v2/company/${rId}`,body, {headers})
-    console.log(signOut)
+    const signOut = await axios.post(`https://app.raynet.cz/api/v2/company/${rId}`,body, {headers}).catch()
+    console.log(signOut.response)
     if(signOut.status === 200){
       const _updateUser = await turso.execute({
         sql: "UPDATE users SET is_mail_sub = false WHERE id = ?",
@@ -663,7 +664,9 @@ export async function signOutFromMails(formData: FormData): Promise<{success: bo
     }
     
   }catch(error){
-    console.log("Chyba při odhlašování emailu z Raynetu: ", error)
+   const er = error as AxiosError
+      console.log("Chyba při odhlašování emailu z Raynetu: ", er.response)
+  
     return {
       success: false,
       message: "Nebyl jste odhlášen. Vyskytla se chyba."

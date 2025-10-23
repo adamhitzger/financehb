@@ -21,26 +21,36 @@ gsap.registerPlugin(ScrollTrigger);
 export default  function MainPage(){
   
   const div = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
   
   useEffect(() => {
-    if(!div.current) return
-    gsap.fromTo(div.current.children,{
+    const ctx = gsap.context(() => {
+      // 🟢 1️⃣ Animace sekce “Čemu se věnuji”
+      if (div.current) {
+        gsap.fromTo(
+          div.current.children,
+          {
             opacity: 0,
-            y:500
-        }, {
-            opacity:1,
-            y:0,
-            duration:1,
+            y: 100,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
             ease: "power2.out",
-            stagger: 0.3,
+            stagger: 0.2,
             scrollTrigger: {
               trigger: div.current,
-              start: "top 80%",
-              end: "top 30%",
-              scrub: false,
-            }
-        })
-  }, [])
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
     return(
       <>
       <section className="flex flex-col w-full items-center p-8 lg:p-16 bg-gradient-to-r from-secondary via-secondary to-secondary/95 space-y-8  [clip-path:polygon(0_0,100%_0,100%_calc(100%-70px),0_100%)]" id="sluzby">
@@ -116,35 +126,87 @@ export default  function MainPage(){
                     </Link>
                      <div className="w-full h-10"/>
     </section>
-    <section className="w-full flex flex-col px-4 py-8 ">
-         <h2 className={`font-semibold tracking-wide text-5xl text-right`}>Nechte peníze pracovat <span className="text-5xl font-bold underline underline-offset-4 decoration-secondary-background">za Vás</span></h2>
-         <h3 className="text-2xl text-secondary-background text-right">investorské aktuality a rady</h3>
-         <div className="flex flex-col-reverse md:flex-row gap-5 my-8">
-<Link target="_blank" href={"/e-book"} className="text-md w-full md:w-1/2">
-            <div className="border border-primary-foreground rounded-xl p-8 space-y-5">
-              <h3 className={` text-2xl font-medium font-ibarra`}>📘 E-book zdarma: <span className="text-secondary-background">Jak úspěšně a efektivně spořit na penzi </span></h3>
-    
-              <p className="text-lg font-light">Ať už jste na začátku kariéry, v jejím plném tempu nebo se pomalu připravujete na zasloužený odpočinek – nikdy není brzy (ani pozdě) začít budovat svou finanční budoucnost.<br/><br/> Tento praktický <span className="font-medium underline underline-offset-4 decoration-secondary-background">e-book</span> vám ukáže, jak se vyhnout nejčastějším chybám a připravit se na důchod bez zbytečného stresu.<br/> Stáhněte si ho zdarma a buďte připraveni – protože na klidný důchod se nečeká, ten se plánuje.</p>
-               <Button >
-                                    Stáhněte si e-book
-                        </Button>
-            </div>
-            </Link>
-            <Link target="_blank" href={"/paywall"} className="text-md w-full md:w-1/2 gap-5 flex flex-col justify-between">
-            <p className="text-right font-light text-xl">
-              Získejte znalosti v investování a odebírejte nejnovější aktuality z kapitálových trhů. Stáhněte si můj e-book nebo odebírejte předplatné.
+ 
+    <section ref={ref} className="w-full flex flex-col px-4 py-16 overflow-hidden">
+      <h2 className="font-semibold tracking-wide text-5xl text-right">
+        Nechte peníze pracovat{" "}
+        <span className="text-5xl font-bold underline underline-offset-4 decoration-secondary-background">
+          za Vás
+        </span>
+      </h2>
+      <h3 className="text-2xl text-secondary-background text-right">
+        investorské aktuality a rady
+      </h3>
+
+      <div className="flex flex-col-reverse md:flex-row gap-8 my-12">
+        {/* 🧱 Tile 1 */}
+        <Link href="/e-book" target="_blank" className="w-full md:w-1/2">
+          <div
+            className="tile group border border-primary-foreground rounded-2xl p-8 space-y-5 
+                       bg-gradient-to-tl from-secondary-background/20 to-slate-100 
+                       transition-all duration-500 ease-out
+                       hover:shadow-2xl hover:shadow-secondary-background/40 
+                       hover:-translate-y-3 hover:scale-[1.03] 
+                       hover:bg-gradient-to-br hover:from-white/90 hover:to-secondary-background/30
+                       hover:backdrop-blur-sm"
+          >
+            <h3 className="text-2xl font-medium font-ibarra">
+              📘 E-book zdarma:{" "}
+              <span className="text-secondary-background">
+                Jak úspěšně a efektivně spořit na penzi
+              </span>
+            </h3>
+            <p className="text-lg font-light">
+              Ať už jste na začátku kariéry, v jejím plném tempu nebo se
+              pomalu připravujete na důchod – nikdy není brzy (ani pozdě)
+              začít budovat svou finanční budoucnost.
+              <br />
+              <br />
+              Tento praktický{" "}
+              <span className="font-medium underline underline-offset-4 decoration-secondary-background">
+                e-book
+              </span>{" "}
+              vám ukáže, jak se vyhnout nejčastějším chybám a připravit se na
+              důchod bez zbytečného stresu.
             </p>
-            <div className="border border-primary-foreground  rounded-xl space-y-5 p-8">
-              <h3 className={`text-2xl font-medium font-ibarra`}>📈 <span className="text-secondary-background">Aktuality </span> z kapitálového trhu </h3>
-              <p className="text-lg font-light">Získejte každý měsíc přehledné a srozumitelné informace přímo do své e-mailové schránky.Co hýbe trhy, kde se otevírají příležitosti a na co si dát pozor?<br/><br/> Měsíční aktuality vám ušetří čas a udrží vás v obraze.<br/> Stačí <span className="font-medium underline underline-offset-4 decoration-secondary-background">kliknout</span> – a <span className="font-medium underline underline-offset-4 decoration-secondary-background">začít číst</span>.</p>
-             <Button >
-                                    Chci získat info!
-                        </Button>
-            </div>
-            
-            </Link>
-         </div>
-      
+            <Button className="transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
+              Stáhněte si e-book
+            </Button>
+          </div>
+        </Link>
+
+        {/* 🧱 Tile 2 */}
+        <Link href="/paywall" target="_blank" className="w-full md:w-1/2">
+          <div
+            className="tile group border border-primary-foreground rounded-2xl p-8 space-y-5 
+                       bg-gradient-to-tl from-secondary-background/20 to-slate-100 
+                       transition-all duration-500 ease-out
+                       hover:shadow-2xl hover:shadow-secondary-background/40 
+                       hover:-translate-y-3 hover:scale-[1.03] 
+                       hover:bg-gradient-to-br hover:from-white/90 hover:to-secondary-background/30
+                       hover:backdrop-blur-sm"
+          >
+            <h3 className="text-2xl font-medium font-ibarra">
+              📈{" "}
+              <span className="text-secondary-background">
+                Aktuality
+              </span>{" "}
+              z kapitálového trhu
+            </h3>
+            <p className="text-lg font-light">
+              Získejte každý měsíc přehledné a srozumitelné informace přímo do
+              své e-mailové schránky. Co hýbe trhy, kde se otevírají příležitosti
+              a na co si dát pozor?
+              <br />
+              <br />
+              Měsíční aktuality vám ušetří čas a udrží vás v obraze.
+            </p>
+            <Button className="transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
+              Chci získat info!
+            </Button>
+          </div>
+        </Link>
+      </div>
     </section>
    
         </>
