@@ -9,14 +9,15 @@ import { ChangePass } from '@/components/modals/changePass';
 import SubInfoForm, { SignOutFromNews } from '@/components/subInfoForm';
 import { useSearchParams } from "next/navigation";
 import {motion} from "framer-motion"
-export default function UserComp({user, status}: {user: FullUser| undefined | null, status: string}){
+export default function UserComp({user, price, endDate, interval,status}: {user: FullUser| undefined | null,price: number, endDate: number, interval: string, status: string}){
     const searchParams = useSearchParams()
     const changeDetails =  searchParams.get("details");
     const changePass =  searchParams.get("pass")
-    console.log(user)
+    console.log(price)
+    const end_priod = new Date(endDate*1000).toLocaleDateString("cs-CZ")
     return(
-        <main className="flex min-h-screen flex-col items-center py-8 justify-between space-y-4">
-        <section className="flex flex-col w-full p-8 space-y-8">
+        <main className="flex min-h-screen flex-col md:flex-row items-center py-8 justify-between space-y-4">
+        <section className="flex flex-col w-full md:w-1/2 p-8 space-y-8">
             <motion.h2
             initial={{opacity:0, x: -250}}
             animate={{opacity: 1, x:0}}
@@ -49,10 +50,7 @@ export default function UserComp({user, status}: {user: FullUser| undefined | nu
 
                         {changeDetails && <ChangeDetails id={user?.id} name={user?.first_name} surname={user?.last_name} email={user?.email} />}
                         {changePass && user?.id && <ChangePass id={user.id}/>}
-                        {status === "active" &&
-               user?.stripe_id &&
-                       <SubInfoForm stripeId={user.stripe_id}/>
-            }
+                   
             {user?.is_mail_sub && user?.raynet_id && user?.id &&
                     <SignOutFromNews raynetId={user.raynet_id} dbId={user.id}/>
             }
@@ -62,6 +60,22 @@ export default function UserComp({user, status}: {user: FullUser| undefined | nu
             </div>
            
         </section>
+         <section className="flex flex-row w-full md:w-1/2 p-8 space-y-8">
+         {status === "active" &&
+               user?.stripe_id && 
+               <div className="w-full flex flex-col justify-center space-y-4">
+            <h3 className='text-4xl font-bold'>Aktivní předplatné</h3>
+            <div className="bg-secondary text-center rounded-lg p-16 w-fit flex flex-col space-y-2">
+                <h4 className="text-7xl font-bold text-secondary-background">{price} Kč</h4>
+               {interval === "month" ? <span className="text-xl text-white text-center">za měsíc</span> : null}
+               {interval === "year" ? <span className="text-xl text-white text-center">za rok</span> : null}
+               <span className="text-xl text-white text-center">k obnové dojde: {end_priod}</span> 
+                       <SubInfoForm stripeId={user.stripe_id}/>
+       
+            </div>
+              </div>
+               }
+         </section>
     </main>
     )
 }

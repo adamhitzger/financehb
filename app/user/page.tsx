@@ -7,7 +7,7 @@ export default async function UserPage() {
     if(user){
     const result = await turso.execute({
         sql: `
-          SELECT status
+          SELECT *
           FROM subscriptions
           WHERE user_id = ?
           LIMIT 1
@@ -19,9 +19,9 @@ export default async function UserPage() {
       console.log(data);
     }
     console.log(user?.raynet_id)
-    console.log(data?.status)
+    console.log(data)
     return (    
-        <UserComp user={user} status={data?.status as string}/>
+        <UserComp user={user} interval={data?.interval as string} endDate={data?.period_end as number} price={data?.cena as number} status={data?.status as string}/>
     )
 }
 
