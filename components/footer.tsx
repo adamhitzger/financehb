@@ -46,13 +46,15 @@ export default function Footer() {
                       
                         <hr className='h-[1px] bg-white'/>
                         <div className='flex flex-col'>
-                             <span>Brno - Finanční dům</span>
+                             <span>Brno - </span>
                         <span>Vinařská 460/3, 603 00 Brno</span>
                         </div>
                         <hr className='h-[1px] bg-white'/>
                         <div className='flex flex-col'>
                              <span>Havlíčkův Brod - Finanční dům</span>
-                        <span>Dolní 132, 582 02 Havlíčkův Brod</span>
+                            <Link className='underline undreline-offset-4 decoration-secondary-background' href={"https://www.google.com/maps/place/Financehb.cz+s.r.o.-+Petr+Krajcigr/@49.6050064,15.5769649,17z/data=!3m1!4b1!4m6!3m5!1s0x470d0095a8402ca3:0xad29b246690b3620!8m2!3d49.6050064!4d15.5795398!16s%2Fg%2F1tj6sk48?entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D"} target='_blank'>
+                            Dolní 132, 582 02 Havlíčkův Brod
+                            </Link>
                         </div>
                     </div>
 

@@ -139,6 +139,38 @@ export default  function MainPage(){
       </h3>
 
       <div className="flex flex-col-reverse md:flex-row gap-8 my-12">
+        
+        {/* 🧱 Tile 2 */}
+        <Link href="/paywall" target="_blank" className="w-full md:w-1/2">
+          <div
+            className="tile group border border-primary-foreground rounded-2xl p-8 space-y-5 
+                       bg-gradient-to-tl from-secondary-background/20 to-slate-100 
+                       transition-all duration-500 ease-out
+                       hover:shadow-2xl hover:shadow-secondary-background/40 
+                       hover:-translate-y-3 hover:scale-[1.03] 
+                       hover:bg-gradient-to-br hover:from-white/90 hover:to-secondary-background/30
+                       hover:backdrop-blur-sm"
+          >
+            <h3 className="text-2xl font-medium font-ibarra">
+              📈{" "}
+              <span className="text-secondary-background">
+                Aktuality
+              </span>{" "}
+              z kapitálového trhu
+            </h3>
+            <p className="text-lg font-light">
+              Získejte každý měsíc přehledné a srozumitelné informace přímo do
+              své e-mailové schránky. Co hýbe trhy, kde se otevírají příležitosti
+              a na co si dát pozor?
+              <br />
+              <br />
+              Měsíční aktuality vám ušetří čas a udrží vás v obraze.
+            </p>
+            <Button className="transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
+              Chci získat info!
+            </Button>
+          </div>
+        </Link>
         {/* 🧱 Tile 1 */}
         <Link href="/e-book" target="_blank" className="w-full md:w-1/2">
           <div
@@ -175,37 +207,6 @@ export default  function MainPage(){
           </div>
         </Link>
 
-        {/* 🧱 Tile 2 */}
-        <Link href="/paywall" target="_blank" className="w-full md:w-1/2">
-          <div
-            className="tile group border border-primary-foreground rounded-2xl p-8 space-y-5 
-                       bg-gradient-to-tl from-secondary-background/20 to-slate-100 
-                       transition-all duration-500 ease-out
-                       hover:shadow-2xl hover:shadow-secondary-background/40 
-                       hover:-translate-y-3 hover:scale-[1.03] 
-                       hover:bg-gradient-to-br hover:from-white/90 hover:to-secondary-background/30
-                       hover:backdrop-blur-sm"
-          >
-            <h3 className="text-2xl font-medium font-ibarra">
-              📈{" "}
-              <span className="text-secondary-background">
-                Aktuality
-              </span>{" "}
-              z kapitálového trhu
-            </h3>
-            <p className="text-lg font-light">
-              Získejte každý měsíc přehledné a srozumitelné informace přímo do
-              své e-mailové schránky. Co hýbe trhy, kde se otevírají příležitosti
-              a na co si dát pozor?
-              <br />
-              <br />
-              Měsíční aktuality vám ušetří čas a udrží vás v obraze.
-            </p>
-            <Button className="transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
-              Chci získat info!
-            </Button>
-          </div>
-        </Link>
       </div>
     </section>
    

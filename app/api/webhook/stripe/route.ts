@@ -186,8 +186,9 @@ export async function POST(req: Request) {
                 period_end,
                 status,
                 interval,
-                plan_id
-                ) VALUES(?,?,?,?,?,?,?)`,
+                plan_id,
+                cena
+                ) VALUES(?,?,?,?,?,?,?,?)`,
             args: [
               user.id,
               subscription.id as string,
@@ -196,6 +197,7 @@ export async function POST(req: Request) {
               subscription.status,
               subscription.items.data[0].plan.interval as string,
               subscription.items.data[0].plan.id as string,
+              Number(subscription.items.data[0].plan.amount)/100
             ],
           });
 
@@ -226,7 +228,8 @@ export async function POST(req: Request) {
                         period_end=?,
                         status=?,
                         interval=?,
-                        plan_id =?
+                        plan_id =?,
+                        cena=?
                         WHERE user_id = ?`,
               args: [
                 sub.id as string,
@@ -235,6 +238,7 @@ export async function POST(req: Request) {
                 sub.status,
                 sub.items.data[0].plan.interval as string,
                 sub.items.data[0].plan.id as string,
+                Number(sub.items.data[0].plan.amount)/100,
                 user.id,
               ],
             });
