@@ -8,8 +8,8 @@ import { Ebook } from '@/types'
 import Image from 'next/image'
 import { sendEmail } from '@/actions/mail'
 import { Input } from '../ui/input';
-import { getCaptchaToken } from '@/actions/captcha';
 import { useRouter } from 'next/navigation';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 export default function EbookModal({ebook}: {ebook: Ebook}) {
     const [isVisible, setIsVisible] = useState(false)
     const [isPending, startTransition] = useTransition();
@@ -32,10 +32,15 @@ export default function EbookModal({ebook}: {ebook: Ebook}) {
         setForm({ ...form, [name]: value });
 
     };
+    const {executeRecaptcha} = useGoogleReCaptcha()
     const handleSendEmail = (formData: FormData) => {
         startTransition(async () => {
+             if (!executeRecaptcha) {
+      toast.error("reCAPTCHA není připravena, zkuste to znovu.");
+      return;
+    }
+            const token = await executeRecaptcha();
             const loadingToast = toast.loading("Probíhá ověření");
-            const token = await getCaptchaToken();
             const send = await sendEmail(formData, "Ebook", token);
             toast.dismiss(loadingToast);
             if(send?.success){

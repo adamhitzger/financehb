@@ -11,8 +11,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { components } from "@/sanity/lib/components";
 import {  motion } from 'framer-motion';
-import { getCaptchaToken } from '@/actions/captcha';
 import { useRouter } from 'next/navigation';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 export default function EbookForm({ ebook }: { ebook: Ebook }) {
     const [isPending, startTransition] = useTransition();
@@ -28,10 +28,15 @@ export default function EbookForm({ ebook }: { ebook: Ebook }) {
         setForm({ ...form, [name]: value });
 
     };
+    const {executeRecaptcha} = useGoogleReCaptcha()
     const handleSendEmail = (formData: FormData) => {
         startTransition(async () => {
             const loadingToast = toast.loading("Probíhá ověření");
-            const token = await getCaptchaToken();
+             if (!executeRecaptcha) {
+      toast.error("reCAPTCHA není připravena, zkuste to znovu.");
+      return;
+    }
+            const token = await executeRecaptcha();
             const send = await sendEmail(formData, "Ebook", token);
             toast.dismiss(loadingToast);
             if(send?.success){

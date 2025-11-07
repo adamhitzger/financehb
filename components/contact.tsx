@@ -6,16 +6,18 @@ import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
 import { Checkbox } from './ui/checkbox';
-import { getCaptchaToken } from '@/actions/captcha';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { sendEmail } from '@/actions/mail';
 import { Loader2, MoveUpRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useInView, motion } from 'framer-motion';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 export default function Contact() {
+    
     const div = useRef(null)
     const isInView = useInView(div, {amount: 0.4})
     const [isPending, startTransition] = useTransition();
+    const [recaptchaReady, setRecaptchaReady] = useState(false);
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -33,10 +35,16 @@ export default function Contact() {
         setForm({ ...form, rights: !form.rights });
         console.log(form.rights)
     }
+    const {executeRecaptcha} = useGoogleReCaptcha()
+    
     const handleSendEmail = (formData: FormData) => {
         startTransition(async () => {
             const loadingToast = toast.loading("Probíhá ověření");
-            const token = await getCaptchaToken();
+            if (!executeRecaptcha) {
+      toast.error("reCAPTCHA není připravena, zkuste to znovu.");
+      return;
+    }
+            const token = await executeRecaptcha();
             
             const send = await sendEmail(formData, "Kontakt", token);
             toast.dismiss(loadingToast);

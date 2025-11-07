@@ -11,6 +11,7 @@ import { Ebook } from "@/types"
 import EbookModal from "@/components/modals/ebookModal";
 import { getCurrentUser } from "@/database/currentUser";
 import {  Poppins } from "next/font/google";
+import RecaptchaProvider from "@/components/recaptcha";
 
 const poppins = Poppins({
      subsets: ["latin"] , 
@@ -76,10 +77,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${poppins.variable} font-poppins  overflow-x-hidden`}>
-      <Script
-          strategy="beforeInteractive"
-          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}`}
-        />
+      <RecaptchaProvider>
       <EbookModal ebook={ebook}/>
       <CookiesBanner/>
         <Navbar user={user}/>
@@ -92,6 +90,7 @@ export default async function RootLayout({
             }
           }}
         />
+        </RecaptchaProvider>
       </body>
     </html>
   );
