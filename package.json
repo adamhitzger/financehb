@@ -38,6 +38,7 @@
     "embla-carousel-autoplay": "^8.1.8",
     "embla-carousel-react": "^8.1.8",
     "framer-motion": "^11.18.2",
+    "grecaptcha": "^1.0.3",
     "gsap": "^3.13.0",
     "lucide-react": "^0.424.0",
     "mapbox-gl": "^3.6.0",
@@ -64,6 +65,7 @@
     "vercel": "^37.14.0"
   },
   "devDependencies": {
+    "@types/grecaptcha": "^3.0.9",
     "@types/node": "^20",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",

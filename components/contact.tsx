@@ -6,7 +6,7 @@ import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
 import { Checkbox } from './ui/checkbox';
-import Map, { Marker } from "react-map-gl"
+import { getCaptchaToken } from '@/actions/captcha';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { sendEmail } from '@/actions/mail';
 import { Loader2, MoveUpRight } from 'lucide-react';
@@ -16,9 +16,6 @@ export default function Contact() {
     const div = useRef(null)
     const isInView = useInView(div, {amount: 0.4})
     const [isPending, startTransition] = useTransition();
-    const [lng, setLng] = useState<number>(15.5796758);
-    const [lat, setLat] = useState<number>(49.6049950);
-    const [zoom, setZoom] = useState<number>(16);
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -38,7 +35,12 @@ export default function Contact() {
     }
     const handleSendEmail = (formData: FormData) => {
         startTransition(async () => {
-            await sendEmail(formData, "Kontakt");
+            const loadingToast = toast.loading("Probíhá ověření");
+            const token = await getCaptchaToken();
+            
+            const send = await sendEmail(formData, "Kontakt", token);
+            toast.dismiss(loadingToast);
+            if(send?.success){
             toast.success("Vaše zpráva byla odeslána, co nejdříve se Vám ozvu:");
             setForm({
                 name: "",
@@ -48,6 +50,9 @@ export default function Contact() {
                 msg: "",
                 rights: true,
             })
+            }else if(!send?.success){
+                toast.error(String(send?.message))
+            }
         })
     }
     return (

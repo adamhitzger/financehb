@@ -8,10 +8,13 @@ import { Ebook } from '@/types'
 import Image from 'next/image'
 import { sendEmail } from '@/actions/mail'
 import { Input } from '../ui/input';
+import { getCaptchaToken } from '@/actions/captcha';
+import { useRouter } from 'next/navigation';
 export default function EbookModal({ebook}: {ebook: Ebook}) {
     const [isVisible, setIsVisible] = useState(false)
     const [isPending, startTransition] = useTransition();
     console.log(isVisible)
+    const router = useRouter();
     useEffect(() => {
         const hasAgreed = localStorage.getItem('emailBar') === "yes"
         if (!hasAgreed) {
@@ -31,15 +34,26 @@ export default function EbookModal({ebook}: {ebook: Ebook}) {
     };
     const handleSendEmail = (formData: FormData) => {
         startTransition(async () => {
-            await sendEmail(formData, "Ebook");
-            toast.success("Email, byl odeslán, zkontrolujte spam");
-            setForm({
+            const loadingToast = toast.loading("Probíhá ověření");
+            const token = await getCaptchaToken();
+            const send = await sendEmail(formData, "Ebook", token);
+            toast.dismiss(loadingToast);
+            if(send?.success){
+                toast.success("Email, byl odeslán, zkontrolujte spam");
+                setForm({
                 email: "",
                 name: "",
                 surname: "",
                 file: ebook.file,
             })
-            localStorage.setItem("emailBar","yes")
+            router.push(ebook.file)
+             localStorage.setItem("emailBar","yes")
+            }else if(!send?.success){
+                toast.error(String(send?.message))
+            }
+            
+    
+           
         })
     }
     if(!isVisible) return null

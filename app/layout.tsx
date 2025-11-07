@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -76,6 +76,10 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${poppins.variable} font-poppins  overflow-x-hidden`}>
+      <Script
+          strategy="beforeInteractive"
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}`}
+        />
       <EbookModal ebook={ebook}/>
       <CookiesBanner/>
         <Navbar user={user}/>

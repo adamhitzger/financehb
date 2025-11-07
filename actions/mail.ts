@@ -1,6 +1,8 @@
 "use server";
 import { redirect } from "next/navigation";
 import {createTransport } from "nodemailer"
+import { verifyCaptchaToken } from "./captcha";
+
 export async function sendNewsletter(formData: FormData){
   let jmeno: string = "";
   let email: string = "";
@@ -135,8 +137,33 @@ await  transporter.sendMail(mailOptions);
   console.log(error);
 }
 } 
-export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt") {
-      let jmeno: string = "";
+export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt", token: string | null) {
+    
+    if(!token){
+        return{
+            success: false,
+            message: "Token k ověření nebyl nalezen",
+        }
+    }
+      const captchaData = await verifyCaptchaToken(token);
+
+  if (!captchaData) {
+    return {
+      success: false,
+      message: "Ověření selhalo",
+    };
+  }
+
+  if (!captchaData.success || captchaData.score < 0.7) {
+    return {
+      success: false,
+      message: "Ověření selhalo",
+   
+    };
+  }
+
+    
+    let jmeno: string = "";
       let prijmeni: string = "";
       let phone: string = "";
       let email: string = "";
@@ -280,10 +307,11 @@ if(type === "Ebook"){
     });
     await transporter.sendMail(mailOptions)
   }
-  
+
+  return{
+     success: true,
+  }
       }catch(error){
         console.log(error);
-      }finally{
-        if(type === "Ebook")redirect(msg);
       }
     }

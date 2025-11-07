@@ -1,8 +1,8 @@
 "use client"
-import { Loader2, MoveUpRight } from 'lucide-react';
+import { Loader2} from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import React, { useState, useTransition, useRef } from 'react'
+import React, { useState, useTransition} from 'react'
 import { sendEmail } from '@/actions/mail'
 import toast from 'react-hot-toast';
 import { Ebook } from '@/types';
@@ -11,6 +11,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { components } from "@/sanity/lib/components";
 import {  motion } from 'framer-motion';
+import { getCaptchaToken } from '@/actions/captcha';
+import { useRouter } from 'next/navigation';
 
 export default function EbookForm({ ebook }: { ebook: Ebook }) {
     const [isPending, startTransition] = useTransition();
@@ -20,6 +22,7 @@ export default function EbookForm({ ebook }: { ebook: Ebook }) {
         surname: "",
         file: ebook.file,
     });
+    const router = useRouter();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
@@ -27,14 +30,23 @@ export default function EbookForm({ ebook }: { ebook: Ebook }) {
     };
     const handleSendEmail = (formData: FormData) => {
         startTransition(async () => {
-            await sendEmail(formData, "Ebook");
-            toast.success("Email, byl odeslán, zkontrolujte spam");
-            setForm({
+            const loadingToast = toast.loading("Probíhá ověření");
+            const token = await getCaptchaToken();
+            const send = await sendEmail(formData, "Ebook", token);
+            toast.dismiss(loadingToast);
+            if(send?.success){
+                toast.success("Email, byl odeslán, zkontrolujte spam");
+                setForm({
                 email: "",
                 name: "",
                 surname: "",
                 file: ebook.file,
             })
+            router.push(ebook.file)
+            }else if(!send?.success){
+                toast.error(String(send?.message))
+            }
+            
         })
     }
     console.log(form.file)
@@ -78,9 +90,9 @@ export default function EbookForm({ ebook }: { ebook: Ebook }) {
         <form 
         
         className="w-full grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 gap-4  text-black " action={handleSendEmail}>
-            <Input name="name" type="text" disabled={isPending} placeholder="Zadejte jméno" className='bg-white/20 placeholder:text-white' value={form.name} onChange={handleChange} required />
-            <Input type="text" name="surname" disabled={isPending} placeholder="Zadejte přijmení" className='bg-white/20 placeholder:text-white' value={form.surname} onChange={handleChange} required />
-            <Input name="email" type="email" disabled={isPending} placeholder="Zadejte email" className='bg-white/20 placeholder:text-white' value={form.email} onChange={handleChange} required />
+            <Input name="name" type="text" disabled={isPending} placeholder="Zadejte jméno" className='' value={form.name} onChange={handleChange} required />
+            <Input type="text" name="surname" disabled={isPending} placeholder="Zadejte přijmení" className='' value={form.surname} onChange={handleChange} required />
+            <Input name="email" type="email" disabled={isPending} placeholder="Zadejte email" className='' value={form.email} onChange={handleChange} required />
             <input type='text' name='msg' value={form.file} onChange={handleChange}  className='hidden' />
             <Button type="submit"  variant={"default"} className='mx-auto'>
                 {isPending ? <Loader2 className='animate-spin' /> : <>Odeslat </>}
