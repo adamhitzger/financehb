@@ -36,7 +36,9 @@ export default function EbookForm({ ebook }: { ebook: Ebook }) {
       toast.error("reCAPTCHA není připravena, zkuste to znovu.");
       return;
     }
+   
             const token = await executeRecaptcha();
+  
             const send = await sendEmail(formData, "Ebook", token);
             toast.dismiss(loadingToast);
             if(send?.success){

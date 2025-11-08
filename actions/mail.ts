@@ -154,7 +154,7 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt", t
     };
   }
 
-  if (!captchaData.success || captchaData.score < 0.7) {
+  if (!captchaData.success || captchaData.score < 0.8) {
     return {
       success: false,
       message: "Ověření selhalo",
