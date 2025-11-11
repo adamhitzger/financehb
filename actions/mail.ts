@@ -1,5 +1,5 @@
 "use server";
-import { redirect } from "next/navigation";
+
 import {createTransport } from "nodemailer"
 import { verifyCaptchaToken } from "./captcha";
 
