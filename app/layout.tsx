@@ -12,6 +12,7 @@ import EbookModal from "@/components/modals/ebookModal";
 import { getCurrentUser } from "@/database/currentUser";
 import {  Poppins } from "next/font/google";
 import RecaptchaProvider from "@/components/recaptcha";
+import WhatsAppButton from "@/components/whatsapp";
 
 const poppins = Poppins({
      subsets: ["latin"] , 
@@ -82,6 +83,7 @@ export default async function RootLayout({
       <CookiesBanner/>
         <Navbar user={user}/>
         {children}
+        <WhatsAppButton/>
         <Footer />
         <Toaster
           toastOptions={{
