@@ -180,7 +180,7 @@ async function generateVerifySignUpHTML(code: string){
                             
                             <p style="margin: 0; font-size: 16px; line-height: 24px; color: #0A1a49;">
                                 S pozdravem,<br>
-                                Petr Krajicgr
+                                Petr Krajcigr
                             </p>
                         </td>
                     </tr>
