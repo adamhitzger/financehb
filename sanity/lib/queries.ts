@@ -16,7 +16,8 @@ export const REALITIES_QUERY = groq`*[_type == 'reality'][0...5] | order(_create
    city,
    postcode,
     price,
-    "imageUrl": image.asset->url
+    "imageUrl": image.asset->url,
+    area
   }`;
 
   

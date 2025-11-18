@@ -9,7 +9,7 @@ export default async function Nevomitosti(){
     
     return(
         <main className="flex flex-col w-full space-y-10 p-5 md:p-16">
-            <h1 className="text-left text-5xl underline font-ibarra font-semibold ">Nemovitosti</h1>
+            <h1 className="text-left text-5xl underline underline-offset-2 decoration-secondary-background font-semibold ">Nemovitosti</h1>
         <Realities realities={reality}/>
         </main>
     )
