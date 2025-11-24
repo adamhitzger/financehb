@@ -8,11 +8,7 @@ import { components } from "@/sanity/lib/components";
 
 
 export default function RealityComponent({ reality }: { reality: Reality }) {
-    let gallery, gallery2;
-    if(reality.galleryUrls){
-    gallery = reality.galleryUrls.slice(0, 12);
-    gallery2 = reality.galleryUrls.slice(13);
-}
+
     return (
         <main className="flex flex-col p-5 w-full min-h-screen z-0">
             <section className="flex flex-col items-start space-y-2 my-8 mx-auto w-full ">
@@ -35,10 +31,9 @@ export default function RealityComponent({ reality }: { reality: Reality }) {
             {reality.details ? <PortableText value={reality.details} components={components}/>: null}
             </section>
             <section className=" flex flex-row  my-5">
-                {gallery ? <Gallery gallery={gallery} />: null}
+               <Gallery gallery={reality.galleryUrls} />
             </section>
-            {gallery2 ? <Photos gallery={gallery2} />: null}
-            
+           
             <section className="flex p-10 md:p-20 text-justify md:text-center text-base lg:text-lg font-light ">
                 <p>Veškeré zveřejněné údaje obsažené v tomto inzerátu mají pouze informativní charakter a nejsou nabídkou ve smyslu § 1731 nebo § 1732 občanského zákoníku, ani se nejedná o veřejný příslib dle § 1733 občanského zákoníku. Z této nabídky tak nikomu nevzniká nárok na uzavření smlouvy. Společnost Financehb.cz Group s.r.o zprostředkovává údaje (informace) nabyté v dobré víře od vlastníka nemovité věci a z tohoto důvodu nenese odpovědnost za jejich úplnost, správnost a přesnost. Současně není oprávněna uzavírat jménem vlastníka nemovité věci jakékoliv smlouvy spojené s prodejem nemovitosti. </p>
             </section>

@@ -35,7 +35,7 @@ export default function Realities({ realities }: { realities: Reality[] }) {
                         </div>
 
                         <div className="w-full flex flex-col justify-end">
-                            <div className="w-full flex flex-row justify-end space-x-4">
+                            <div className="w-full flex flex-row flex-wrap justify-end space-x-4">
                                 <div className="rounded-full border border-black p-1">
                                     {r.area} m<sup>2</sup>
                                 </div>

@@ -12,6 +12,9 @@ export default function Gallery({ gallery }: { gallery: string[] }) {
     return (
         <Carousel
                    plugins={[plugin.current]}
+                   opts={{
+                    loop: true
+                   }}
                    className="w-full rounded-xl text-base"
                >
                    <CarouselContent>

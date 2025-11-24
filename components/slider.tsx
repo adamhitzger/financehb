@@ -4,13 +4,13 @@ import { Reviews } from "@/types";
 import { useRef } from "react";
 import { Carousel, CarouselContent, CarouselItem} from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay"
-import { PortableText } from "next-sanity";
+import { PortableText, toPlainText } from "next-sanity";
 
 function Slide({ name, date, text }: { text: any, name: string; date: string }) {
     return (
-        <section className={`border text-base mx-auto bg-white p-2 md:p-14  text-right rounded-lg basis-1 md:text-lg font-extralight`} >
-            <div className=" text-left px-3">
-                {text ? <PortableText value={text}/> : null}<br />
+        <section  className={`text-base bg-white  max-w-fit p-2 md:p-6 basis-1 text-right rounded-lg md:text-lg font-extralight`} >
+            <div className=" text-left text-wrap flex flex-wrap w-full px-3">
+                {toPlainText(text)}
             </div>
             {date && name ? <span >{`${name}, ${new Date(date).toLocaleDateString("cs-CZ")}`}</span> : null}<br />
         </section>
@@ -38,7 +38,7 @@ export default function Slider({ slides }: Slides) {
         >
             <CarouselContent > 
                 {slides.map((slide, key) => (
-                    <CarouselItem key={key} className="flex flex-col justify-center sm:basis-1/2 md:basis-1/3 lg:basis-1/4  max-w-[34rem] max-h-80 " >
+                    <CarouselItem key={key} className="max-w-sm flex flex-col justify-center" >
                         <Slide name={slide.name} date={slide.datum} text={slide.text} />
                     </CarouselItem>
                 ))}

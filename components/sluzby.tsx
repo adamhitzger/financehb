@@ -402,10 +402,10 @@ const services = [
 
 export function ReviewsComp({reviews}: {reviews: Reviews[]}){
   return(
-    <section className="flex flex-col w-full pt-20 p-5 lg:p-16 bg-gradient-to-b from-secondary-background/30 via-transparent to-secondary/25 " style={{clipPath: 'polygon(0 0, 100% 70px, 100% 100%, 0 100%)'}} >
-            <div className="max-w-8xl  mx-auto flex flex-col space-y-8">
-            <h2 className="font-medium tracking-wide text-4xl sm:text-5xl">Recenze <span className="font-bold underline underline-offset-4 decoration-secondary-background">mých klientů</span> </h2>
-            <p className="text-base sm:text-lg md:leading-8 text-wrap font-light text-justify md:text-left ">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT. Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>  
+    <section className="overflow-x-hidden flex flex-col w-full pt-20 p-5 lg:p-16 bg-gradient-to-b from-secondary-background/30 via-transparent to-secondary/25 " style={{clipPath: 'polygon(0 0, 100% 70px, 100% 100%, 0 100%)'}} >
+            <div className="max-w-8xl w-full  mx-auto flex flex-col space-y-8">
+            <h2 className="font-medium tracking-wide text-4xl sm:text-5xl">Recenze <span className="font-bold underline underline-offset-4 decoration-secondary-background block sm:inline">mých klientů</span> </h2>
+            <p className="text-base sm:text-lg md:leading-8 text-wrap font-light  text-justify md:text-left ">Naši investoři jsou úspěšní lidé z řad podnikatelů, vrcholových manažerů či specialistů na světové úrovni, např. z oblasti IT.  Jejich úspěch je spojen s nabytým majetkem v hodnotě desítek či stovek milionů korun. Péči o takový majetek chtějí svěřit profesionálům. Od nás očekávají, že jim majetek pomůžeme ochránit před zbytečnými riziky, zhodnotíme ho pár procent nad inflaci, zajistíme jim čerpání nekonečné renty a připravíme majetek pro budoucí mezigenerační přenos.</p>  
               <Slider slides={reviews} />
             </div>
           </section>
