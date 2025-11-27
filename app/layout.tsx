@@ -13,7 +13,7 @@ import { getCurrentUser } from "@/database/currentUser";
 import {  Poppins } from "next/font/google";
 import RecaptchaProvider from "@/components/recaptcha";
 import WhatsAppButton from "@/components/whatsapp";
-
+import { GoogleAnalytics} from "@next/third-parties/google"
 const poppins = Poppins({
      subsets: ["latin"] , 
      variable: "--font-poppins",
@@ -92,6 +92,7 @@ export default async function RootLayout({
             }
           }}
         />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_KEY as string}/>
         </RecaptchaProvider>
       </body>
     </html>
