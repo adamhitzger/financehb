@@ -1,6 +1,10 @@
 import { Html, Head, Body, Container, Section, Text, Img, Button, Hr } from "@react-email/components";
 import type { SanityDocument } from "next-sanity";
 import {toHTML} from "@portabletext/to-html"
+import urlBuilder from "@sanity/image-url";
+import { projectId, dataset } from "@/sanity/env";
+import React from "react"
+
 interface EmailTemplateProps {
   documentData: SanityDocument;
   email: string;
@@ -24,7 +28,76 @@ export default function EmailTemplate({ documentData, email }: EmailTemplateProp
     "Možnost stahování doplňkových materiálů",
     "Konzultace s našimi odborníky",
   ];
+  const html = toHTML(emailText, {
+    components: {
+      block: {
+        h1: ({ children }) =>
+          `<h1 style="font-size:28px;font-weight:bold;margin:16px 0">${children}</h1>`,
+        h2: ({ children }) =>
+          `<h2 style="font-size:22px;font-weight:bold;margin:14px 0">${children}</h2>`,
+        normal: ({ children }) =>
+          `<p style="font-size:16px;line-height:1.6;margin:8px 0">${children}</p>`,
+        blockquote: ({ children }) =>
+          `<blockquote style="border-left:4px solid #9333ea;padding-left:12px;margin:12px 0">${children}</blockquote>`
+      },
 
+      list: {
+        bullet: ({ children }) =>
+          `<ul style="padding-left:20px;margin:10px 0;font-size:16px;">${children}</ul>`,
+        number: ({ children }) =>
+          `<ol style="padding-left:20px;margin:10px 0;font-size:16px;">${children}</ol>`
+      },
+
+      listItem: {
+        bullet: ({ children }) =>
+          `<li style="margin-bottom:6px">${children}</li>`
+      },
+
+      marks: {
+        strong: ({ children }) => `<strong>${children}</strong>`,
+        em: ({ children }) => `<em>${children}</em>`,
+        strike: ({ children }) => `<s>${children}</s>`,
+
+        link: ({ children, value }) => {
+          const href = value?.href || "#"
+          return `
+            <a href="${href}" target="_blank"
+              style="color:#2563eb;text-decoration:underline">
+              ${children}
+            </a>
+          `
+        }
+      },
+
+      types: {
+        image: ({ value }) => {
+          const src = urlBuilder(value)
+          return `
+            <img
+              src="${src}"
+              alt=""
+              width="400"
+              style="max-width:100%;border-radius:8px;margin:12px auto;display:block"
+            />
+          `
+        },
+
+        file: ({ value }) => {
+          const ref = value.asset?._ref
+          if (!ref) return ""
+
+          const [, id, ext] = ref.split("-")
+          const url = `https://cdn.sanity.io/files/${projectId}/${dataset}/${id}.${ext}`
+
+          return `
+            <p>
+              📎 <a href="${url}" target="_blank">${url}</a>
+            </p>
+          `
+        }
+      }
+    }
+  })
   return (
     <Html lang="cs">
       <Head>
@@ -34,12 +107,12 @@ export default function EmailTemplate({ documentData, email }: EmailTemplateProp
         <Container style={{ maxWidth: 600, margin: "0 auto", padding: 20, backgroundColor: "#fff" }}>
           {/* Header */}
           <Section style={{ textAlign: "center", padding: "20px 0" }}>
-            <Img src="https://financehb-ifkh.vercel.app/_next/image?url=%2Flogo.png&w=640&q=75" alt="Logo Financehb.cz" width={200} style={{ height: "auto" }} />
+            <Img src="https://financehb.cz/_next/image?url=%2Flogo.png&w=640&q=75" alt="Logo Financehb.cz" width={200} style={{ height: "auto" }} />
             <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>Novinky ze světa kapitálových trhů</Text>
           </Section>
 
           {/* Intro */}
-          <Section>
+          <Section style={{fontSize: 22}}>
             <Text>Vážený čtenáři,</Text>
             <Text>máme pro Vás nový článek z oblasti kapitálových trhů.</Text>
           </Section>
@@ -51,46 +124,11 @@ export default function EmailTemplate({ documentData, email }: EmailTemplateProp
             {imageUrl && <Img src={imageUrl} alt={name} style={{ width: "100%", height: "auto", marginBottom: 20 }} />}
 
         <Section>
-  {emailText.map((block: any, index: number) => {
-    // běžný textový blok
-    if (block._type === "block") {
-      const style = block.style || "normal";
+  <div
+  dangerouslySetInnerHTML={{__html: html}}
+  >
 
-      if (style === "h1") return <Text key={index} style={{ fontSize: 24, fontWeight: "bold", margin: "16px 0" }}>{block.children.map((child: any) => child.text).join('')}</Text>;
-      if (style === "h2") return <Text key={index} style={{ fontSize: 20, fontWeight: "bold", margin: "14px 0" }}>{block.children.map((child: any) => child.text).join('')}</Text>;
-      if (style === "h3") return <Text key={index} style={{ fontSize: 18, fontWeight: "bold", margin: "12px 0" }}>{block.children.map((child: any) => child.text).join('')}</Text>;
-      if (style === "blockquote") return <Text key={index} style={{ borderLeft: "4px solid #1a365d", paddingLeft: 10, color: "#555", margin: "12px 0" }}>{block.children.map((child: any) => child.text).join('')}</Text>;
-
-      // běžný odstavec
-      return <Text key={index} style={{ margin: "10px 0" }}>
-        {block.children.map((child: any) => {
-          let content = child.text;
-          // aplikace značek
-          if (child.marks?.includes("strong")) content = <span style={{ fontWeight: "bold" }}>{content}</span>;
-          if (child.marks?.includes("em")) content = <span style={{ fontStyle: "italic" }}>{content}</span>;
-          if (child.marks?.includes("u")) content = <span style={{ textDecoration: "underline" }}>{content}</span>;
-          if (child.marks?.includes("strike")) content = <span style={{ textDecoration: "line-through" }}>{content}</span>;
-          return content;
-        })}
-      </Text>;
-    }
-
-    // seznamy
-    if (block._type === "list") {
-      if (block.listItem === "bullet") {
-        return <ul key={index} style={{ paddingLeft: 20, margin: "10px 0" }}>
-          {block.children.map((li: any, i: number) => <li key={i}>{li.text}</li>)}
-        </ul>;
-      }
-      if (block.listItem === "number") {
-        return <ol key={index} style={{ paddingLeft: 20, margin: "10px 0" }}>
-          {block.children.map((li: any, i: number) => <li key={i}>{li.text}</li>)}
-        </ol>;
-      }
-    }
-
-    return null;
-  })}
+  </div>
 </Section>
 
 

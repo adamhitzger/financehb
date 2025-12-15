@@ -195,7 +195,7 @@ async function generateVerifySignUpHTML(code: string){
 
 export const handleSendMails = async (formData: FormData, documentData: SanityDocument) => {
   const tags = formData.getAll("tags") as Array<string>
-  let emails: string[] = []
+
   const transporter = createTransport({
       service: "gmail",
       auth: {
@@ -216,41 +216,55 @@ export const handleSendMails = async (formData: FormData, documentData: SanityDo
       "X-Instance-Name": "financehb"
     };
   console.log(raynetAPIUrl)
-      try{
-          const getEmails = await axios.get(raynetAPIUrl, {headers})
-          console.log(`Found ${getEmails.data.totalCount} recipients`)
-          for(let i = 0; i<getEmails.data.totalCount;i++){
-              const email: string = getEmails.data.data[i].primaryAddress.contactInfo.email
-              
-              if (!email) {
-                console.log(`Skipping recipient ${i + 1} - no email address`)
-                continue
-              }
-              emails.push(email)
-              const htmlContent = await render(<EmailTemplate documentData={documentData} email={email}/>)
+try {
+  const getEmails = await axios.get(raynetAPIUrl, { headers })
+  console.log(`Found ${getEmails.data.totalCount} recipients`)
 
-      // Send the email
-      const sendResult = await transporter.sendMail({
-        ...mailOptions,
-        to: email,
-        html: htmlContent,
-      })
-      if (sendResult.rejected && sendResult.rejected.length > 0) {
-        console.error(`Email to ${email} was rejected, stopping send process`)
-        break
-      }
+  const emailSet = new Set<string>() // pro unikátní emaily
 
-      // Add a small delay between emails to avoid rate limits
-      await new Promise((resolve) => setTimeout(resolve, 300))
+  // 1️⃣ projdi všechny kontakty a dej do setu
+  for (let i = 0; i < getEmails.data.totalCount; i++) {
+    const email: string | undefined = getEmails.data.data[i]?.primaryAddress?.contactInfo?.email
+
+    if (!email) {
+      console.log(`Skipping recipient ${i + 1} - no email address`)
+      continue
     }
 
-    return {
-      success: true,
-      emails,
+    emailSet.add(email.toLowerCase().trim()) // normalizace
+  }
+
+  // 2️⃣ převedeme zpět na pole
+  const uniqueEmails = [...emailSet]
+  console.log(`Sending to ${uniqueEmails.length} unique recipients`)
+
+  // 3️⃣ teprve teď rozesíláme
+  for (const email of uniqueEmails) {
+    const htmlContent = await render(<EmailTemplate documentData={documentData} email={email} />)
+
+    const sendResult = await transporter.sendMail({
+      ...mailOptions,
+      to: email,
+      html: htmlContent,
+    })
+
+    if (sendResult.rejected?.length) {
+      console.error(`Email to ${email} was rejected, stopping send process`)
+      break
     }
-     }catch(error) {
-          console.log("Error v akci sendMails(): ", error)
-      } 
+
+    // malá prodleva, aby se nepřekročily limity
+    await new Promise(resolve => setTimeout(resolve, 300))
+  }
+
+  return {
+    success: true,
+    emails: uniqueEmails,
+  }
+} catch (error) {
+  console.log("Error v akci sendMails(): ", error)
+}
+
 }
 
 export async function signOutFromMailsUnregistered(formData: FormData): Promise<{success: boolean, message: string}>{
