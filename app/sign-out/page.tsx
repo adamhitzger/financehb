@@ -3,10 +3,11 @@
 import { useSearchParams } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Loader2, MoveUpRight } from "lucide-react"
+import { Loader2 } from "lucide-react"
 import { useTransition } from "react"
 import toast from "react-hot-toast"
 import { signOutFromMailsUnregistered } from "@/actions/users"
+
 export default function SignOutmail(){
     const searchParams = useSearchParams()
     const mail = searchParams.get("mail")

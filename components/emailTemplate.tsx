@@ -3,7 +3,6 @@ import type { SanityDocument } from "next-sanity";
 import {toHTML} from "@portabletext/to-html"
 import urlBuilder from "@sanity/image-url";
 import { projectId, dataset } from "@/sanity/env";
-import React from "react"
 
 interface EmailTemplateProps {
   documentData: SanityDocument;
