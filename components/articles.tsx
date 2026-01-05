@@ -18,7 +18,8 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
     else return (
         <div ref={sec} className="grid grid-rows-1 sm:grid-cols-1 gap-5  w-full">
             {articles && articles.map((a: Sanity, idx: number) => (
-                    <motion.article 
+                    <motion.a
+                    href={`/${page}/${a.slug}`} 
                     key={idx} 
                     className={`w-full flex flex-col sm:flex-row `}
                     initial={{opacity:0, x: -250}}
@@ -26,7 +27,7 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
                     exit={{opacity: 0, x: -250}}
                     transition={{duration: 0.8*(idx+1)}}
                     >
-                        <div className="w-full min-h-60 sm:w-1/3 bg-cover h-auto bg-no-repeat rounded-lg backdrop-opacity-10 backdrop-invert z-10  before:content-[''] before:absolute before:inset-0 before:block  before:bg-transparent  before:opacity-75 before:z-[-5] bg-center" style={{ backgroundImage: `url(${a.picture})` }}>
+                        <div className="w-full min-h-64 3xl:min-h-96 sm:w-1/3 bg-cover h-auto bg-no-repeat rounded-lg backdrop-opacity-10 backdrop-invert z-10  before:content-[''] before:absolute before:inset-0 before:block  before:bg-transparent  before:opacity-75 before:z-[-5] bg-center" style={{ backgroundImage: `url(${a.picture})` }}>
                             
                         </div>
                     
@@ -34,10 +35,10 @@ export function ArticlesComp({ articles, page }: { articles: Sanity[], page: "cl
                             <h3 className="text-secondary font-semibold text-lg">{a.name}</h3>
                              <p className="text-sm">{toPlainText(a.overview).slice(0,200) + "..."}</p>
                              <span>{new Date(a.datum).toLocaleDateString("cs-CZ")}</span>
-                            <Link href={`/${page}/${a.slug}`}><Button variant="default"  className="text-lg">Celý článek</Button></Link>
+                            <Button variant="default"  className="text-lg">Celý článek</Button>
                         </div>
 
-                    </motion.article>
+                    </motion.a>
                 ))}
         </div>
     )
@@ -63,7 +64,8 @@ export function HomeArticles({ articles }: { articles: Sanity[]}) {
         <div ref={sec} className="grid md:grid-cols-3 w-full gap-4">
             {articles &&
                 articles.map((a: Sanity, idx: number) => (
-                    <motion.article 
+                    <motion.a
+                    href={`/clanky/${a.slug}`}
                     key={idx} 
                     className="w-full space-y-3 flex  flex-col  bg-white/10 rounded-2xl text-base lg:text-lg"
                     initial={{opacity:0, x: -250}}
@@ -71,7 +73,7 @@ export function HomeArticles({ articles }: { articles: Sanity[]}) {
                     exit={{opacity: 0, x: -250}}
                     transition={{duration: 0.8*(idx+1)}}
                     >
-                        <Image src={a.picture} alt={a.overview} width={600} height={200}/>
+                        <Image src={a.picture} alt={a.overview} width={600} height={500}/>
                         <div className="w-full space-y-4 font-light flex text-[1.05rem] flex-col px-2">
                         <span className="text-left text-xl">
                             {a.datum} / {a.name}
@@ -79,12 +81,10 @@ export function HomeArticles({ articles }: { articles: Sanity[]}) {
                     
                             <PortableText value={a.overview} components={components}/>
 </div>
-                        <Link href={`/clanky/${a.slug}`} className="mx-auto h-full flex flex-col justify-end pb-3 self-end">
-                            <Button variant={"default"}  className="mx-auto">
+                         <Button variant={"default"}  className="mx-auto">
                             Celý článek
                             </Button>
-                        </Link>
-                    </motion.article>
+                    </motion.a>
                 ))}
         </div>
         <Link href={"/clanky"} className=" mx-auto"><Button size={"sm"} className="justify-between mx-auto">Starší články</Button></Link>

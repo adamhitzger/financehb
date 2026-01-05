@@ -58,10 +58,11 @@ export async function generateMetadata(props:{params: Promise<{ slug: string}>})
 export default async function ArticlePage(props: { params: Promise<{ slug: string }>}) {
     const params = await props.params;
     const article = await sanityFetch<Article>({ query: ARTICLE_QUERY, params: params });
-    console.log(article);
+    console.log(article.paid_text);
     return (
-        <main className="flex min-h-screen flex-col space-y-3 p-8">
-            <h2 className="mt-10 font-ibarra text-left tracking-wide font-semibold text-4xl">{article.name}</h2>
+        <main className="flex min-h-screen flex-col items-center space-y-3 p-8">
+            <div className='max-w-6xl flex flex-col'>
+        <h2 className="mt-10 font-ibarra text-left tracking-wide font-semibold text-7xl">{article.name}</h2>
                            <span>{new Date(article.datum).toLocaleDateString("cs-CZ")}</span>
                             <PortableText value={article.overview} components={components} />
                             
@@ -69,10 +70,12 @@ export default async function ArticlePage(props: { params: Promise<{ slug: strin
                                  
                             </div>
                             
-            <div className=' text-lg space-y-6 mt-5'>
+            <div className=' space-y-6 mt-5'>
                 <PortableText value={article.unpaid_text} components={components} />
                 {article.paid_text ? <PortableText value={article.paid_text} components={components} /> : null}
             </div>
+            </div>
+            
         </main>
     )
 }

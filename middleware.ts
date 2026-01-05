@@ -3,8 +3,7 @@ import {
   getUserFromSession,
   updateUserSessionExpiration,
 } from "./database/session"
-const privateRoutes = [,"/paywall", "/user"];
-
+import { turso } from "./database/client"
 export async function middleware(request: NextRequest) {
   const response = (await middlewareAuth(request)) ?? NextResponse.next()
   
@@ -22,7 +21,12 @@ async function middlewareAuth(request: NextRequest) {
   const path = request.nextUrl.pathname;
   if (path === "/user" || (path.startsWith("/paywall/") && path !== "/paywall")) {
     const user = await getUserFromSession(request.cookies)
-    if (user == null) {
+    const {rows} = await turso.execute({
+            sql:"SELECT status FROM subscriptions WHERE user_id = ?",
+            args: [String(user)]
+        })
+    if (user == null || rows[0]?.status !== "active"
+      ) {
       return NextResponse.redirect(new URL("/sign-in", request.url))
     }
   }

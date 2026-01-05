@@ -47,9 +47,8 @@ Protože vědět, co se děje, se vyplatí. I když zatím nemáte vlastní ostr
             </section>: <section className='w-full flex flex-col p-8 space-y-8'>
                 <ArticlesComp articles={articles}  page='paywall'/>
                 <PaginationComp currentPage={currentPage} totalPages={totalPages} />
-            </section>}
-            
-
+            </section>
+            }
         </main>
     )
 }
