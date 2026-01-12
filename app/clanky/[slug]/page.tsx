@@ -61,6 +61,7 @@ export default async function ArticlePage(props: { params: Promise<{ slug: strin
     console.log(article)
     return (
         <main className="flex min-h-screen flex-col space-y-3 p-8">
+            <div className='max-w-5xl flex flex-col space-y-5'>
             <h2 className="mt-10 font-ibarra text-left tracking-wide font-semibold text-4xl">{article.name}</h2>
                <span>{new Date(article.datum).toLocaleDateString("cs-CZ")}</span>
                 <PortableText value={article.overview} components={components} />
@@ -77,6 +78,7 @@ export default async function ArticlePage(props: { params: Promise<{ slug: strin
                         Díky předplatnému získáte nejnovější informace!</span>
                     <Link className='text-lg underline underline-offset-2' href={"/paywall"}>Začít odebírat</Link>
                 </div> : null}
+            </div>
             </div>
         </main>
     )

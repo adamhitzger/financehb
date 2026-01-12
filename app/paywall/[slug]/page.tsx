@@ -3,7 +3,6 @@ import { components } from '@/sanity/lib/components';
 import { ARTICLE_QUERY } from '@/sanity/lib/queries'
 import { Article } from '@/types'
 import { PortableText } from 'next-sanity';
-import React from 'react'
 import { Metadata } from 'next';
 
 export async function generateMetadata(props:{params: Promise<{ slug: string}>}):Promise<Metadata> {
@@ -61,8 +60,8 @@ export default async function ArticlePage(props: { params: Promise<{ slug: strin
     console.log(article.paid_text);
     return (
         <main className="flex min-h-screen flex-col items-center space-y-3 p-8">
-            <div className='max-w-6xl flex flex-col'>
-        <h2 className="mt-10 font-ibarra text-left tracking-wide font-semibold text-7xl">{article.name}</h2>
+            <div className='max-w-5xl flex flex-col space-y-5'>
+        <h2 className="mt-10 font-ibarra text-left tracking-wide font-semibold text-6xl">{article.name}</h2>
                            <span>{new Date(article.datum).toLocaleDateString("cs-CZ")}</span>
                             <PortableText value={article.overview} components={components} />
                             

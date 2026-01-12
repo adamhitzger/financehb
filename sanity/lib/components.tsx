@@ -43,19 +43,19 @@ export const components: Partial<PortableTextComponents> = {
               <Image
   src={urlForImage(value)}
   alt={value.asset._ref}
-  width={400}
-  height={400}
-  className="rounded-lg min-w-[36rem] mx-auto"
+  width={700}
+  height={700}
+  className="rounded-lg min-h-[44rem] min-w-[44rem] mx-auto"
 />
 <span className="underline underline-offset-4 decoration-3 decoration-secondary-background font-semibold">Pro detail rozklikněte obrázek</span>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl bg-white">
+          <DialogContent className="max-w-3xl bg-white">
             <DialogTitle className="sr-only">Obrázek</DialogTitle>
             <Image
   src={urlForImage(value)}
   alt={value.asset._ref}
-  width={400}
-  height={400}
+  width={800}
+  height={800}
   className="rounded-lg w-full mx-auto"
 />
           </DialogContent>
@@ -70,7 +70,7 @@ export const components: Partial<PortableTextComponents> = {
               : null;
         
             return videoUrl ? (
-              <video controls className="rounded-lg border-secondary-foreground mx-auto w-96">
+              <video controls className="rounded-lg border-secondary-foreground mx-auto w-[30rem]">
                 <source src={videoUrl} type="video/mp4" />
                 Váš prohlížeč nepodporuje HTML Element video.
               </video>
