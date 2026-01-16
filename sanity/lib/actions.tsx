@@ -72,7 +72,7 @@ export default function sendMails({ draft, published, onComplete }: DocumentActi
   
                   <label className="flex items-center space-x-2">
                     <input type="checkbox" name="tags" value="Mesicni akt z KPT VZOR zdarma" className="h-4 w-4" />
-                    <span>Měsíční aktuality z KPT VZOR zdarma</span>
+                    <span>Měsíční aktuality z KPTZ</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input type="checkbox" name="tags" value="Zkouska" className="h-4 w-4" />
