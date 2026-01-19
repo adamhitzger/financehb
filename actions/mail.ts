@@ -305,7 +305,7 @@ if(type === "Ebook"){
         tags: ["Stazeny eBook Financehb.cz"],
       })
     });
-    await transporter.sendMail(mailOptions)
+    //await transporter.sendMail(mailOptions)
   }
 
   return{
