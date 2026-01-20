@@ -4,10 +4,9 @@ import {createTransport } from "nodemailer"
 import { verifyCaptchaToken } from "./captcha";
 
 export async function sendNewsletter(formData: FormData){
-  let jmeno: string = "";
-  let email: string = "";
-      jmeno = formData.get("name") as string;
-          email = formData.get("email") as string;
+  
+    const  jmeno = formData.get("name") as string;
+     const email = formData.get("email") as string;
   const raynetAPIUrl = "https://app.raynet.cz/api/v2/company/";
   const transporter = createTransport({
     service: "gmail",
@@ -16,12 +15,7 @@ export async function sendNewsletter(formData: FormData){
      pass: process.env.FROM_EMAIL_PASSWORD,
     }
    });
-   const mailOptions = {
-    from: process.env.FROM_EMAIL,
-    to: process.env.FROM_EMAIL,
-    subject: "Nové přihlášení - Měsíční aktuality z KPT",
-    text: `Celé jméno: ${jmeno}, Email: ${email}`
-   }
+   
    const mailOptions2 = {
     from: process.env.FROM_EMAIL,
     to: email,
@@ -132,7 +126,6 @@ attachments:
     }),
     
 });
-await  transporter.sendMail(mailOptions);
 }catch(error){
   console.log(error);
 }
@@ -184,12 +177,6 @@ export async function sendEmail(formData: FormData, type: "Ebook" | "Kontakt", t
         pass: process.env.FROM_EMAIL_PASSWORD,
        }
       });
-      const mailOptions = {
-        from: process.env.FROM_EMAIL,
-        to: process.env.FROM_EMAIL,
-        subject: "Nové přihlášení - Stažený eBook",
-        text: `Celé jméno: ${jmeno + " " + prijmeni}, Email: ${email}, Telefon: ${phone}`
-       }
       
       const mailOptions2 = {
         from: process.env.FROM_EMAIL,
@@ -305,7 +292,7 @@ if(type === "Ebook"){
         tags: ["Stazeny eBook Financehb.cz"],
       })
     });
-    //await transporter.sendMail(mailOptions)
+    
   }
 
   return{
