@@ -31,8 +31,23 @@ export async function GET(request: Request){
             }else if (diff === 7){
                 expirationText = "za 1 týden."
             }
+            const html = await render(SubscriptionExpiryEmail({
+                    name: getUsersDate.rows[i].first_name as string,
+                    surname: getUsersDate.rows[i].last_name as string,
+                    expirationText
+            }))
+             const mailOptions = {
+            from: process.env.FROM_EMAIL,
+            to: getUsersDate.rows[i].email as string,
+            subject: "Informace o předplatném",
+            html
+            }
+            const sendMail = await transporter.sendMail(mailOptions);
+            if(!sendMail.accepted) {
+                console.error("Problém s posíláním emailu uživateli: ", getUsersDate.rows[i].email as string)
+            }
         }
     }catch(error){
-        console.error("Error přicron jobu:", error);
+        console.error("Error při cron jobu:", error);
     }
 }
