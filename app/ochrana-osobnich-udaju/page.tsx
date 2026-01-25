@@ -1,7 +1,3 @@
-"use client";
-import Link from 'next/link'
-import React from 'react'
-
 export default function PodminkyPage() {
     return (
         <main className="flex 2xl:py-28 flex-col p-8 text-xl space-y-5">
