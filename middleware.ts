@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
 
 async function middlewareAuth(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  if (path === "/user" || (path.startsWith("/paywall/") && path !== "/paywall")) {
+  if ((path.startsWith("/paywall/") && path !== "/paywall")) {
     const user = await getUserFromSession(request.cookies)
     const {rows} = await turso.execute({
             sql:"SELECT status FROM subscriptions WHERE user_id = ?",
@@ -30,7 +30,12 @@ async function middlewareAuth(request: NextRequest) {
       return NextResponse.redirect(new URL("/sign-in", request.url))
     }
   }
-
+  if(path === "/user"){
+    const user = await getUserFromSession(request.cookies)
+    if (user == null) {
+      return NextResponse.redirect(new URL("/sign-in", request.url))
+    }
+  }
 }
 
 export const config = {
