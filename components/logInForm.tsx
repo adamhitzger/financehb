@@ -43,7 +43,7 @@ export default function LogInForm() {
         transition={{duration: 0.6}}
         >
              <h2 className="font-bold tracking-wide text-3xl font-ibarra text-center  my-2">Přihlaste se</h2>
-    <Link href={"/sign-in"} className="font-medium tracking-wide text-xl font-ibarra text-center underline decoration-secondary-background underline-offset-4">nebo se zaregistrujte</Link>
+    <span className="text-center text-xl">nebo pokud nemáte účet <Link href={"/sign-in"} className="font-medium tracking-wide text-xl font-ibarra text-center underline decoration-secondary-background underline-offset-4">se zaregistrujte</Link></span>
     
             
             <div className="flex flex-col w-full space-y-7">

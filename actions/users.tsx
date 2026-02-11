@@ -219,13 +219,13 @@ export const handleSendMails = async (formData: FormData, documentData: SanityDo
 try {
   const getEmails = await axios.get(raynetAPIUrl, { headers })
   console.log(`Found ${getEmails.data.totalCount} recipients`)
-
+  
   const emailSet = new Set<string>() // pro unikátní emaily
 
   // 1️⃣ projdi všechny kontakty a dej do setu
   for (let i = 0; i < getEmails.data.totalCount; i++) {
     const email: string | undefined = getEmails.data.data[i]?.primaryAddress?.contactInfo?.email
-
+    console.log(email)
     if (!email) {
       console.log(`Skipping recipient ${i + 1} - no email address`)
       continue
@@ -237,6 +237,7 @@ try {
   // 2️⃣ převedeme zpět na pole
   const uniqueEmails = [...emailSet]
   console.log(`Sending to ${uniqueEmails.length} unique recipients`)
+  console.log(uniqueEmails)
 
   // 3️⃣ teprve teď rozesíláme
   for (const email of uniqueEmails) {

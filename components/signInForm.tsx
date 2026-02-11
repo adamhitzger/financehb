@@ -41,7 +41,7 @@ export default function SignInForm() {
         transition={{duration: 0.6}}
         className="w-full lg:w-1/2 flex p-4 flex-col space-y-7 border-2 rounded-2xl" action={handleSignUp}>
              <div className="flex flex-col items-center gap-8"> <h2 className="  font-bold tracking-wide text-3xl font-ibarra text-center ">Zaregistrujte se</h2>
-            <Link href={"/log-in"} className="font-medium tracking-wide text-xl font-ibarra text-center underline decoration-secondary-background underline-offset-4">nebo se přihlaste</Link>
+           <span className="text-center text-xl">nebo pokud účet máte  <Link href={"/log-in"} className="font-medium tracking-wide text-xl font-ibarra text-center underline decoration-secondary-background underline-offset-4">nebo se přihlaste</Link></span>
     
             </div>
             <div className="flex flex-col w-full space-y-4">
