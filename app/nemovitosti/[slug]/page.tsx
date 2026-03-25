@@ -5,7 +5,8 @@ import { Reality } from "@/types"
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 export async function generateMetadata({params}:{params: Promise<{ slug: string}>}):Promise<Metadata>{
-    let r = await sanityFetch<Reality>({ query: REALITY_QUERY, params });
+    const param = await params
+    let r = await sanityFetch<Reality>({ query: REALITY_QUERY, params: param });
     
     return{
         icons: {
@@ -43,7 +44,8 @@ export async function generateMetadata({params}:{params: Promise<{ slug: string}
     }
 }
 export default async function Nevomitosti({ params }: { params: Promise<{ slug: string }> }){
-    const reality = await sanityFetch<Reality>({query: REALITY_QUERY, params: params});
+    const param = await params
+    const reality = await sanityFetch<Reality>({query: REALITY_QUERY, params: param});
     console.log(reality);
     if (!reality) {
         return notFound()
