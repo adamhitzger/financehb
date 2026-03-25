@@ -14,7 +14,7 @@ export default function RealityComponent({ reality }: { reality: Reality }) {
             <section className="flex flex-col items-start space-y-2 my-8 mx-auto w-full ">
                 {reality.name && <h1 className="text-5xl mx-auto font-semibold text-gray-800 font-ibarra">{reality.name}</h1>}
                 <div className="flex flex-row space-x-2 mx-auto">
-                    {reality.street && <span className="text-lg text-gray-600">{reality.street},</span>}
+                    {reality.street && <span className="text-lg text-gray-600">{reality.street}</span>}
                     {reality.street_number && <span className="text-lg text-gray-600">{reality.street_number},</span>}
                     {reality.city && <span className="text-lg text-gray-600">{reality.city},</span>}
                     {reality.postcode && <span className="text-lg text-gray-600">{reality.postcode}</span>}
