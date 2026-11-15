@@ -421,7 +421,7 @@ args: [data.code]
 
 if(!delCode.rowsAffected){
 return{
-   errorMessage: "Unable to delete verify code!",
+   errorMessage: "Nelze vymazat kód",
     }
 }
       const salt = generateSalt()
@@ -448,7 +448,7 @@ return{
       if(!insertUser.rows[0]?.id) {
                   return {
                       success: false,
-                      message: "Unable to create account, try again!",
+                      message: "Nelze vytvořit účet, zkuste znovu!",
                       submitted: true,
                       inputs: data
                   }
@@ -534,7 +534,7 @@ const user = await turso.execute({
 
 if(!user.rows[0] || !user.rows[0]?.password || !user.rows[0]?.salt){
   return {
-      errorMessage: "Unable to log in!"
+      errorMessage: "Účet s tímto emailem neexistuje!"
   }
 }
 const passIsCorrect = await comparePasswords({
