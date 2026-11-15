@@ -27,13 +27,13 @@ async function middlewareAuth(request: NextRequest) {
         })
     if (user == null || rows[0]?.status !== "active"
       ) {
-      return NextResponse.redirect(new URL("/sign-in", request.url))
+      return NextResponse.redirect(new URL("/log-in", request.url))
     }
   }
   if(path === "/user"){
     const user = await getUserFromSession(request.cookies)
     if (user == null) {
-      return NextResponse.redirect(new URL("/sign-in", request.url))
+      return NextResponse.redirect(new URL("/log-in", request.url))
     }
   }
 }
